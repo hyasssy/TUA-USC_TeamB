@@ -1,5 +1,12 @@
 開発メモ
 
+▼システム
+・insideのプレイバック機能を参考。分岐なし1本筋ストーリーで、どこの地点にも戻れるようにする。（デバッグ的には、どこの地点にも進めるようにする。）
+s1_Opening, s2_Room(news,main,dog開放), s3_Dog(インスペクターからシリアライズしてデバッグ), s4_Room, s5_Dog, s6_Room, s7_Dog, s8_Room, s9_Dog, s10_Ending
+・DOGシーン SerializeFieldでパーセンテージ調整して途中から確認できるようにシステム構築
+
+
+
 ▼UniTask使い方メモまとめサイト (実際の用法が羅列)
 https://baba-s.hatenablog.com/entry/2019/09/11/083000#%E5%B0%8E%E5%85%A5%E6%96%B9%E6%B3%95
 
