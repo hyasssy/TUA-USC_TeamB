@@ -5,6 +5,7 @@
 s1_Opening, s2_Room(news,main,dog開放), s3_Dog(インスペクターからシリアライズしてデバッグ), s4_Room, s5_Dog, s6_Room, s7_Dog, s8_Room, s9_Dog, s10_Ending
 ・DOGシーン SerializeFieldでパーセンテージ調整して途中から確認できるようにシステム構築
 
+playmaker
 
 
 ▼UniTask使い方メモまとめサイト (実際の用法が羅列)
