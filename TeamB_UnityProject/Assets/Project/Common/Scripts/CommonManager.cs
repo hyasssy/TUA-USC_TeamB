@@ -4,6 +4,7 @@ using UnityEngine;
 
 //Singleton object. Check if any instance already exist in Awake and if yes, destroy itself automaticcaly.
 public class CommonManager : SingletonMonoBehaviour<CommonManager> {
+    //現在の
     public GamePhase CurrentPhase { get; private set; } = GamePhase.S1_Opening;
     public void PhaseShift(GamePhase gp){
         CurrentPhase = gp;
@@ -12,6 +13,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
     private void Start() {
         DontDestroyOnLoad(this.gameObject);
         //シーン上にマネジメントキャンバスなければ、生成する。一番手前
+        // var stateManagePanel = FindObjectOfType<>
         //処理
     }
     public void DisplaySceneManager () {
@@ -22,12 +24,8 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
 }
 public enum GamePhase{
     S1_Opening,
-    S2_Room_News,
-    S2_Room_1,
-    S2_Room_2, //犬選択開放 いるかな？
+    S2_Room,
     S3_Dog,
-    S3_Uber,
-    S3_Night,
 
     //今省略
 
