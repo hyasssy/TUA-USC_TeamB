@@ -5,28 +5,29 @@ using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using System;
 
-
+//もし変更する場合は調整が必要です。
 public enum GamePhase{
     s0_Opening,
-    s1_Room_Start,//TVニュースのアニメーション
+    s1_Room_News,//TVニュースのアニメーション
     s1_Room_Main,//コマンド選択可能
     s2_Dog_1,//犬シーンの中でどのくらいの段階か選択可能
     s2_Dog_2,
-    s3_Room_Start,
+    s3_Room_News,
     s3_Room_Main,
     s4_Dog_1,
     s4_Dog_2,
-    s5_Room_Start,
+    s5_Room_News,
     s5_Room_Main,
     s6_Dog_1,
     s6_Dog_2,
-    s7_Room_Start,
+    s7_Room_News,
     s7_Room_Main,
     s8_Dog_1,
     s8_Dog_2,
     s9_Ending
 }
-public enum GameScene{
+//これはパブリックじゃないよ。実際のシーンの名前と同じにする必要があるし、もし変更する場合は色々調整する必要があるよ。
+enum GameScene{
     s0_Opening,
     s1_Room,
     s2_Dog,
@@ -41,9 +42,9 @@ public enum GameScene{
 
 //Singleton object. Check if any instance already exist in Awake and if yes, destroy itself automaticcaly.
 public class CommonManager : SingletonMonoBehaviour<CommonManager> {
-    //現在の
-    [field: SerializeField, RenameField(nameof(CurrentPhase))]
+    //現在のPhase
     public GamePhase CurrentPhase { get; private set; } = GamePhase.s1_Room_Main;
+    //スタート時の
     [SerializeField]
     GamePhase initialPhase = default;
 
@@ -60,7 +61,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
         }
         var currentSceneName = SceneManager.GetActiveScene().name;
         CurrentPhase = GetStartPhase(currentSceneName);
-        if(initialPhase == default) initialPhase = CurrentPhase;
+        Debug.Log("InitialPhaseを読み込みます。CommonManagerのインスペクターから設定可能。");
         LoadState(initialPhase);
     }
     GamePhase GetStartPhase(string sceneName){
@@ -70,9 +71,9 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
             array[i] = value.ToString();
         }
         GamePhase[] startPhaseList = {
-            GamePhase.s0_Opening, GamePhase.s1_Room_Start, GamePhase.s2_Dog_1,
-            GamePhase.s3_Room_Start, GamePhase.s4_Dog_1, GamePhase.s5_Room_Start,
-            GamePhase.s6_Dog_1, GamePhase.s7_Room_Start, GamePhase.s8_Dog_1, GamePhase.s9_Ending
+            GamePhase.s0_Opening, GamePhase.s1_Room_News, GamePhase.s2_Dog_1,
+            GamePhase.s3_Room_News, GamePhase.s4_Dog_1, GamePhase.s5_Room_News,
+            GamePhase.s6_Dog_1, GamePhase.s7_Room_News, GamePhase.s8_Dog_1, GamePhase.s9_Ending
         };
         GamePhase result = default;
         for (int i = 0; i < array.Length; i++) {
@@ -119,7 +120,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
                 value = 0;
                 break;
             case GamePhase.s1_Room_Main:
-            case GamePhase.s1_Room_Start:
+            case GamePhase.s1_Room_News:
                 value = 1;
                 break;
             case GamePhase.s2_Dog_1:
