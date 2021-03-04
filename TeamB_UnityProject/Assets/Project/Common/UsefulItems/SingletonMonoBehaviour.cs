@@ -35,7 +35,7 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
         } else if (Instance == this) {
             return true;
         }
-        Debug.LogError("シングルトンクラスが複数あります。");
+        Debug.Log("シングルトンクラスが複数あります。削除します。");
         Destroy (this);
         return false;
     }

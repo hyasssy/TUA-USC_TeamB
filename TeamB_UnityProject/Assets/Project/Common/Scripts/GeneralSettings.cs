@@ -1,18 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class GeneralSettings : MonoBehaviour
+[CreateAssetMenu]
+public class GeneralSettings : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //設定用ScriptableObject
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
