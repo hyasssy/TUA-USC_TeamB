@@ -62,7 +62,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
         var currentSceneName = SceneManager.GetActiveScene().name;
         CurrentPhase = GetStartPhase(currentSceneName);
         Debug.Log("InitialPhaseを読み込みます。CommonManagerのインスペクターから設定可能。");
-        LoadState(initialPhase);
+        LoadPhase(initialPhase);
     }
     GamePhase GetStartPhase(string sceneName){
         var array = new string[Enum.GetValues(typeof(GameScene)).Length];
@@ -87,18 +87,18 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
 
     //フェイズ管理プログラム作成
 
-    public void LoadState(GamePhase targetPhase){
+    public void LoadPhase(GamePhase targetPhase){
         Debug.Log("Next phase name is " + targetPhase);
-        LoadStateTask(targetPhase).Forget();
+        LoadPhaseTask(targetPhase).Forget();
 
     }
     //UIからDropdownを選んだときの処理。
-    public void LoadState(int targetStateNum){
-        var targetPhase = (GamePhase)Enum.ToObject(typeof(GamePhase), targetStateNum);
-        Debug.Log("Selected number is " + targetStateNum + ", Phase name is " + targetPhase);
-        LoadStateTask(targetPhase).Forget();
+    public void LoadPhase(int targetPhaseNum){
+        var targetPhase = (GamePhase)Enum.ToObject(typeof(GamePhase), targetPhaseNum);
+        Debug.Log("Selected number is " + targetPhaseNum + ", Next phase name is " + targetPhase);
+        LoadPhaseTask(targetPhase).Forget();
     }
-    async UniTask LoadStateTask(GamePhase targetPhase){
+    async UniTask LoadPhaseTask(GamePhase targetPhase){
         var currentScene = GetSceneFromPhase(CurrentPhase);
         var targetScene = GetSceneFromPhase(targetPhase);
         if(currentScene != targetScene){
@@ -107,11 +107,11 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
         }
         CurrentPhase = targetPhase;
         Debug.Log("CurrentPhase is " + CurrentPhase);
-        //シーン上のStateManagerインターフェースを検索し、ShiftState(CurrentPhase)を実装する。
-        //ShiftState(CurrentPhase);
-        //StateManagerにはGamePhase型で分岐し、そのステートまで進める機能つける。
+        //シーン上のPhaseManagerインターフェースを検索し、ShiftPhase(CurrentPhase)を実装する。
+        //ShiftPhase(CurrentPhase);
+        //PhaseManagerにはGamePhase型で分岐し、そのフェイズまで進める機能つける。
         //もしインターフェースが見つからなかったら
-        // Debug.LogAssertion("StateManagerがシーン上に見つかりません！");
+        // Debug.LogAssertion("PhaseManagerがシーン上に見つかりません！");
     }
     GameScene GetSceneFromPhase(GamePhase phase){
         int value = 0;

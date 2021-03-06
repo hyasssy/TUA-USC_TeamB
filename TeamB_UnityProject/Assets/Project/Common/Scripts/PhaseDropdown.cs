@@ -19,10 +19,10 @@ public class PhaseDropdown : MonoBehaviour
             dropdown.CreateNewItemFast(value.ToString(), dropdownIcon);
         }
         dropdown.SetupDropdown();
-        dropdown.dropdownEvent.AddListener(SelectPreferState);
+        dropdown.dropdownEvent.AddListener(SelectPreferPhase);
         Debug.Log("Completed to set up Dropdown options.");
     }
-    public void SelectPreferState(int targetStateNum){
-        FindObjectOfType<CommonManager>().LoadState(targetStateNum);
+    public void SelectPreferPhase(int targetPhaseNum){
+        FindObjectOfType<CommonManager>().LoadPhase(targetPhaseNum);
     }
 }

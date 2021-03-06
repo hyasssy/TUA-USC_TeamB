@@ -2714,7 +2714,7 @@ PrefabInstance:
     - target: {fileID: 519671673266557941, guid: 4384375a368c64103bc00287820f2da8,
         type: 3}
       propertyPath: m_Name
-      value: StateManageObject
+      value: PhaseManageObject
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4384375a368c64103bc00287820f2da8, type: 3}
