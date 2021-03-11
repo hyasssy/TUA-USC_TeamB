@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class PMTest : MonoBehaviour
 {
-	// FSMがあるGameObject
-	public GameObject obj;
 
 	// 呼び出したいFSM名
 	public string FSMreferenceName;
@@ -17,7 +16,7 @@ public class PMTest : MonoBehaviour
 	void Start ()
 	{
 		// 初期時にobjにあるFSMを取得しておく
-		FSMs = obj.GetComponents<PlayMakerFSM>();
+		FSMs = GetComponents<PlayMakerFSM>();
 	}
 
 	// イベントを送信する関数

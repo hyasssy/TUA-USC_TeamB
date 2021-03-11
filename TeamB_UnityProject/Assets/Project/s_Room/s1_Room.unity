@@ -286,7 +286,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2234
+  m_Name: pb_Mesh-11030
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -617,7 +617,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2226
+  m_Name: pb_Mesh-11022
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -912,7 +912,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2232
+  m_Name: pb_Mesh-11028
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1169,7 +1169,7 @@ PrefabInstance:
     - target: {fileID: 99176191463334263, guid: c8315b86f430f4d809912e1aa4437445,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 99176191463334263, guid: c8315b86f430f4d809912e1aa4437445,
         type: 3}
@@ -1200,7 +1200,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2228
+  m_Name: pb_Mesh-11024
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1363,7 +1363,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2230
+  m_Name: pb_Mesh-11026
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2284,6 +2284,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310569775320343088, guid: 4f48ed141abe24195858a3accdcb8bb6,
+        type: 3}
+      propertyPath: field of view
+      value: 53.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f48ed141abe24195858a3accdcb8bb6, type: 3}
