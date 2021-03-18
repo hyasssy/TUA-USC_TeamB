@@ -39,6 +39,15 @@ enum GameScene{
     s8_Dog,
     s9_Ending
 }
+//流石にクラス実装にしました。
+public class PhaseManager : MonoBehaviour
+{
+    public void ShiftPhase(GamePhase CurrentPhase)
+    {
+        PlayMakerFSM fsm = this.GetComponent<PlayMakerFSM>();
+        fsm.SetState(CurrentPhase.ToString());
+    }
+}
 
 //Singleton object. Check if any instance already exist in Awake and if yes, destroy itself automaticcaly.
 public class CommonManager : SingletonMonoBehaviour<CommonManager> {
@@ -112,7 +121,15 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
         //PhaseManagerにはGamePhase型で分岐し、そのフェイズまで進める機能つける。
         //もしインターフェースが見つからなかったら
         // Debug.LogAssertion("PhaseManagerがシーン上に見つかりません！");
+        var phaseManagerObject = CommonManager.FindObjectOfClass<PhaseManager>();
+        if (phaseManagerObject != null){
+            phaseManagerObject.ShiftPhase(CurrentPhase);
+        }
+        else{
+            Debug.LogAssertion("PhaseManagerがシーン上に見つかりません！");
+        }
     }
+
     GameScene GetSceneFromPhase(GamePhase phase){
         int value = 0;
         switch(phase){
@@ -134,5 +151,18 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
         }
         var result = (GameScene)Enum.ToObject(typeof(GameScene), value);
         return result;
+    }
+    //任意のクラスを検索する静的メソッド
+    public static T FindObjectOfClass<T>() where T : class
+    {
+        foreach (var n in GameObject.FindObjectsOfType<Component>())
+        {
+            var _component = n as T;
+            if (_component != null)
+            {
+                return _component;
+            }
+        }
+        return null;
     }
 }
