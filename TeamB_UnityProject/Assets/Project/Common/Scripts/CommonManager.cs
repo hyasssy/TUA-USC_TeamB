@@ -86,11 +86,9 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
 
 
     //フェイズ管理プログラム作成
-
     public void LoadPhase(GamePhase targetPhase){
         Debug.Log("Next phase name is " + targetPhase);
         LoadPhaseTask(targetPhase).Forget();
-
     }
     //UIからDropdownを選んだときの処理。
     public void LoadPhase(int targetPhaseNum){
@@ -107,7 +105,8 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
         }
         CurrentPhase = targetPhase;
         Debug.Log("CurrentPhase is " + CurrentPhase);
-        //シーン上のPhaseManagerインターフェースを検索し、ShiftPhase(CurrentPhase)を実装する。
+        //シーン上のPhaseInitializerを検索し、phaseを初期化する。
+        FindObjectOfType<PhaseInitializer>().InitializePhase(CurrentPhase);
         //ShiftPhase(CurrentPhase);
         //PhaseManagerにはGamePhase型で分岐し、そのフェイズまで進める機能つける。
         //もしインターフェースが見つからなかったら

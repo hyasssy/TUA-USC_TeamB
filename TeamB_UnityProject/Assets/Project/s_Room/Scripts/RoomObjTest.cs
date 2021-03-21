@@ -6,5 +6,8 @@ public class RoomObjTest : MonoBehaviour, ITouchable
 {
     public void Clicked(){
         Debug.Log("クリックされた");
+        FindObjectOfType<HandController>().SwitchClickable(false);
+        //キャンバスのダイアログをオンにする
+        //Cinemachineをいじる
     }
 }
