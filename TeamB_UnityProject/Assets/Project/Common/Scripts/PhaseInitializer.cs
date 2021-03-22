@@ -13,4 +13,5 @@ public abstract class PhaseInitializer : MonoBehaviour
         list.ForEach(obj => Debug.Log("SceneInitializeを持ったオブジェクト:" + obj.gameObject + "It must be single at a scene."));
     }
     abstract public void InitializePhase(GamePhase currentphase);
+    abstract public void CheckFlag();
 }

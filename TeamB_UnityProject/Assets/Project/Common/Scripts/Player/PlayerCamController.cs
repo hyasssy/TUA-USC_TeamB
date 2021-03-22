@@ -27,7 +27,7 @@ public class PlayerCamController : MonoBehaviour
             Stagger();
             RotateView();
             RestrictRotate();
-        });
+        }).AddTo(this);
     }
     void RotateView(){
             if (!Input.GetMouseButton(0)) return;

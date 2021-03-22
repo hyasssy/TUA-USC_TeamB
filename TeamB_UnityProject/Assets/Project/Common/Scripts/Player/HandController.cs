@@ -14,25 +14,23 @@ public class HandController : MonoBehaviour
     [SerializeField]
     Vector2 targetCursorPos = new Vector2(30f, -80f);
     Vector3 _mousePos;
-    public bool IsClickable {get; private set; } = true;
-    public void SwitchClickable(bool value){
-        IsClickable = value;
-    }
+    CommonManager commonManager;
     private void Start() {
+        commonManager = FindObjectOfType<CommonManager>();
         this.UpdateAsObservable()
         .Subscribe(_ =>
         {
             CheckHover();
             Click();
             TracingHand();
-        });
+        }).AddTo(this);
     }
     //hoverしたら画像差し替え
     //クリックしたら画像差し替え
     // bool _isDefaultSize = true;
     string _currentname = null;
     void CheckHover(){
-        if(!IsClickable) return;
+        if(!commonManager.IsClickable) return;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//手から飛ばすのも一考。
         RaycastHit hit;
         if (Physics.Raycast(ray,out hit,10.0f))
@@ -53,7 +51,7 @@ public class HandController : MonoBehaviour
         }
     }
     void Click(){
-        if(!IsClickable) return;
+        if(!commonManager.IsClickable) return;
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

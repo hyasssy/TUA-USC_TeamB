@@ -47,6 +47,12 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
     //スタート時の
     [SerializeField]
     GamePhase initialPhase = default;
+    [SerializeField]
+    bool isFade = true;
+    public bool IsClickable {get; private set; } = true;
+    public void SwitchClickable(bool value){
+        IsClickable = value;
+    }
 
     private void Start() {
         Debug.Log("CommonManager起動");
@@ -59,6 +65,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
             DontDestroyOnLoad(canvas);
             Debug.Log("Instantiate ManagerUICanvas (Don't destroy)");
         }
+        if(isFade) FadeManager.FadeIn();
         var currentSceneName = SceneManager.GetActiveScene().name;
         CurrentPhase = GetStartPhase(currentSceneName);
         Debug.Log("InitialPhaseを読み込みます。CommonManagerのインスペクターから設定可能。");
@@ -101,16 +108,20 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
         var targetScene = GetSceneFromPhase(targetPhase);
         if(currentScene != targetScene){
             Debug.Log("Load the different scene");
+            if(isFade){
+                FadeManager.FadeOut();
+                await UniTask.Delay(1500);//ここは今手動になってる。
+            }
             await SceneManager.LoadSceneAsync(targetScene.ToString(), LoadSceneMode.Single);
+            if(isFade) FadeManager.FadeIn();
         }
         CurrentPhase = targetPhase;
         Debug.Log("CurrentPhase is " + CurrentPhase);
+        //クリックできるかを初期化する。
+        IsClickable = true;
         //シーン上のPhaseInitializerを検索し、phaseを初期化する。
         FindObjectOfType<PhaseInitializer>().InitializePhase(CurrentPhase);
-        //ShiftPhase(CurrentPhase);
-        //PhaseManagerにはGamePhase型で分岐し、そのフェイズまで進める機能つける。
-        //もしインターフェースが見つからなかったら
-        // Debug.LogAssertion("PhaseManagerがシーン上に見つかりません！");
+        //PhaseInitializerにはGamePhase型で分岐し、そのフェイズまで進める機能つける。
     }
     GameScene GetSceneFromPhase(GamePhase phase){
         int value = 0;
