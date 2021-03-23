@@ -9,8 +9,6 @@ using UniRx.Triggers;
  
 public class RoomObj : MonoBehaviour, ITouchable
 {
-    [SerializeField]
-    int flagNum = 0;
     [SerializeField,TextArea(1,4)]
     List<string> dialogues = new List<string>();
     int _currentTextNum = 0;
@@ -34,7 +32,7 @@ public class RoomObj : MonoBehaviour, ITouchable
         }).AddTo(targetTextPanel);
     }
     void NextText(){
-        Debug.Log("test");
+        Debug.Log("NextText");
         if(_currentTextNum + 1 >= dialogues.Count){
             //ダイアログ閉じて次いく。
             FindObjectOfType<CommonManager>().SwitchClickable(true);

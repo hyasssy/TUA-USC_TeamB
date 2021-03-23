@@ -17,7 +17,7 @@ public class PlayerCamController : MonoBehaviour
     Vector2 rotateRangeY = new Vector2(-20f,20f);
     [SerializeField]
     Transform virtualCamera_default = default;
-    public Transform cameraTarget;
+    public Transform cameraTarget {get; private set;}
 
     private void Start() {
         cameraTarget = virtualCamera_default;
