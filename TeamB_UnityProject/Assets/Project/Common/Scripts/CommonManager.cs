@@ -39,9 +39,18 @@ enum GameScene{
     s8_Dog,
     s9_Ending
 }
+public enum Lang
+{
+    ja,en
+}
 
 //Singleton object. Check if any instance already exist in Awake and if yes, destroy itself automaticcaly.
 public class CommonManager : SingletonMonoBehaviour<CommonManager> {
+    //これは最初に選ばせよう。
+    public Lang PlayLang { get; private set; } = Lang.ja;
+    public void ChangeLang(Lang lang){
+        PlayLang = lang;
+    }
     //現在のPhase
     public GamePhase CurrentPhase { get; private set; } = GamePhase.s1_Room_Main;
     //スタート時の
@@ -49,10 +58,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
     GamePhase initialPhase = default;
     [SerializeField]
     bool isFade = true;
-    public bool IsClickable {get; private set; } = true;
-    public void SwitchClickable(bool value){
-        IsClickable = value;
-    }
+
 
     private void Start() {
         Debug.Log("CommonManager起動");
@@ -117,8 +123,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
         }
         CurrentPhase = targetPhase;
         Debug.Log("CurrentPhase is " + CurrentPhase);
-        //クリックできるかを初期化する。
-        IsClickable = true;
+
         //シーン上のPhaseInitializerを検索し、phaseを初期化する。
         FindObjectOfType<PhaseInitializer>().InitializePhase(CurrentPhase);
         //PhaseInitializerにはGamePhase型で分岐し、そのフェイズまで進める機能つける。

@@ -53,7 +53,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 50
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -162,7 +162,6 @@ MonoBehaviour:
   hand: {fileID: 0}
   canvasRect: {fileID: 0}
   targetCursorPos: {x: 30, y: -80}
-  isClickable: 1
 --- !u!114 &1310569774665216745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,7 +239,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 50
   orthographic: 0
   orthographic size: 10
   m_Depth: -1

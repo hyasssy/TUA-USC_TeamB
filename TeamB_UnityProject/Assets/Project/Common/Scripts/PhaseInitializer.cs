@@ -10,8 +10,7 @@ public abstract class PhaseInitializer : MonoBehaviour
     private void Start() {
         var list = FindObjectsOfType<PhaseInitializer>().ToList();
         //たくさんあるとまずい。シーン上に一つの想定
-        list.ForEach(obj => Debug.Log("SceneInitializeを持ったオブジェクト:" + obj.gameObject + "It must be single at a scene."));
+        list.ForEach(obj => Debug.Log("SceneInitializeを持ったオブジェクト:" + obj.gameObject));
     }
     abstract public void InitializePhase(GamePhase currentphase);
-    abstract public void CheckFlag();
 }

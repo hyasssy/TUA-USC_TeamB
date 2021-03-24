@@ -5,7 +5,7 @@ using UniRx;
 using UniRx.Triggers;
 using DG.Tweening;
 
-public class HandController : MonoBehaviour
+public class RoomHandController : MonoBehaviour
 {
     [SerializeField]
     Transform hand = default;
@@ -15,6 +15,10 @@ public class HandController : MonoBehaviour
     Vector2 targetCursorPos = new Vector2(30f, -80f);
     Vector3 _mousePos;
     CommonManager commonManager;
+    public bool IsClickable {get; private set; } = true;
+    public void SwitchClickable(bool value){
+        IsClickable = value;
+    }
     private void Start() {
         commonManager = FindObjectOfType<CommonManager>();
         this.UpdateAsObservable()
@@ -30,7 +34,7 @@ public class HandController : MonoBehaviour
     // bool _isDefaultSize = true;
     string _currentname = null;
     void CheckHover(){
-        if(!commonManager.IsClickable) return;
+        if(!IsClickable) return;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//手から飛ばすのも一考。
         RaycastHit hit;
         if (Physics.Raycast(ray,out hit,10.0f))
@@ -51,7 +55,7 @@ public class HandController : MonoBehaviour
         }
     }
     void Click(){
-        if(!commonManager.IsClickable) return;
+        if(!IsClickable) return;
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
