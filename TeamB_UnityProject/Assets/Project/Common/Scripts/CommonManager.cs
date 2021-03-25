@@ -46,16 +46,16 @@ public enum Lang
 
 //Singleton object. Check if any instance already exist in Awake and if yes, destroy itself automaticcaly.
 public class CommonManager : SingletonMonoBehaviour<CommonManager> {
-    //これは最初に選ばせよう。
-    public Lang PlayLang { get; private set; } = Lang.ja;
-    public void ChangeLang(Lang lang){
-        PlayLang = lang;
-    }
     //現在のPhase
     public GamePhase CurrentPhase { get; private set; } = GamePhase.s1_Room_Main;
-    //スタート時の
+    //スタート時のPhase
     [SerializeField]
     GamePhase initialPhase = default;
+    //初期パラメーター
+    public Lang PlayLang { get; private set; } = Lang.ja;
+    public void ChangeLang(Lang lang){ PlayLang = lang; }
+    public bool IsDebug { get; private set; } = true;
+    public void SwitchIsDebug(bool isDebug) { IsDebug = isDebug; }
     [SerializeField]
     bool isFade = true;
 
@@ -63,6 +63,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
     private void Start() {
         Debug.Log("CommonManager起動");
         DontDestroyOnLoad(this.gameObject);
+        if(IsDebug){
         //シーン上にマネジメントキャンバスなければ、生成する。一番手前
         var managerUICanvas = FindObjectOfType<ManagerUICanvas>();
         if(managerUICanvas == null){
@@ -70,6 +71,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
             //ManagerUICanvasはDon't Destroy
             DontDestroyOnLoad(canvas);
             Debug.Log("Instantiate ManagerUICanvas (Don't destroy)");
+        }
         }
         if(isFade) FadeManager.FadeIn();
         var currentSceneName = SceneManager.GetActiveScene().name;

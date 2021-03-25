@@ -4,7 +4,7 @@ using UnityEngine;
 using UniRx;
 using System.Linq;
 
-public class S7Manager : PhaseInitializer
+public class S7Manager : RoomPhaseInitializer
 {
     //flagを用意し、phase移行できるようにする。S1では、ニュース流れるのと、部屋のシーンのphaseがある。
     [NonEditable]
