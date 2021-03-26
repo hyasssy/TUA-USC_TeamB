@@ -56,8 +56,6 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
     public void ChangeLang(Lang lang){ PlayLang = lang; }
     public bool IsDebug { get; private set; } = true;
     public void SwitchIsDebug(bool isDebug) { IsDebug = isDebug; }
-    [SerializeField]
-    bool isFade = true;
 
 
     private void Start() {
@@ -73,7 +71,6 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
             Debug.Log("Instantiate ManagerUICanvas (Don't destroy)");
         }
         }
-        if(isFade) FadeManager.FadeIn();
         var currentSceneName = SceneManager.GetActiveScene().name;
         CurrentPhase = GetStartPhase(currentSceneName);
         Debug.Log("InitialPhaseを読み込みます。CommonManagerのインスペクターから設定可能。");
@@ -116,12 +113,9 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
         var targetScene = GetSceneFromPhase(targetPhase);
         if(currentScene != targetScene){
             Debug.Log("Load the different scene");
-            if(isFade){
-                FadeManager.FadeOut();
-                await UniTask.Delay(1500);//ここは今手動になってる。
-            }
+            FadeManager.FadeOut();
+            await UniTask.Delay(1500);//ここは今手動になってる。
             await SceneManager.LoadSceneAsync(targetScene.ToString(), LoadSceneMode.Single);
-            if(isFade) FadeManager.FadeIn();
         }
         CurrentPhase = targetPhase;
         Debug.Log("CurrentPhase is " + CurrentPhase);
