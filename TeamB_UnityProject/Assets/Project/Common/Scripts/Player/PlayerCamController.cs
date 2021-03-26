@@ -6,6 +6,7 @@ using UniRx.Triggers;
 
 public class PlayerCamController : MonoBehaviour
 {
+    //少しpositionも動くようにするともっとリッチになるか。
     [SerializeField]
     float rotateSpeed = 1.7f;
     [SerializeField]

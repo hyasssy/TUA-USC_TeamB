@@ -33,6 +33,7 @@ public class RoomObj : MonoBehaviour, ITouchable
         if(targetTextPanel == null) return;
         FindObjectOfType<RoomHandController>().SwitchClickable(false);
         targetTextPanel.SetActive(true);
+        if(dialogues[0] == null) Debug.LogAssertion("There is no text set in the parameter");
         //子の一個めに目的のテキストオブジェがある想定
         _targetText = targetTextPanel.transform.GetChild(0).GetComponent<Text>();
         _targetText.text = dialogues[0];
