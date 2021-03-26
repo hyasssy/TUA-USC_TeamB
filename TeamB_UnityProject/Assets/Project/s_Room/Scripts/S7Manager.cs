@@ -14,10 +14,10 @@ public class S7Manager : RoomPhaseInitializer
         flag = 0;
         flagAmount = FindObjectsOfType<RoomObj>().Length;
         Debug.Log("InitializePhase");
-        if(targetphase == GamePhase.s1_Room_News){
+        if(targetphase == GamePhase.News1){
             //最初なので特に何も処理はない。
             return;
-        }else if(targetphase == GamePhase.s1_Room_Main){
+        }else if(targetphase == GamePhase.Room1){
             //Mainまで進む処理をする。
         }else{
             Debug.LogError("phase移行がうまくできていません。Error");
@@ -28,7 +28,7 @@ public class S7Manager : RoomPhaseInitializer
         //のちのちとしては、全部じゃなくてもいいかも。
         flag++;
         if(flag >= flagAmount){
-            FindObjectOfType<CommonManager>().LoadPhase(GamePhase.s2_Dog_1);
+            FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Dog1);
         }
     }
 }
