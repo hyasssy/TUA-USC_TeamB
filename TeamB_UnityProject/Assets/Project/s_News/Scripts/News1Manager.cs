@@ -29,8 +29,8 @@ public class News1Manager : PhaseInitializer
         if(!ambient.isPlaying){
             ambient.Play();
         }
-        if(targetphase == GamePhase.Room1){
-            RoomMain();
+        if(targetphase == GamePhase.News1){
+            RoomNews(_cts.Token).Forget();
         }else{
             Debug.LogError("phase移行がうまくできていません。Error");
         }
@@ -61,27 +61,7 @@ public class News1Manager : PhaseInitializer
 
         //最後にMainに進む
         await UniTask.Delay((int)(newsDuration * 1000), false, PlayerLoopTiming.Update, token);
-        FadeManager.FadeOut();
-        await UniTask.Delay(1500, false, PlayerLoopTiming.Update, token);
         FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Room1);
-    }
-    void RoomMain(){
-        //選択可能をリセットする
-
-
-
-
-        if(newsObj == default){
-            Debug.LogAssertion("newsObjがnull");
-        }else{
-            newsObj.SetActive(false);
-        }
-        flag = 0;
-        flagAmount = FindObjectsOfType<RoomObj>().Length;
-        //クリックできるかを初期化する。
-        FindObjectOfType<RoomHandController>().SwitchClickable(true);
-        //音鳴らす
-        mainBGM.Play();
     }
     async UniTask FadeOutAudio(AudioSource audio, float duration){
         float t = 0;

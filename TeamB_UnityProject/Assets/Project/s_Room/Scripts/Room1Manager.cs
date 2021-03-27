@@ -26,9 +26,6 @@ public class Room1Manager : RoomPhaseInitializer
         }
 
         Debug.Log("InitializePhase");
-        if(!ambient.isPlaying){
-            ambient.Play();
-        }
         if(targetphase == GamePhase.Room1){
             RoomMain();
         }else{
@@ -75,6 +72,10 @@ public class Room1Manager : RoomPhaseInitializer
     //     FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Room1);
     // }
     void RoomMain(){
+        FadeManager.FadeIn();
+        if(!ambient.isPlaying){
+            ambient.Play();
+        }
         //選択可能をリセットする
 
         // if(newsObj == default){
@@ -83,7 +84,10 @@ public class Room1Manager : RoomPhaseInitializer
         //     newsObj.SetActive(false);
         // }
         flag = 0;
-        flagAmount = FindObjectsOfType<RoomObj>().Length;
+        var roomObjs = FindObjectsOfType<RoomObj>();
+        flagAmount = roomObjs.Length;
+        //選択判定をリセットする。
+        roomObjs.ToList().ForEach(r => r.SetUpRoomItem());
         //クリックできるかを初期化する。
         FindObjectOfType<RoomHandController>().SwitchClickable(true);
         //音鳴らす

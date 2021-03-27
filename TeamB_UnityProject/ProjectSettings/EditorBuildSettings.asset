@@ -9,12 +9,15 @@ EditorBuildSettings:
     path: Assets/Project/s_Opening/Opening.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Project/s_Room/Room1.unity
-    guid: eab92f83a42724bfcae257aa6d9af2b4
-  - enabled: 1
     path: Assets/Project/s_Dog/Dog1.unity
     guid: a7201e579dc4f4ad98653af644be2732
   - enabled: 1
     path: Assets/Project/s_Room/Room4.unity
     guid: 22cace06c0ebb464697cf5df2a3b05c1
+  - enabled: 1
+    path: Assets/Project/s_Room/Room1.unity
+    guid: 7a213ababbede40de93c9f7ebe647c59
+  - enabled: 1
+    path: Assets/Project/s_News/News1.unity
+    guid: daa7af69429b241a0a4ceefbaa31dbe0
   m_configObjects: {}

@@ -77,7 +77,8 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
         }
         var currentSceneName = SceneManager.GetActiveScene().name;
         CurrentPhase = GetStartPhase(currentSceneName);
-        Debug.Log("InitialPhaseを読み込みます。CommonManagerのインスペクターから設定可能。");
+        // Debug.Log("InitialPhaseを読み込みます。CommonManagerのインスペクターから設定可能。");
+        Debug.Log("CurrentPhase="+CurrentPhase+"InitialPhase="+initialPhase);
         LoadPhase(initialPhase);
     }
     GamePhase GetStartPhase(string sceneName){
@@ -87,7 +88,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
             array[i] = value.ToString();
         }
         GamePhase[] startPhaseList = {
-            GamePhase.Opening, GamePhase.News1, GamePhase.Dog1,
+            GamePhase.Opening, GamePhase.News1, GamePhase.Room1, GamePhase.Dog1,
             GamePhase.News2, GamePhase.Dog2, GamePhase.News3,
             GamePhase.Dog3, GamePhase.News4, GamePhase.Dog4, GamePhase.Ending
         };
@@ -134,13 +135,15 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
             case GamePhase.Opening:
                 value = 0;
                 break;
-            case GamePhase.Room1:
             case GamePhase.News1:
                 value = 1;
                 break;
+            case GamePhase.Room1:
+                value = 2;
+                break;
             case GamePhase.Dog1:
             case GamePhase.Dog1_2:
-                value = 2;
+                value = 3;
                 break;
             default:
                 Debug.Log("まだ適切な値が実装されてないよ");
