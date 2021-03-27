@@ -266,6 +266,7 @@ MonoBehaviour:
   newsObj: {fileID: 569757647}
   newsAnim: {fileID: 569757649}
   newsDuration: 15
+  startAudioVolume: 1
 --- !u!4 &334502347
 Transform:
   m_ObjectHideFlags: 0
@@ -349,7 +350,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ce90d4716315e4459a798b4bc4254ae8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -783,7 +784,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 5304a7743e7ba43cab61fdb025188207, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 7762a810d982348e09b0999897e5a636, type: 2}
 --- !u!4 &1422713023
 Transform:
   m_ObjectHideFlags: 0

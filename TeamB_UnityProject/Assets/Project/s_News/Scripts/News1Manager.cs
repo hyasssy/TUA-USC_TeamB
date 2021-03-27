@@ -5,6 +5,9 @@ using UniRx;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using DG.Tweening;
 
 public class News1Manager : PhaseInitializer
 {
@@ -16,7 +19,11 @@ public class News1Manager : PhaseInitializer
     Animator newsAnim = default;
     [SerializeField]
     float newsDuration = 15f;
+    [SerializeField]
+    float startAudioVolume = 1f;
     CancellationTokenSource _cts;
+    Volume _volume;
+    Bloom _bloom;
     public override void InitializePhase(GamePhase targetphase){
         if(_cts == null){
             _cts = new CancellationTokenSource();
@@ -24,11 +31,7 @@ public class News1Manager : PhaseInitializer
             _cts.Cancel();
             _cts = new CancellationTokenSource();
         }
-
         Debug.Log("InitializePhase");
-        if(!ambient.isPlaying){
-            ambient.Play();
-        }
         if(targetphase == GamePhase.News1){
             RoomNews(_cts.Token).Forget();
         }else{
@@ -41,6 +44,11 @@ public class News1Manager : PhaseInitializer
     }
 
     async UniTask RoomNews(CancellationToken token){
+        HandlePP(0.5f, 100f, 6f).Forget();
+
+        if(!ambient.isPlaying){
+            ambient.Play();
+        }
         if(newsObj == default){
             Debug.LogAssertion("newsObjがnull");
         }else{
@@ -48,7 +56,10 @@ public class News1Manager : PhaseInitializer
             newsObj.SetActive(true);
         }
         //音鳴らす
+        newsBGM.enabled = true;
+        newsBGM.volume = startAudioVolume;
         newsBGM.Play();
+        Debug.Log("Play");
         if(newsAnim == default){
             Debug.LogAssertion("Animatorがnull");
         }else{
@@ -57,19 +68,35 @@ public class News1Manager : PhaseInitializer
         Debug.Log("RoomNewsやってる");
 
         //音消す
-        newsBGM.Stop();
+        // newsBGM.Stop();
 
         //最後にMainに進む
         await UniTask.Delay((int)(newsDuration * 1000), false, PlayerLoopTiming.Update, token);
         FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Room1);
+        FadeOutAudio(newsBGM, 1.5f, token).Forget();
     }
-    async UniTask FadeOutAudio(AudioSource audio, float duration){
-        float t = 0;
-        while(t < duration){
-            t += Time.deltaTime;
-            audio.volume = 1 - (t / duration);
-            await UniTask.Yield();
-        }
+    async UniTask HandlePP(float delay, float startBloomIntensity, float duration){
+        _volume = FindObjectOfType<Volume>();
+        _volume.profile.TryGet<Bloom>(out _bloom);
+        var p = _bloom.intensity.value;
+        _bloom.intensity.value = startBloomIntensity;
+        await UniTask.Delay((int)(delay * 1000), cancellationToken: _cts.Token);
+        DOTween.To(() => startBloomIntensity, (val) =>
+        {
+            _bloom.intensity.value = val;
+        }, p, duration).SetEase(Ease.InOutQuad);
+        await UniTask.Delay((int)(duration * 1000), cancellationToken: _cts.Token);
+        DOTween.To(() => p, (val) =>
+        {
+            _bloom.intensity.value = val;
+        }, 2.5f, 7f).SetEase(Ease.InOutSine);
+    }
+    async UniTask FadeOutAudio(AudioSource audio, float duration, CancellationToken token){
+        DOTween.To(() => audio.volume, (val) =>
+        {
+            audio.volume = val;
+        }, 0, duration);
+        await UniTask.Delay((int)(duration * 1000), cancellationToken: token);
         audio.enabled = false;
     }
 }
