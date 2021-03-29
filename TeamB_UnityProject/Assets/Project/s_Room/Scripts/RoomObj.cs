@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System;
 using UniRx;
 using UniRx.Triggers;
+using Cinemachine;
 
 public class RoomObj : MonoBehaviour, ITouchable
 {
@@ -25,6 +26,8 @@ public class RoomObj : MonoBehaviour, ITouchable
     bool _isAnimating = false;
     [SerializeField]
     float typingDuration = 0.02f;
+    CancellationTokenSource _cts;
+
     public void SetUpRoomItem(){
         IsClicked = false;
         _isAnimating = false;
@@ -37,6 +40,15 @@ public class RoomObj : MonoBehaviour, ITouchable
         }else{
             dialogues = dialogues_en;
         }
+        if(_cts == null){
+            _cts = new CancellationTokenSource();
+        }else{
+            _cts.Cancel();
+            _cts = new CancellationTokenSource();
+        }
+    }
+    private void OnDisable() {
+        _cts.Cancel();
     }
 
     public void Clicked(){
@@ -47,20 +59,31 @@ public class RoomObj : MonoBehaviour, ITouchable
         }else{
             IsClicked = true;
         }
+        ClickedTask().Forget();
+    }
+    async UniTask ClickedTask(){
+        //カメラを切り替える
+        //childの1個目にVirtualCameraがある想定
+        FindObjectOfType<PlayerCamController>().ChangeCamera(transform.GetChild(0));
+        //Wait for camera transition
+        var camTransitionTime = FindObjectOfType<CinemachineBrain>().m_DefaultBlend.BlendTime;
+        await UniTask.Delay((int)(camTransitionTime * 1000), cancellationToken:_cts.Token);
+
         FindObjectOfType<RoomHandController>().SwitchClickable(false);
         targetTextPanel.SetActive(true);
         if(dialogues[0] == null) Debug.LogAssertion("There is no text set in the parameter");
         //子の一個めに目的のテキストオブジェがある想定
         _targetText = targetTextPanel.transform.GetChild(0).GetComponent<Text>();
         _targetText.text = "";
-        NextText(this.GetCancellationTokenOnDestroy()).Forget();
+        NextText().Forget();
         //余裕ができたら、なんかアニメーションでインしてくるようにしたり。Cinemachineいじったり。複数回読めるようにprefab化してinstantiateにしたり。
         _disposable = this.UpdateAsObservable()
         .Subscribe(_ => {
-            if(Input.GetMouseButtonDown(0)) NextText(this.GetCancellationTokenOnDestroy()).Forget();
+            if(Input.GetMouseButtonDown(0)) NextText().Forget();
         }).AddTo(_targetText);
+
     }
-    async UniTask NextText(CancellationToken token){
+    async UniTask NextText(){
         if(_isAnimating){
             return;
         }else{
@@ -75,6 +98,7 @@ public class RoomObj : MonoBehaviour, ITouchable
             targetTextPanel.SetActive(false);
             FindObjectOfType<RoomPhaseInitializer>().CheckFlag();
             _disposable.Dispose();
+            FindObjectOfType<PlayerCamController>().ChangeCamera();
             return;
         }
         //テキストAnim入れるといい。
@@ -84,7 +108,7 @@ public class RoomObj : MonoBehaviour, ITouchable
             var s = dialogues[_currentTextNum].Substring(0,current);
             _targetText.text = s;
             current++;
-            await UniTask.Delay((int)(typingDuration * 1000), cancellationToken: token);
+            await UniTask.Delay((int)(typingDuration * 1000), cancellationToken: _cts.Token);
         }
         _currentTextNum++;
         _isAnimating = false;

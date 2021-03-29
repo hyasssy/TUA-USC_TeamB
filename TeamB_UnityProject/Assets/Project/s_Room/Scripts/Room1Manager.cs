@@ -12,9 +12,9 @@ public class Room1Manager : RoomPhaseInitializer
     [NonEditable]
     public int flag;
     [SerializeField]
-    AudioSource audioSource = default, mainBGM = default, ambient = default;
-    [SerializeField]
-    AudioClip mainSound = default;
+    AudioSource audioSource = default, radio = default, radioNoise = default, ambient = default;
+    // [SerializeField]
+    // AudioClip mainSound = default;
     int flagAmount;
     CancellationTokenSource _cts;
     public override void InitializePhase(GamePhase targetphase){
@@ -32,7 +32,7 @@ public class Room1Manager : RoomPhaseInitializer
             Debug.LogError("phase移行がうまくできていません。Error");
         }
     }
-    private void OnDestroy() {
+    private void OnDisable() {
         _cts.Cancel();
     }
     public override void CheckFlag(){
@@ -40,64 +40,32 @@ public class Room1Manager : RoomPhaseInitializer
         //のちのちとしては、全部じゃなくてもいいかも。
         flag++;
         if(flag >= flagAmount){
-            FadeOutAudio(mainBGM, 1f).Forget();
+            FadeOutAudio(radio, 1f).Forget();
+            FadeOutAudio(radioNoise, 1f).Forget();
+            FadeOutAudio(ambient, 1f).Forget();
             FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Dog1);
         }
     }
-
-    // async UniTask RoomNews(CancellationToken token){
-    //     if(newsObj == default){
-    //         Debug.LogAssertion("newsObjがnull");
-    //     }else{
-    //         newsObj.SetActive(false);//animリセット処理。
-    //         newsObj.SetActive(true);
-    //     }
-    //     FindObjectOfType<RoomHandController>().SwitchClickable(false);
-    //     //音鳴らす
-    //     newsBGM.Play();
-    //     if(newsAnim == default){
-    //         Debug.LogAssertion("Animatorがnull");
-    //     }else{
-    //         newsAnim.SetTrigger("PlayNews");
-    //     }
-    //     Debug.Log("RoomNewsやってる");
-
-    //     //音消す
-    //     newsBGM.Stop();
-
-    //     //最後にMainに進む
-    //     await UniTask.Delay((int)(newsDuration * 1000), false, PlayerLoopTiming.Update, token);
-    //     FadeManager.FadeOut();
-    //     await UniTask.Delay(1500, false, PlayerLoopTiming.Update, token);
-    //     FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Room1);
-    // }
     void RoomMain(){
         FadeManager.FadeIn();
-        if(!ambient.isPlaying){
-            ambient.Play();
-        }
         //選択可能をリセットする
-
-        // if(newsObj == default){
-        //     Debug.LogAssertion("newsObjがnull");
-        // }else{
-        //     newsObj.SetActive(false);
-        // }
         flag = 0;
         var roomObjs = FindObjectsOfType<RoomObj>();
         flagAmount = roomObjs.Length;
-        //選択判定をリセットする。
         roomObjs.ToList().ForEach(r => r.SetUpRoomItem());
         //クリックできるかを初期化する。
         FindObjectOfType<RoomHandController>().SwitchClickable(true);
         //音鳴らす
-        mainBGM.Play();
+        radio.Play();
+        radioNoise.Play();
+        ambient.Play();
     }
     async UniTask FadeOutAudio(AudioSource audio, float duration){
-        float t = 0;
+        var t = 0f;
+        var primaryVolume = audio.volume;
         while(t < duration){
             t += Time.deltaTime;
-            audio.volume = 1 - (t / duration);
+            audio.volume = primaryVolume * (1 - (t / duration));
             await UniTask.Yield();
         }
         audio.enabled = false;
