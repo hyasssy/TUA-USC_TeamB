@@ -6,12 +6,8 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
-public abstract class RoomPhaseInitializer : PhaseInitializer
+public abstract class DogPhaseInitializer : PhaseInitializer
 {
-    //flagを用意し、phase移行できるようにする。S1では、ニュース流れるのと、部屋のシーンのphaseがある。
-    [NonEditable]
-    public int flag;
-    int flagAmount;
     CancellationTokenSource _cts;
 
     public override void InitializePhase(GamePhase targetphase){
@@ -24,22 +20,17 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
 
         Debug.Log("InitializePhase");
         if(targetphase == GamePhase.Room1){
-            RoomMain();
+            DogMain();
         }else{
             Debug.LogError("phase移行がうまくできていません。Error");
         }
     }
-    void RoomMain(){
+    void DogMain(){
         FadeManager.FadeIn();
-        //選択可能をリセットする
-        flag = 0;
-        var roomObjs = FindObjectsOfType<RoomObj>();
-        flagAmount = roomObjs.Length;
-        roomObjs.ToList().ForEach(r => r.SetUpRoomItem());
         //クリックできるかを初期化する。
         FindObjectOfType<RoomHandController>().SwitchClickable(true);
         //音鳴らす
-        PlaySound();
+        // PlaySound();
     }
     private void OnDisable() {
         if(_cts != null){
@@ -49,13 +40,13 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     public void CheckFlag(){
         // flagみて、全部行ってたら、dogシーンに進む
         //のちのちとしては、全部じゃなくてもいいかも。
-        flag++;
-        if(flag >= flagAmount){
-            LoadNextScene();
-        }
+        LoadNextScene();
     }
-    abstract protected void PlaySound();
-    abstract protected void LoadNextScene();
+    // abstract protected void PlaySound();
+    // abstract protected void LoadNextScene();
+    void LoadNextScene(){
+
+    }
     protected async UniTask FadeOutSound(AudioSource audio, float duration){
         var t = 0f;
         var primaryVolume = audio.volume;

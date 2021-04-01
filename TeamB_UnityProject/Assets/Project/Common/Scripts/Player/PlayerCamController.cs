@@ -48,7 +48,9 @@ public class PlayerCamController : MonoBehaviour
         _cameraFixed = false;
     }
     private void OnDisable() {
-        _cts.Cancel();
+        if(_cts != null){
+            _cts.Cancel();
+        }
     }
 
     private void Start() {

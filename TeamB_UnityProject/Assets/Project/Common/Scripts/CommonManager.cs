@@ -8,6 +8,8 @@ using System;
 //もし変更する場合は調整が必要です。
 public enum GamePhase{
     Opening,
+    News0,
+    Room0,
     News1,//TVニュースのアニメーション
     Room1,//コマンド選択可能
     Dog1,//犬シーンの中でどのくらいの段階か選択可能
@@ -29,6 +31,8 @@ public enum GamePhase{
 //これはパブリックじゃないよ。実際のシーンの名前と同じにする必要があるし、もし変更する場合は色々調整する必要があるよ。
 enum GameScene{
     Opening,
+    News0,
+    Room0,
     News1,
     Room1,
     Dog1,
@@ -88,7 +92,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
             array[i] = value.ToString();
         }
         GamePhase[] startPhaseList = {
-            GamePhase.Opening, GamePhase.News1, GamePhase.Room1, GamePhase.Dog1,
+            GamePhase.Opening, GamePhase.News0, GamePhase.Room0, GamePhase.News1, GamePhase.Room1, GamePhase.Dog1,
             GamePhase.News2, GamePhase.Dog2, GamePhase.News3,
             GamePhase.Dog3, GamePhase.News4, GamePhase.Dog4, GamePhase.Ending
         };

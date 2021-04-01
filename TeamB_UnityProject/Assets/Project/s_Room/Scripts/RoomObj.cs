@@ -48,7 +48,9 @@ public class RoomObj : MonoBehaviour, ITouchable
         }
     }
     private void OnDisable() {
-        _cts.Cancel();
+        if(_cts != null){
+            _cts.Cancel();
+        }
     }
 
     public void Clicked(){
