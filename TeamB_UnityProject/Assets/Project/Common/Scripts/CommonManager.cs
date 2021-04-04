@@ -139,15 +139,21 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
             case GamePhase.Opening:
                 value = 0;
                 break;
-            case GamePhase.News1:
+            case GamePhase.News0:
                 value = 1;
                 break;
-            case GamePhase.Room1:
+            case GamePhase.Room0:
                 value = 2;
+                break;
+            case GamePhase.News1:
+                value = 3;
+                break;
+            case GamePhase.Room1:
+                value = 4;
                 break;
             case GamePhase.Dog1:
             case GamePhase.Dog1_2:
-                value = 3;
+                value = 5;
                 break;
             default:
                 Debug.Log("まだ適切な値が実装されてないよ");

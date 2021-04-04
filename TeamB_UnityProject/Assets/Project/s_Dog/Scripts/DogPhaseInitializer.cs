@@ -19,7 +19,7 @@ public abstract class DogPhaseInitializer : PhaseInitializer
         }
 
         Debug.Log("InitializePhase");
-        if(targetphase == GamePhase.Room1){
+        if(targetphase == GamePhase.Dog1){
             DogMain();
         }else{
             Debug.LogError("phase移行がうまくできていません。Error");
