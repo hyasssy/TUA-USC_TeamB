@@ -154,7 +154,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a99720786844f78865df3af86a40f9, type: 2}
+  - {fileID: 2100000, guid: 38a8cc329c35d4ce09d97cf32b519c5a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -315,7 +315,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bfdc8d8dc05d6475495c5580b7fa972b, type: 2}
+  - {fileID: 2100000, guid: 2872b53cb645e4557ac0001350531e5c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -476,7 +476,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 343e7c0840b7b462081f3fed59918342, type: 2}
+  - {fileID: 2100000, guid: b9c0438eb3eed4542a702e1ae6206061, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -637,7 +637,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e558faf00af1c41cd95fa74662718b6d, type: 2}
+  - {fileID: 2100000, guid: 24f8ae5dffa66414988ec02745a2c401, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -798,7 +798,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 21264383d22e84bb0860d7d46c113f20, type: 2}
+  - {fileID: 2100000, guid: ce6ec9bd476524bef94a3e5f34932b5c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -909,7 +909,7 @@ GameObject:
   m_Component:
   - component: {fileID: 99176191463334263}
   m_Layer: 0
-  m_Name: room_box
+  m_Name: room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

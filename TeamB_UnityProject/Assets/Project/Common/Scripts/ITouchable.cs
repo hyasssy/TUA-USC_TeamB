@@ -1,4 +1,4 @@
-﻿public interface ITouchable
+﻿interface ITouchable
 {
     void Clicked();
 }
