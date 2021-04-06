@@ -23,19 +23,24 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
         }
 
         Debug.Log("InitializePhase");
-        if(targetphase == GamePhase.Room1){
+        if(targetphase == SetPhase()){
             RoomMain();
         }else{
             Debug.LogError("phase移行がうまくできていません。Error");
         }
     }
+    abstract protected GamePhase SetPhase();
     void RoomMain(){
         FadeManager.FadeIn();
         //選択可能をリセットする
         flag = 0;
         var roomObjs = FindObjectsOfType<RoomObj>();
-        flagAmount = roomObjs.Length;
-        roomObjs.ToList().ForEach(r => r.SetUpRoomItem());
+
+        roomObjs.ToList().ForEach(r => {
+            //重要なものだけカウントする。
+            if(r.IsImportant) flagAmount++;
+            r.SetUpRoomItem();
+        });
         //クリックできるかを初期化する。
         FindObjectOfType<RoomHandController>().SwitchClickable(true);
         //音鳴らす

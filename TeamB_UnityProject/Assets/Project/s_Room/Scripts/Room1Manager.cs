@@ -12,6 +12,9 @@ public class Room1Manager : RoomPhaseInitializer
     AudioSource audioSource = default, radio = default, radioNoise = default, ambient = default;
     // [SerializeField]
     // AudioClip mainSound = default;
+    protected override GamePhase SetPhase(){
+        return GamePhase.Room1;
+    }
     protected override void PlaySound(){
         radio.Play();
         radioNoise.Play();

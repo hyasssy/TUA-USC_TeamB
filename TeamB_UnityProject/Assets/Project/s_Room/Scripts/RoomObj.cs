@@ -11,6 +11,8 @@ using Cinemachine;
 
 public class RoomObj : MonoBehaviour, ITouchable
 {
+    [field:SerializeField, RenameField(nameof(IsImportant))]
+    public bool IsImportant { get; private set; } = true;
     [SerializeField,TextArea(1,4)]
     List<string> dialogues_ja = new List<string>();
     [SerializeField,TextArea(1,4)]
@@ -85,6 +87,8 @@ public class RoomObj : MonoBehaviour, ITouchable
         }).AddTo(_targetText);
 
     }
+
+    //NextTextを分解して、各種処理を挟めるようにする。
     async UniTask NextText(){
         if(_isAnimating){
             return;

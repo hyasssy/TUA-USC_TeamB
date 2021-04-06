@@ -25,12 +25,13 @@ public abstract class NewsPhaseInitializer : PhaseInitializer
             _cts = new CancellationTokenSource();
         }
         Debug.Log("InitializePhase");
-        if(targetphase == GamePhase.News1){
+        if(targetphase == SetPhase()){
             RoomNews(_cts.Token).Forget();
         }else{
             Debug.LogError("phase移行がうまくできていません。Error");
         }
     }
+    protected abstract GamePhase SetPhase();
 
     private void OnDestroy() {
         _cts.Cancel();

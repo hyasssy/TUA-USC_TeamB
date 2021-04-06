@@ -8,7 +8,7 @@ using System.Threading;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class News1Manager : NewsPhaseInitializer
+public class News0Manager : NewsPhaseInitializer
 {
     [SerializeField]
     float newsDuration = 15f;
@@ -26,6 +26,9 @@ public class News1Manager : NewsPhaseInitializer
         // if(!ambient.isPlaying){
         //     ambient.Play();
         // }
+    }
+    protected override GamePhase SetPhase(){
+        return GamePhase.News0;
     }
 
     override protected async UniTask Anim(CancellationToken token){
