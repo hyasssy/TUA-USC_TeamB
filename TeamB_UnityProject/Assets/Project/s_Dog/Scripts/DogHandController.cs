@@ -1,14 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UniRx;
-using UniRx.Triggers;
-using DG.Tweening;
-using Cysharp.Threading.Tasks;
-using System.Threading;
-using UnityEngine.UI;
 
-public class RoomHandController : HandController
+public class DogHandController : HandController
 {
     [SerializeField]
     Sprite defaultHandSprite = default, hoverHandSprite = default, clickHandSprite = default;
@@ -34,11 +28,13 @@ public class RoomHandController : HandController
     }
     protected override void Clicking(string objName)
     {
-
+        if (objName == "dog")
+        {
+            Debug.Log("Scraching");
+        }
     }
     protected override void ClickOffHandImage()
     {
         ChangeHandImage(defaultHandSprite);
     }
-
 }

@@ -273,9 +273,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1289861189391346834}
   - component: {fileID: 1289861189391346835}
-  - component: {fileID: 1289861189391346833}
+  - component: {fileID: 5180116880849087666}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player_Dog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -309,10 +309,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a0b3c7020944ce59bd07076235344e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: {fileID: 0}
-  canvasRect: {fileID: 0}
   targetCursorPos: {x: 30, y: -80}
---- !u!114 &1289861189391346833
+  handMoveSpeed: 1
+  hand: {fileID: 0}
+  defaultHandSprite: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae, type: 3}
+  hoverHandSprite: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae, type: 3}
+  clickHandSprite: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae, type: 3}
+--- !u!114 &5180116880849087666
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -321,12 +324,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1289861189391346844}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab6789bc82d3f4309b7dcde765fe98ac, type: 3}
+  m_Script: {fileID: 11500000, guid: c2d7c10b0e8fe4cda9bd26ab6f92da9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 1.7
   staggerSpeed: 0.3
   staggerIntensity: 0.02
   rotateRangeX: {x: -20, y: 20}
   rotateRangeY: {x: -20, y: 20}
-  <VirtualCamera_default>k__BackingField: {fileID: 0}
+  <VirtualCamera_default>k__BackingField: {fileID: 276573003920691890}

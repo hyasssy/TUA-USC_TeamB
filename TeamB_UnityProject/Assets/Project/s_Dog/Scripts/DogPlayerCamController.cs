@@ -8,23 +8,19 @@ using System.Threading;
 using Cinemachine;
 using System.Linq;
 
-public class PlayerCamController : MonoBehaviour
+public class DogPlayerCamController : MonoBehaviour
 {
-    //少しpositionも動くようにするともっとリッチになるか。
-    [SerializeField]
-    float rotateSpeed = 1.7f;
     [SerializeField]
     float staggerSpeed = 0.3f, staggerIntensity = 0.02f;
     float _noiseParam = 0f;
     [SerializeField]
-    Vector2 rotateRangeX = new Vector2(-20f, 20f);
+    Vector2 rotateRangeX = new Vector2(-5f, 5f);
     [SerializeField]
-    Vector2 rotateRangeY = new Vector2(-20f, 20f);
+    Vector2 rotateRangeY = new Vector2(-5f, 5f);
     [field: SerializeField, RenameField(nameof(VirtualCamera_default))]
     public Transform VirtualCamera_default { get; private set; } = default;
     Vector3 defaultCamAngle;
     public Transform cameraTarget { get; private set; } = default;
-    bool _cameraFixed = false;
     CancellationTokenSource _cts;
     public async UniTask ChangeCamera(Transform targetVirtualCamera)
     {
@@ -37,7 +33,6 @@ public class PlayerCamController : MonoBehaviour
             _cts.Cancel();
             _cts = new CancellationTokenSource();
         }
-        _cameraFixed = true;
         targetVirtualCamera.gameObject.SetActive(true);
         cameraTarget = targetVirtualCamera;
         await WaitBlend();
@@ -58,7 +53,6 @@ public class PlayerCamController : MonoBehaviour
         cameraTarget.gameObject.SetActive(false);
         cameraTarget = VirtualCamera_default;
         cameraTarget.gameObject.SetActive(true);
-        _cameraFixed = false;
         await WaitBlend();
     }
     public void SetDefaultCamera()
@@ -69,7 +63,6 @@ public class PlayerCamController : MonoBehaviour
         });
         VirtualCamera_default.gameObject.SetActive(true);
         cameraTarget = VirtualCamera_default;
-        _cameraFixed = false;
     }
     async UniTask WaitBlend()
     {
@@ -92,27 +85,15 @@ public class PlayerCamController : MonoBehaviour
 
     private void Start()
     {
-        _cameraFixed = false;
         defaultCamAngle = VirtualCamera_default.localEulerAngles;
+        //シーン上のvirtualcameraの表示をリセットする。
         SetDefaultCamera();
         this.UpdateAsObservable()
         .Subscribe(_ =>
         {
             Stagger();
-            RotateView();
             RestrictRotate();
         }).AddTo(this);
-    }
-    void RotateView()
-    {
-        if (_cameraFixed) return;
-        if (!Input.GetMouseButton(0)) return;
-        var x = Input.GetAxis("Mouse X");
-        var y = Input.GetAxis("Mouse Y");
-        if (x != 0 || y != 0)
-        {
-            cameraTarget.localEulerAngles += new Vector3(y * rotateSpeed, -x * rotateSpeed, 0);
-        }
     }
     void Stagger()
     {
@@ -124,7 +105,6 @@ public class PlayerCamController : MonoBehaviour
     }
     void RestrictRotate()
     {
-        if (_cameraFixed) return;
         var current = cameraTarget.localEulerAngles;
         var x = current.x > 180 ? current.x - 360 : current.x;
         var y = current.y > 180 ? current.y - 360 : current.y;

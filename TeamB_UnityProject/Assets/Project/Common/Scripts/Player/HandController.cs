@@ -99,10 +99,25 @@ public abstract class HandController : MonoBehaviour
     {
         if (_isGrabbed)
         {
-            if (Input.GetMouseButtonUp(0))
+            Debug.Log("grabbing");
+            if (Input.GetMouseButton(0))
+            {
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, 10.0f))
+                {
+                    var coll = hit.collider;
+                    Clicking(coll.transform.name);
+                }
+            }
+            else
             {
                 ClickOff();
             }
+            // if (Input.GetMouseButtonUp(0))
+            // {
+            //     ClickOff();
+            // }
         }
         if (!IsClickable) return;
         if (Input.GetMouseButtonDown(0))
@@ -112,12 +127,12 @@ public abstract class HandController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 10.0f))
             {
                 var coll = hit.collider;
-                Debug.Log(coll.gameObject.transform.name);
+                Debug.Log("クリックしたのは" + coll.gameObject.transform.name);
                 var touchable = coll.gameObject.GetComponent<ITouchable>();
                 if (touchable != null)
                 {
                     touchable.Clicked();
-                    ClickOn();
+                    ClickDown();
                 }
                 else
                 {
@@ -126,11 +141,12 @@ public abstract class HandController : MonoBehaviour
             }
         }
     }
-    void ClickOn()
+    void ClickDown()
     {
         _isGrabbed = true;
         ClickOnHandImage();
     }
+    protected abstract void Clicking(string objName);
     void ClickOff()
     {
         _isGrabbed = false;
