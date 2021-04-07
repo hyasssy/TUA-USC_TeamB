@@ -3809,6 +3809,24 @@ PrefabInstance:
       propertyPath: canvasRect
       value: 
       objectReference: {fileID: 891035708}
+    - target: {fileID: 1310569774665216747, guid: 4f48ed141abe24195858a3accdcb8bb6,
+        type: 3}
+      propertyPath: defaultHandSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae,
+        type: 3}
+    - target: {fileID: 1310569774665216747, guid: 4f48ed141abe24195858a3accdcb8bb6,
+        type: 3}
+      propertyPath: hoverHandSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae,
+        type: 3}
+    - target: {fileID: 1310569774665216747, guid: 4f48ed141abe24195858a3accdcb8bb6,
+        type: 3}
+      propertyPath: clickHandSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae,
+        type: 3}
     - target: {fileID: 1310569775320343095, guid: 4f48ed141abe24195858a3accdcb8bb6,
         type: 3}
       propertyPath: m_LocalRotation.x
