@@ -32,6 +32,7 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     abstract protected GamePhase SetPhase();
     void RoomMain(){
         FadeManager.FadeIn();
+        FindObjectOfType<PlayerCamController>().SetDefaultCamera();
         //選択可能をリセットする
         flag = 0;
         var roomObjs = FindObjectsOfType<RoomObj>();
@@ -56,6 +57,7 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
         //のちのちとしては、全部じゃなくてもいいかも。
         flag++;
         if(flag >= flagAmount){
+            FindObjectOfType<RoomHandController>().SwitchClickable(false);
             LoadNextScene();
         }
     }

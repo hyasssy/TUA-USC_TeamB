@@ -26,7 +26,7 @@ public class PlayerCamController : MonoBehaviour
     public Transform cameraTarget { get; private set; } = default;
     bool _cameraFixed = false;
     CancellationTokenSource _cts;
-    public void ChangeCamera(Transform targetVirtualCamera){
+    public async UniTask ChangeCamera(Transform targetVirtualCamera){
         if(_cts == null){
             _cts = new CancellationTokenSource();
         }else{
@@ -36,16 +36,40 @@ public class PlayerCamController : MonoBehaviour
         _cameraFixed = true;
         targetVirtualCamera.gameObject.SetActive(true);
         cameraTarget = targetVirtualCamera;
+        await WaitBlend();
     }
     /// <summary>If set no argument, it sets default virtual camera.</summary>
-    public void ChangeCamera(){
-        ChangeCameraTask().Forget();
-    }
-    async UniTask ChangeCameraTask(){
+    public async UniTask ChangeCamera(){
+        if(_cts == null){
+            _cts = new CancellationTokenSource();
+        }else{
+            _cts.Cancel();
+            _cts = new CancellationTokenSource();
+        }
+
         cameraTarget.gameObject.SetActive(false);
         cameraTarget = VirtualCamera_default;
-        await UniTask.Delay((int)(FindObjectOfType<CinemachineBrain>().m_DefaultBlend.BlendTime * 1000), cancellationToken: _cts.Token);
+        cameraTarget.gameObject.SetActive(true);
         _cameraFixed = false;
+        await WaitBlend();
+    }
+    public void SetDefaultCamera(){
+        FindObjectsOfType<CinemachineVirtualCamera>().ToList().ForEach(v =>
+        {
+            v.gameObject.SetActive(false);
+        });
+        VirtualCamera_default.gameObject.SetActive(true);
+        cameraTarget = VirtualCamera_default;
+        _cameraFixed = false;
+    }
+    async UniTask WaitBlend(){
+        var brain = FindObjectOfType<CinemachineBrain>();
+        while(true){
+            //blendを確認する為に、先に1フレーム挟む必要がある。
+            await UniTask.Yield(PlayerLoopTiming.Update, _cts.Token);
+            if(brain.ActiveBlend == null) break;
+        }
+        Debug.LogWarning("CameraBlend終了");
     }
     private void OnDisable() {
         if(_cts != null){

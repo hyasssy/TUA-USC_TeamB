@@ -70,20 +70,35 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
         Debug.Log("CommonManager起動");
         DontDestroyOnLoad(this.gameObject);
         if(IsDebug){
-        //シーン上にマネジメントキャンバスなければ、生成する。一番手前
-        var managerUICanvas = FindObjectOfType<ManagerUICanvas>();
-        if(managerUICanvas == null){
-            var canvas = Instantiate((GameObject)Resources.Load("ManagerUICanvas"));
-            //ManagerUICanvasはDon't Destroy
-            DontDestroyOnLoad(canvas);
-            Debug.Log("Instantiate ManagerUICanvas (Don't destroy)");
+            //シーン上にマネジメントキャンバスなければ、生成する。一番手前
+            var managerUICanvas = FindObjectOfType<ManagerUICanvas>();
+            if(managerUICanvas == null){
+                InstantiateDontDestroyObj("ManagerUICanvas");
+            }
         }
+        //シーン上にモノローグキャンバスがなければ生成する。
+        var subtitleCanvas = FindObjectOfType<SubtitleCanvas>();
+        if(subtitleCanvas == null){
+            InstantiateDontDestroyObj("SubtitleCanvas");
+        }
+        var handCanvas = FindObjectOfType<HandManager>();
+        if(handCanvas == null){
+            InstantiateDontDestroyObj("HandCanvas");
         }
         var currentSceneName = SceneManager.GetActiveScene().name;
         CurrentPhase = GetStartPhase(currentSceneName);
         // Debug.Log("InitialPhaseを読み込みます。CommonManagerのインスペクターから設定可能。");
         Debug.Log("CurrentPhase="+CurrentPhase+"InitialPhase="+initialPhase);
         LoadPhase(initialPhase);
+    }
+    void InstantiateDontDestroyObj(string objname){
+        var go = (GameObject)Resources.Load(objname);
+        if(go == null){
+            Debug.LogError(objname + " is not found in the Resources");
+        }
+        var canvas = Instantiate(go);
+        DontDestroyOnLoad(canvas);
+        Debug.Log("Instantiate " + objname + " (Don't destroy)");
     }
     GamePhase GetStartPhase(string sceneName){
         var array = new string[Enum.GetValues(typeof(GameScene)).Length];
