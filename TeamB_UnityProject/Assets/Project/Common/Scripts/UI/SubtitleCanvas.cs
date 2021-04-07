@@ -10,29 +10,51 @@ using UnityEngine.UI;
 public class SubtitleCanvas : MonoBehaviour
 {
     CancellationTokenSource _cts;
-    [SerializeField]
-    Text monologueText = default, narrateText = default;
+    [field: SerializeField, RenameField(nameof(monologueText))]
+    public Text monologueText { get; private set; } = default;
+    [field: SerializeField, RenameField(nameof(newsText))]
+    public Text newsText { get; private set; } = default;
+    [field: SerializeField, RenameField(nameof(dialogueText))]
+    public Text dialogueText { get; private set; } = default;
+    [field: SerializeField, RenameField(nameof(narrationText))]
+    public Text narrationText { get; private set; } = default;
 
-    private void Start() {
-        if(monologueText == default){
-            Debug.LogError("MonologueText is not assigned");
-        }
-        monologueText.text = "";
-        if(narrateText == default){
-            Debug.LogError("NarrateText is not assigned");
-        }
-        narrateText.text = "";
+    private void Start()
+    {
+        SetUpText(monologueText);
+        SetUpText(newsText);
+        SetUpText(dialogueText);
+        SetUpText(narrationText);
         _cts = new CancellationTokenSource();
     }
-    public void ShowMonologue(string text, float showDuration){
-        _cts.Cancel();
-        _cts = new CancellationTokenSource();
-        ShowMonologueTask(monologueText, text, showDuration).Forget();
+    void SetUpText(Text t)
+    {
+        if (t == default)
+        {
+            Debug.LogError(nameof(t) + " is not assigned");
+        }
+        t.text = "";
     }
-    public void ShowNarration(string text, float showDuration){
-        ShowMonologueTask(narrateText, text, showDuration).Forget();
+    public void ShowMonologue(string text, float showDuration)
+    {
+        DisplayText(monologueText, text, showDuration).Forget();
     }
-    async UniTask ShowMonologueTask(Text targetText, string text, float showDuration){
+    public void ShowNews(string text, float showDuration)
+    {
+        DisplayText(newsText, text, showDuration).Forget();
+    }
+    public void ShowDialogue(string text, float showDuration)
+    {
+        DisplayText(dialogueText, text, showDuration).Forget();
+    }
+    public void ShowNarration(string text, float showDuration)
+    {
+        DisplayText(narrationText, text, showDuration).Forget();
+    }
+    async UniTask DisplayText(Text targetText, string text, float showDuration)
+    {
+        //数秒待って消す。
+        //必要があれば、引数からenumタイプ指定する形でアニメーション出してもいいか。
         _cts.Cancel();
         _cts = new CancellationTokenSource();
         targetText.text = text;

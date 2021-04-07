@@ -6,54 +6,58 @@ using Cysharp.Threading.Tasks;
 using System;
 
 //もし変更する場合は調整が必要です。
-public enum GamePhase{
+public enum GamePhase
+{
     Opening,
     News0,
     Room0,
-    News1,//TVニュースのアニメーション
+    Night0,
+
     Room1,//コマンド選択可能
     Dog1,//犬シーンの中でどのくらいの段階か選択可能
     Dog1_2,
-    News2,
+    Night1,
     Room2,
     Dog2,
     Dog2_2,
-    News3,
+    Night2,
     Room3,
     Dog3,
     Dog3_2,
-    News4,
+    Night3,
     Room4,
     Dog4,
     Dog4_2,
     Ending
 }
 //これはパブリックじゃないよ。実際のシーンの名前と同じにする必要があるし、もし変更する場合は色々調整する必要があるよ。
-enum GameScene{
+enum GameScene
+{
     Opening,
     News0,
     Room0,
-    News1,
+    Night0,
     Room1,
     Dog1,
-    News2,
+    Night1,
     Room2,
     Dog2,
-    News3,
+    Night2,
     Room3,
     Dog3,
-    News4,
+    Night3,
     Room4,
     Dog4,
     Ending
 }
 public enum Lang
 {
-    ja,en
+    ja, en
 }
 
 //Singleton object. Check if any instance already exist in Awake and if yes, destroy itself automaticcaly.
-public class CommonManager : SingletonMonoBehaviour<CommonManager> {
+public class CommonManager : SingletonMonoBehaviour<CommonManager>
+{
     //現在のPhase
     public GamePhase CurrentPhase { get; private set; } = GamePhase.Room1;
     //スタート時のPhase
@@ -61,59 +65,65 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
     GamePhase initialPhase = default;
     //初期パラメーター
     public Lang PlayLang { get; private set; } = Lang.ja;
-    public void ChangeLang(Lang lang){ PlayLang = lang; }
+    public void ChangeLang(Lang lang) { PlayLang = lang; }
     public bool IsDebug { get; private set; } = true;
     public void SwitchIsDebug(bool isDebug) { IsDebug = isDebug; }
 
 
-    private void Start() {
+    private void Start()
+    {
         Debug.Log("CommonManager起動");
         DontDestroyOnLoad(this.gameObject);
-        if(IsDebug){
+        if (IsDebug)
+        {
             //シーン上にマネジメントキャンバスなければ、生成する。一番手前
             var managerUICanvas = FindObjectOfType<ManagerUICanvas>();
-            if(managerUICanvas == null){
+            if (managerUICanvas == null)
+            {
                 InstantiateDontDestroyObj("ManagerUICanvas");
             }
         }
         //シーン上にモノローグキャンバスがなければ生成する。
         var subtitleCanvas = FindObjectOfType<SubtitleCanvas>();
-        if(subtitleCanvas == null){
+        if (subtitleCanvas == null)
+        {
             InstantiateDontDestroyObj("SubtitleCanvas");
-        }
-        var handCanvas = FindObjectOfType<HandManager>();
-        if(handCanvas == null){
-            InstantiateDontDestroyObj("HandCanvas");
         }
         var currentSceneName = SceneManager.GetActiveScene().name;
         CurrentPhase = GetStartPhase(currentSceneName);
         // Debug.Log("InitialPhaseを読み込みます。CommonManagerのインスペクターから設定可能。");
-        Debug.Log("CurrentPhase="+CurrentPhase+"InitialPhase="+initialPhase);
+        Debug.Log("CurrentPhase=" + CurrentPhase + "InitialPhase=" + initialPhase);
         LoadPhase(initialPhase);
     }
-    void InstantiateDontDestroyObj(string objname){
+    void InstantiateDontDestroyObj(string objname)
+    {
         var go = (GameObject)Resources.Load(objname);
-        if(go == null){
+        if (go == null)
+        {
             Debug.LogError(objname + " is not found in the Resources");
         }
         var canvas = Instantiate(go);
         DontDestroyOnLoad(canvas);
         Debug.Log("Instantiate " + objname + " (Don't destroy)");
     }
-    GamePhase GetStartPhase(string sceneName){
+    GamePhase GetStartPhase(string sceneName)
+    {
         var array = new string[Enum.GetValues(typeof(GameScene)).Length];
-        for (int i = 0;i<array.Length;i++){
+        for (int i = 0; i < array.Length; i++)
+        {
             var value = (GameScene)Enum.ToObject(typeof(GameScene), i);
             array[i] = value.ToString();
         }
         GamePhase[] startPhaseList = {
-            GamePhase.Opening, GamePhase.News0, GamePhase.Room0, GamePhase.News1, GamePhase.Room1, GamePhase.Dog1,
-            GamePhase.News2, GamePhase.Dog2, GamePhase.News3,
-            GamePhase.Dog3, GamePhase.News4, GamePhase.Dog4, GamePhase.Ending
+            GamePhase.Opening, GamePhase.News0, GamePhase.Room0, GamePhase.Night0, GamePhase.Room1, GamePhase.Dog1,
+            GamePhase.Night1, GamePhase.Room2, GamePhase.Dog2, GamePhase.Night2,GamePhase.Room3,
+            GamePhase.Dog3, GamePhase.Night3, GamePhase.Room3, GamePhase.Dog4, GamePhase.Ending
         };
         GamePhase result = default;
-        for (int i = 0; i < array.Length; i++) {
-            if(sceneName == array[i]){
+        for (int i = 0; i < array.Length; i++)
+        {
+            if (sceneName == array[i])
+            {
                 result = startPhaseList[i];
             }
         }
@@ -122,20 +132,24 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
 
 
     //フェイズ管理プログラム作成
-    public void LoadPhase(GamePhase targetPhase){
+    public void LoadPhase(GamePhase targetPhase)
+    {
         Debug.Log("Next phase name is " + targetPhase);
         LoadPhaseTask(targetPhase).Forget();
     }
     //UIからDropdownを選んだときの処理。
-    public void LoadPhase(int targetPhaseNum){
+    public void LoadPhase(int targetPhaseNum)
+    {
         var targetPhase = (GamePhase)Enum.ToObject(typeof(GamePhase), targetPhaseNum);
         Debug.Log("Selected number is " + targetPhaseNum + ", Next phase name is " + targetPhase);
         LoadPhaseTask(targetPhase).Forget();
     }
-    async UniTask LoadPhaseTask(GamePhase targetPhase){
+    async UniTask LoadPhaseTask(GamePhase targetPhase)
+    {
         var currentScene = GetSceneFromPhase(CurrentPhase);
         var targetScene = GetSceneFromPhase(targetPhase);
-        if(currentScene != targetScene){
+        if (currentScene != targetScene)
+        {
             Debug.Log("Load the different scene");
             FadeManager.FadeOut();
             await UniTask.Delay(1500);//ここは今手動になってる。
@@ -148,9 +162,11 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
         FindObjectOfType<PhaseInitializer>().InitializePhase(CurrentPhase);
         //PhaseInitializerにはGamePhase型で分岐し、そのフェイズまで進める機能つける。
     }
-    GameScene GetSceneFromPhase(GamePhase phase){
+    GameScene GetSceneFromPhase(GamePhase phase)
+    {
         int value = 0;
-        switch(phase){
+        switch (phase)
+        {
             case GamePhase.Opening:
                 value = 0;
                 break;
@@ -160,7 +176,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
             case GamePhase.Room0:
                 value = 2;
                 break;
-            case GamePhase.News1:
+            case GamePhase.Night0:
                 value = 3;
                 break;
             case GamePhase.Room1:
@@ -171,9 +187,9 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager> {
                 value = 5;
                 break;
             default:
-                Debug.Log("まだ適切な値が実装されてないよ");
-            break;
-            //以下とりあえず省略。
+                Debug.LogWarning("まだ適切な値が実装されてないよ");
+                break;
+                //以下とりあえず省略。
         }
         var result = (GameScene)Enum.ToObject(typeof(GameScene), value);
         return result;

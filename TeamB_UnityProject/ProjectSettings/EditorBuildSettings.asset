@@ -13,13 +13,10 @@ EditorBuildSettings:
     guid: 59260146ce5bc4463860d53278a43926
   - enabled: 1
     path: Assets/Project/s_Room/Room0.unity
-    guid: c1625588ad0ae4da09d484b32d8e5f4e
+    guid: ed2216c5d30bc482b8719af8587e8332
   - enabled: 1
-    path: Assets/Project/s_News/News1.unity
-    guid: daa7af69429b241a0a4ceefbaa31dbe0
-  - enabled: 1
-    path: Assets/Project/s_Room/Room1.unity
-    guid: 7a213ababbede40de93c9f7ebe647c59
+    path: Assets/Project/s_Night/Night0.unity
+    guid: afab051a0b9be45c38a8d0c2328a42c2
   - enabled: 1
     path: Assets/Project/s_Dog/Dog1.unity
     guid: a7201e579dc4f4ad98653af644be2732

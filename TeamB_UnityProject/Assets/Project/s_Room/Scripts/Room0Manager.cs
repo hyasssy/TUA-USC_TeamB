@@ -12,18 +12,21 @@ public class Room0Manager : RoomPhaseInitializer
     AudioSource audioSource = default, radio = default, radioNoise = default, ambient = default;
     // [SerializeField]
     // AudioClip mainSound = default;
-    protected override GamePhase SetPhase(){
+    protected override GamePhase SetPhase()
+    {
         return GamePhase.Room0;
     }
-    protected override void PlaySound(){
+    protected override void PlaySound()
+    {
         radio.Play();
         radioNoise.Play();
         ambient.Play();
     }
-    protected override void LoadNextScene(){
+    protected override void LoadNextScene()
+    {
         FadeOutSound(radio, 1f).Forget();
         FadeOutSound(radioNoise, 1f).Forget();
         FadeOutSound(ambient, 1f).Forget();
-        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Room1);
+        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Night0);
     }
 }

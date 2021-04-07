@@ -14,7 +14,8 @@ public class HandManager : MonoBehaviour
     Transform _hand;
     public Vector2 targetCursorPos = new Vector2(30f, -80f);
     public float handMoveSpeed = 1f;
-    private void Start() {
+    private void Start()
+    {
         _canvasRect = GetComponent<RectTransform>();
         _hand = transform.GetChild(0);
 
@@ -24,11 +25,12 @@ public class HandManager : MonoBehaviour
             TracingHand();
         });
     }
-    void TracingHand(){
+    void TracingHand()
+    {
         _mousePos = Input.mousePosition;
         _mousePos.x = Mathf.Clamp(_mousePos.x, 0, Screen.width);
         _mousePos.y = Mathf.Clamp(_mousePos.y, 0, Screen.height);
-        // Debug.Log(_mousePos);
+        Debug.Log(_mousePos);
         var magnification = _canvasRect.sizeDelta.x / Screen.width;
         _mousePos.x = _mousePos.x * magnification - _canvasRect.sizeDelta.x / 2 + targetCursorPos.x;
         _mousePos.y = _mousePos.y * magnification - _canvasRect.sizeDelta.y / 2 + targetCursorPos.y;

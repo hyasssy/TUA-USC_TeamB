@@ -10,9 +10,13 @@ using UnityEngine.UI;
 
 public abstract class HandController : MonoBehaviour
 {
-    Transform _hand;
+    Vector3 _mousePos;
+    RectTransform _canvasRect;
+    public Vector2 targetCursorPos = new Vector2(30f, -80f);
+    public float handMoveSpeed = 1f;
+    [SerializeField]
+    Transform hand = default;
     Image _handImage;
-    HandManager _handManager;
     // RectTransform _canvasRect;
     // protected Vector2 targetCursorPos = new Vector2(30f, -80f);
     // Vector3 _mousePos;
@@ -37,12 +41,11 @@ public abstract class HandController : MonoBehaviour
         {
             CheckHover();
             CheckClick();
-            // TracingHand();
+            TracingHand();
         }).AddTo(this);
-        _handManager = FindObjectOfType<HandManager>();
-        // _canvasRect = _handManager.GetComponent<RectTransform>();
-        _hand = _handManager.transform.GetChild(0);
-        _handImage = _hand.GetComponent<Image>();
+        if (hand == default) Debug.LogError("hand is not assigned");
+        _canvasRect = hand.parent.GetComponent<RectTransform>();
+        _handImage = hand.GetComponent<Image>();
         SetUpHand();
     }
     /// <summary>そのシーンのHandImageを差し込む。</summary>
@@ -81,12 +84,12 @@ public abstract class HandController : MonoBehaviour
     void HoverOn()
     {
         // hand.localScale = Vector3.one * 1.2f;//簡易的に大きくする
-        _hand.DOScale(Vector3.one * 1.2f, 0.5f);
+        hand.DOScale(Vector3.one * 1.2f, 0.5f);
         HoverOnHandImage();
     }
     void HoverOff()
     {
-        _hand.DOScale(Vector3.one, 0.5f);//.OnComplete(() => _isDefaultSize = true);//簡易的に戻す
+        hand.DOScale(Vector3.one, 0.5f);//.OnComplete(() => _isDefaultSize = true);//簡易的に戻す
         HoverOffHandImage();
     }
     protected abstract void HoverOnHandImage();
@@ -138,5 +141,17 @@ public abstract class HandController : MonoBehaviour
     protected void ChangeHandImage(Sprite targetSprite)
     {
         _handImage.sprite = targetSprite;
+    }
+    void TracingHand()
+    {
+        _mousePos = Input.mousePosition;
+        _mousePos.x = Mathf.Clamp(_mousePos.x, 0, Screen.width);
+        _mousePos.y = Mathf.Clamp(_mousePos.y, 0, Screen.height);
+        var magnification = _canvasRect.sizeDelta.x / Screen.width;
+        _mousePos.x = _mousePos.x * magnification - _canvasRect.sizeDelta.x / 2 + targetCursorPos.x;
+        _mousePos.y = _mousePos.y * magnification - _canvasRect.sizeDelta.y / 2 + targetCursorPos.y;
+        // _mousePos.z = 0;
+
+        hand.localPosition = Vector3.Lerp(hand.localPosition, _mousePos, Time.deltaTime * handMoveSpeed);
     }
 }
