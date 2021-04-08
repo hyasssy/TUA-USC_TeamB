@@ -9,51 +9,72 @@ using System.Threading;
 public abstract class DogPhaseInitializer : PhaseInitializer
 {
     CancellationTokenSource _cts;
+    protected float strokeSum = 0;
+    HandController handController;
+    //これはHandControllerのIsClickableとやや役割が被っている。
+    protected bool stopStroke = false;
+    public void StrokingDog()
+    {
+        if (stopStroke) return;
+        var value = Mathf.Abs(Input.GetAxis("Mouse X")) + Mathf.Abs(Input.GetAxis("Mouse Y"));
+        if (value != 0)
+        {
+            strokeSum += value;
+            Debug.Log("Stroke dog " + value + ", amount = " + strokeSum);
+            StrokeEvent(_cts.Token);
+        }
+    }
+    protected abstract void StrokeEvent(CancellationToken token);
 
-    public override void InitializePhase(GamePhase targetphase){
-        if(_cts == null){
+    public override void InitializePhase(GamePhase targetphase)
+    {
+        if (_cts == null)
+        {
             _cts = new CancellationTokenSource();
-        }else{
+        }
+        else
+        {
             _cts.Cancel();
             _cts = new CancellationTokenSource();
         }
 
         Debug.Log("InitializePhase");
-        if(targetphase == GamePhase.Dog1){
+        if (targetphase == GamePhase.Dog1)
+        {
             DogMain();
-        }else{
+        }
+        else
+        {
             Debug.LogError("phase移行がうまくできていません。Error");
         }
     }
-    void DogMain(){
+    void DogMain()
+    {
         FadeManager.FadeIn();
         //クリックできるかを初期化する。
-        FindObjectOfType<RoomHandController>().SwitchClickable(true);
-        //音鳴らす
-        // PlaySound();
+        handController = FindObjectOfType<HandController>();
+        handController.SwitchClickable(true);
+        stopStroke = false;
+        //各シーンごとの初期化
+        DogInit();
     }
-    private void OnDisable() {
-        if(_cts != null){
+    private void OnDisable()
+    {
+        if (_cts != null)
+        {
             _cts.Cancel();
         }
     }
-    public void CheckFlag(){
-        // flagみて、全部行ってたら、dogシーンに進む
-        //のちのちとしては、全部じゃなくてもいいかも。
-        LoadNextScene();
-    }
-    // abstract protected void PlaySound();
-    // abstract protected void LoadNextScene();
-    void LoadNextScene(){
-
-    }
-    protected async UniTask FadeOutSound(AudioSource audio, float duration){
+    abstract protected void DogInit();
+    protected async UniTask FadeOutSound(AudioSource audio, float duration)
+    {
         var t = 0f;
         var primaryVolume = audio.volume;
-        while(t < duration){
+        while (t < duration)
+        {
             t += Time.deltaTime;
             audio.volume = primaryVolume * (1 - (t / duration));
-            await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken:_cts.Token);
+            await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: _cts.Token);
         }
         audio.enabled = false;
     }

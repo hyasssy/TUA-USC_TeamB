@@ -140,8 +140,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1289861187796106314}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.10000532, y: 0.3776163, z: -0.0384534, w: 0.91974247}
+  m_LocalPosition: {x: 0.036000013, y: -0.64385194, z: 1.2656356}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1289861189391346834}
@@ -272,8 +272,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1289861189391346834}
-  - component: {fileID: 1289861189391346835}
   - component: {fileID: 5180116880849087666}
+  - component: {fileID: 3063063390161676844}
   m_Layer: 0
   m_Name: Player_Dog
   m_TagString: Untagged
@@ -297,24 +297,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.39100003, y: 0, z: 0}
---- !u!114 &1289861189391346835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1289861189391346844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48a0b3c7020944ce59bd07076235344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetCursorPos: {x: 30, y: -80}
-  handMoveSpeed: 1
-  hand: {fileID: 0}
-  defaultHandSprite: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae, type: 3}
-  hoverHandSprite: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae, type: 3}
-  clickHandSprite: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae, type: 3}
 --- !u!114 &5180116880849087666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,3 +314,21 @@ MonoBehaviour:
   rotateRangeX: {x: -20, y: 20}
   rotateRangeY: {x: -20, y: 20}
   <VirtualCamera_default>k__BackingField: {fileID: 276573003920691890}
+--- !u!114 &3063063390161676844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289861189391346844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 456a9ee4a04d142bd9a405dc3dccc990, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCursorPos: {x: 30, y: -80}
+  handMoveSpeed: 1
+  hand: {fileID: 0}
+  defaultHandSprite: {fileID: 0}
+  hoverHandSprite: {fileID: 0}
+  clickHandSprite: {fileID: 0}

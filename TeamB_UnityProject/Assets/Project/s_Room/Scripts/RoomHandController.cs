@@ -32,7 +32,7 @@ public class RoomHandController : HandController
     {
         ChangeHandImage(clickHandSprite);
     }
-    protected override void Clicking(string objName)
+    protected override void Holding(string objName)
     {
 
     }

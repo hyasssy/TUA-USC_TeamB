@@ -99,7 +99,7 @@ public abstract class HandController : MonoBehaviour
     {
         if (_isGrabbed)
         {
-            Debug.Log("grabbing");
+            // Debug.Log("Holding");
             if (Input.GetMouseButton(0))
             {
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -107,7 +107,7 @@ public abstract class HandController : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, 10.0f))
                 {
                     var coll = hit.collider;
-                    Clicking(coll.transform.name);
+                    Holding(coll.transform.name);
                 }
             }
             else
@@ -146,7 +146,7 @@ public abstract class HandController : MonoBehaviour
         _isGrabbed = true;
         ClickOnHandImage();
     }
-    protected abstract void Clicking(string objName);
+    protected abstract void Holding(string objName);
     void ClickOff()
     {
         _isGrabbed = false;

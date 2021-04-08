@@ -2368,6 +2368,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1289861187796106319, guid: f36645386ef244ae189d3b47ef6ac9b1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1289861187796106319, guid: f36645386ef244ae189d3b47ef6ac9b1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1289861187796106319, guid: f36645386ef244ae189d3b47ef6ac9b1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1289861187796106319, guid: f36645386ef244ae189d3b47ef6ac9b1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1289861187796106319, guid: f36645386ef244ae189d3b47ef6ac9b1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1289861187796106319, guid: f36645386ef244ae189d3b47ef6ac9b1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1289861187796106319, guid: f36645386ef244ae189d3b47ef6ac9b1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1289861189391346834, guid: f36645386ef244ae189d3b47ef6ac9b1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2433,6 +2468,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Dog
       objectReference: {fileID: 0}
+    - target: {fileID: 3063063390161676844, guid: f36645386ef244ae189d3b47ef6ac9b1,
+        type: 3}
+      propertyPath: hand
+      value: 
+      objectReference: {fileID: 821547652}
+    - target: {fileID: 3063063390161676844, guid: f36645386ef244ae189d3b47ef6ac9b1,
+        type: 3}
+      propertyPath: defaultHandSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae,
+        type: 3}
+    - target: {fileID: 3063063390161676844, guid: f36645386ef244ae189d3b47ef6ac9b1,
+        type: 3}
+      propertyPath: hoverHandSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae,
+        type: 3}
+    - target: {fileID: 3063063390161676844, guid: f36645386ef244ae189d3b47ef6ac9b1,
+        type: 3}
+      propertyPath: clickHandSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae,
+        type: 3}
     - target: {fileID: 5180116880849087666, guid: f36645386ef244ae189d3b47ef6ac9b1,
         type: 3}
       propertyPath: rotateRangeX.x
@@ -2453,7 +2511,8 @@ PrefabInstance:
       propertyPath: rotateRangeY.y
       value: 5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1289861189391346835, guid: f36645386ef244ae189d3b47ef6ac9b1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f36645386ef244ae189d3b47ef6ac9b1, type: 3}
 --- !u!20 &2284399102472814358 stripped
 Camera:
