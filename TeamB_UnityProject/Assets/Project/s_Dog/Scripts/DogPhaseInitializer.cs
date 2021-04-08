@@ -8,9 +8,9 @@ using System.Threading;
 
 public abstract class DogPhaseInitializer : PhaseInitializer
 {
-    CancellationTokenSource _cts;
+    protected CancellationTokenSource cts;
     protected float strokeSum = 0;
-    HandController handController;
+    protected HandController handController;
     //これはHandControllerのIsClickableとやや役割が被っている。
     protected bool stopStroke = false;
     public void StrokingDog()
@@ -21,21 +21,24 @@ public abstract class DogPhaseInitializer : PhaseInitializer
         {
             strokeSum += value;
             Debug.Log("Stroke dog " + value + ", amount = " + strokeSum);
-            StrokeEvent(_cts.Token);
+            StrokeEvent();
+            ReactStroke();
         }
     }
-    protected abstract void StrokeEvent(CancellationToken token);
+    protected abstract void StrokeEvent();
+    //撫でた時のリアクション
+    protected abstract void ReactStroke();
 
     public override void InitializePhase(GamePhase targetphase)
     {
-        if (_cts == null)
+        if (cts == null)
         {
-            _cts = new CancellationTokenSource();
+            cts = new CancellationTokenSource();
         }
         else
         {
-            _cts.Cancel();
-            _cts = new CancellationTokenSource();
+            cts.Cancel();
+            cts = new CancellationTokenSource();
         }
 
         Debug.Log("InitializePhase");
@@ -60,9 +63,9 @@ public abstract class DogPhaseInitializer : PhaseInitializer
     }
     private void OnDisable()
     {
-        if (_cts != null)
+        if (cts != null)
         {
-            _cts.Cancel();
+            cts.Cancel();
         }
     }
     abstract protected void DogInit();
@@ -74,7 +77,7 @@ public abstract class DogPhaseInitializer : PhaseInitializer
         {
             t += Time.deltaTime;
             audio.volume = primaryVolume * (1 - (t / duration));
-            await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: _cts.Token);
+            await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: cts.Token);
         }
         audio.enabled = false;
     }

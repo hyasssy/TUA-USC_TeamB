@@ -53,7 +53,7 @@ public class News0Manager : NewsPhaseInitializer
     }
     protected override GamePhase SetNextPhase()
     {
-        return GamePhase.Room1;
+        return GamePhase.Room0;
     }
 
     override protected async UniTask Anim(CancellationToken token)
@@ -126,7 +126,6 @@ public class News0Manager : NewsPhaseInitializer
             var p = Easing.QuadInOut(t, duration, 0, 1);
             audioSource.volume = p * originalVolume;
         }
-
     }
     override protected void StopSound(CancellationToken token)
     {

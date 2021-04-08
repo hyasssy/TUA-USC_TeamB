@@ -25,7 +25,7 @@ public static class TextAnim
             await UniTask.Delay((int)(speed * 1000), cancellationToken: token);
         }
     }
-    public static async UniTask FadeOutText(Graphic targetUI, float duration, CancellationToken token, float delay = 0f, Shadow shadow = null)
+    public static async UniTask FadeOutText(Graphic targetUI, float duration, CancellationToken token, float delay = 0f)
     {
         await UniTask.Delay((int)(delay * 1000), cancellationToken: token);
         //ホントはキャンセル時にコールバックで透明度を戻す処理を作るのがただしいが…。
@@ -33,6 +33,7 @@ public static class TextAnim
         var t = 0f;
         var originalColor = targetUI.color;
         Color originalShadowColor = default;
+        var shadow = targetUI.gameObject.GetComponent<Shadow>();
         if (shadow == null)
         {
             var originalArpha = originalColor.a;

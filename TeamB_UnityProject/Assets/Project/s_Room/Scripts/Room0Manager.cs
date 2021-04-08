@@ -50,7 +50,7 @@ public class Room0Manager : RoomPhaseInitializer
             if (i != _contents.dialogues.Length - 1) monologueText.text = "";
         }
         var duration = 3f;
-        await TextAnim.FadeOutText(monologueText, duration, token, shadow: monologueText.GetComponent<Shadow>());
+        await TextAnim.FadeOutText(monologueText, duration, token);
         FindObjectOfType<RoomHandController>().SwitchClickable(true);
     }
     protected override void PlaySound()

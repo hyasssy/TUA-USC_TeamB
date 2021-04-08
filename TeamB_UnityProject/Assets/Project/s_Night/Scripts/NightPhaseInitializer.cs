@@ -69,6 +69,7 @@ public abstract class NightPhaseInitializer : PhaseInitializer
                 if (Input.GetMouseButtonDown(0)) break;
             }
         }
+        //テキスト消す
         await UniTask.Delay((int)(endDelay * 1000), cancellationToken: _cts.Token);
 
         FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Room1);
