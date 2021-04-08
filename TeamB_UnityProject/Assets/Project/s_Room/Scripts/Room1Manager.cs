@@ -16,6 +16,11 @@ public class Room1Manager : RoomPhaseInitializer
     {
         return GamePhase.Room1;
     }
+    protected override async UniTask FirstEvent(CancellationToken token)
+    {
+        //今んとこ特に何もなし。
+        return;
+    }
     protected override void PlaySound()
     {
         radio.Play();

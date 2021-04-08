@@ -131,15 +131,16 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
     {
         Debug.Log("NextText");
         //テキストAnim入れるといい。
-        var letterAmount = dialogues[currentTextNum].Length;
-        var current = 1;
-        while (current <= letterAmount)
-        {
-            var s = dialogues[currentTextNum].Substring(0, current);
-            _targetText.text = s;
-            current++;
-            await UniTask.Delay((int)(typingDuration * 1000), cancellationToken: _cts.Token);
-        }
+        // var letterAmount = dialogues[currentTextNum].Length;
+        // var current = 1;
+        // while (current <= letterAmount)
+        // {
+        //     var s = dialogues[currentTextNum].Substring(0, current);
+        //     _targetText.text = s;
+        //     current++;
+        //     await UniTask.Delay((int)(typingDuration * 1000), cancellationToken: _cts.Token);
+        // }
+        await TextAnim.TypeAnim(_targetText, dialogues[currentTextNum], typingDuration, _cts.Token);
         currentTextNum++;
     }
     protected async UniTask EndDialogue()

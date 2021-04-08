@@ -14,62 +14,80 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     int flagAmount;
     CancellationTokenSource _cts;
 
-    public override void InitializePhase(GamePhase targetphase){
-        if(_cts == null){
+    public override void InitializePhase(GamePhase targetphase)
+    {
+        if (_cts == null)
+        {
             _cts = new CancellationTokenSource();
-        }else{
+        }
+        else
+        {
             _cts.Cancel();
             _cts = new CancellationTokenSource();
         }
 
         Debug.Log("InitializePhase");
-        if(targetphase == SetPhase()){
+        if (targetphase == SetPhase())
+        {
             RoomMain();
-        }else{
+        }
+        else
+        {
             Debug.LogError("phase移行がうまくできていません。Error");
         }
     }
     abstract protected GamePhase SetPhase();
-    void RoomMain(){
+    void RoomMain()
+    {
         FadeManager.FadeIn();
         FindObjectOfType<PlayerCamController>().SetDefaultCamera();
         //選択可能をリセットする
         flag = 0;
         var roomObjs = FindObjectsOfType<RoomObj>();
 
-        roomObjs.ToList().ForEach(r => {
+        roomObjs.ToList().ForEach(r =>
+        {
             //重要なものだけカウントする。
-            if(r.IsImportant) flagAmount++;
+            if (r.IsImportant) flagAmount++;
             r.SetUpRoomItem();
         });
         //クリックできるかを初期化する。
         FindObjectOfType<RoomHandController>().SwitchClickable(true);
         //音鳴らす
         PlaySound();
+        //テキスト出すなど、シーン最初のイベントを設定
+        FirstEvent(_cts.Token);
     }
-    private void OnDisable() {
-        if(_cts != null){
+    abstract protected UniTask FirstEvent(CancellationToken token);
+    private void OnDisable()
+    {
+        if (_cts != null)
+        {
             _cts.Cancel();
         }
     }
-    public void CheckFlag(){
+    public void CheckFlag()
+    {
         // flagみて、全部行ってたら、dogシーンに進む
         //のちのちとしては、全部じゃなくてもいいかも。
         flag++;
-        if(flag >= flagAmount){
+        if (flag >= flagAmount)
+        {
             FindObjectOfType<RoomHandController>().SwitchClickable(false);
             LoadNextScene();
         }
     }
     abstract protected void PlaySound();
     abstract protected void LoadNextScene();
-    protected async UniTask FadeOutSound(AudioSource audio, float duration){
+    protected async UniTask FadeOutSound(AudioSource audio, float duration)
+    {
         var t = 0f;
         var primaryVolume = audio.volume;
-        while(t < duration){
+        while (t < duration)
+        {
             t += Time.deltaTime;
             audio.volume = primaryVolume * (1 - (t / duration));
-            await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken:_cts.Token);
+            await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: _cts.Token);
         }
         audio.enabled = false;
     }

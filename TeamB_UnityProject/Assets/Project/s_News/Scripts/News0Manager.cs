@@ -15,7 +15,7 @@ public class News0Manager : NewsPhaseInitializer
     class DialogueSet
     {
         public float[] timeCount;
-        public AudioClip[] audioClips;
+        // public AudioClip[] audioClips;
         [TextArea(1, 4)]
         public string[] dialogues_ja;
         [TextArea(1, 4)]
@@ -28,7 +28,7 @@ public class News0Manager : NewsPhaseInitializer
     [SerializeField]
     float newsDuration = 15f;
     [SerializeField]
-    AudioSource newsBGM = default, ambient = default, TVNoise = default;
+    AudioSource newsBGM = default, ambient = default, TVNoise = default, TVvoice = default;
     Volume _volume;
     Bloom _bloom;
     [SerializeField]
@@ -47,9 +47,13 @@ public class News0Manager : NewsPhaseInitializer
         //     ambient.Play();
         // }
     }
-    protected override GamePhase SetPhase()
+    protected override GamePhase SetCurrnetPhase()
     {
         return GamePhase.News0;
+    }
+    protected override GamePhase SetNextPhase()
+    {
+        return GamePhase.Room1;
     }
 
     override protected async UniTask Anim(CancellationToken token)
@@ -87,13 +91,13 @@ public class News0Manager : NewsPhaseInitializer
             _dialogues = dialogueSet.dialogues_en;
         }
         var canvas = FindObjectOfType<SubtitleCanvas>();
-        var audioSource = GetComponent<AudioSource>();
-        if (audioSource == null) Debug.LogError("AudioSource is not assigned.");
+        if (TVvoice == default) Debug.LogError("AudioSource(TVvoice) is not assigned to this object.");
+        FadeInSound(TVvoice, dialogueSet.timeCount[0], dialogueSet.timeCount[1], token).Forget();
         for (int i = 0; i < _dialogues.Length; i++)
         {
             await UniTask.Delay((int)(dialogueSet.timeCount[i] * 1000));
             canvas.newsText.text = _dialogues[i];
-            audioSource.PlayOneShot(dialogueSet.audioClips[i]);
+            // audioSource.PlayOneShot(dialogueSet.audioClips[i]);
         }
         await UniTask.Delay((int)(dialogueSet.timeCount[dialogueSet.timeCount.Length - 1] * 1000));
         if (newsDisplay == default || filter == default) Debug.LogError("newsAnim or Filter is not assigned");
@@ -101,9 +105,28 @@ public class News0Manager : NewsPhaseInitializer
         filter.SetActive(false);
         if (TVNoise == default) Debug.LogError("TVNoise is not assigned");
         TVNoise.Stop();
+        TVvoice.Stop();
         if (quitSound == default) Debug.LogError("quitSound is not assigned");
+        var audioSource = GetComponent<AudioSource>();
+        if (audioSource == null) Debug.LogError("AudioSource is not assigned to this object.");
         audioSource.PlayOneShot(quitSound);
         canvas.newsText.text = "";
+    }
+    async UniTask FadeInSound(AudioSource audioSource, float delay, float duration, CancellationToken token)
+    {
+        await UniTask.Delay((int)(delay * 1000), cancellationToken: token);
+        var originalVolume = audioSource.volume;
+        audioSource.volume = 0f;
+        audioSource.Play();
+        var t = 0f;
+        while (t < duration)
+        {
+            await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: token);
+            t += Time.deltaTime;
+            var p = Easing.QuadInOut(t, duration, 0, 1);
+            audioSource.volume = p * originalVolume;
+        }
+
     }
     override protected void StopSound(CancellationToken token)
     {

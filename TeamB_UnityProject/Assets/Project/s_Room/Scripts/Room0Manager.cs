@@ -5,6 +5,8 @@ using UniRx;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using UnityEngine.UI;
+using System;
 
 public class Room0Manager : RoomPhaseInitializer
 {
@@ -12,9 +14,44 @@ public class Room0Manager : RoomPhaseInitializer
     AudioSource audioSource = default, radio = default, radioNoise = default, ambient = default;
     // [SerializeField]
     // AudioClip mainSound = default;
+    [Serializable]
+    class DialogueContents
+    {
+        public float[] timeCount;
+        [TextArea(1, 4)]
+        public string[] dialogues;
+    }
+    [SerializeField]
+    DialogueContents contents_ja, contents_en;
+    DialogueContents _contents;
+    [SerializeField]
+    float typingDuration = 0.05f;
     protected override GamePhase SetPhase()
     {
         return GamePhase.Room0;
+    }
+    protected override async UniTask FirstEvent(CancellationToken token)
+    {
+        //上下黒クロップいれて映画っぽい演出から始めてもいいな。
+        FindObjectOfType<RoomHandController>().SwitchClickable(false);
+        var monologueText = FindObjectOfType<SubtitleCanvas>().monologueText;
+        var lang = FindObjectOfType<CommonManager>().PlayLang;
+        _contents = lang == Lang.ja ? contents_ja : contents_en;
+        if (_contents.timeCount.Length != _contents.dialogues.Length + 1) Debug.LogWarning("コンテンツの情報が適切にセットされていません。");
+        for (int i = 0; i < _contents.dialogues.Length; i++)
+        {
+            await UniTask.Delay((int)(_contents.timeCount[0] * 1000), cancellationToken: token);
+            await TextAnim.TypeAnim(monologueText, _contents.dialogues[i], typingDuration, token);
+            while (true)
+            {
+                await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: token);
+                if (Input.GetMouseButtonDown(0)) break;
+            }
+            if (i != _contents.dialogues.Length - 1) monologueText.text = "";
+        }
+        var duration = 3f;
+        await TextAnim.FadeOutText(monologueText, duration, token, shadow: monologueText.GetComponent<Shadow>());
+        FindObjectOfType<RoomHandController>().SwitchClickable(true);
     }
     protected override void PlaySound()
     {

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,7 +12,6 @@ public enum GamePhase
     News0,
     Room0,
     Night0,
-
     Room1,//コマンド選択可能
     Dog1,//犬シーンの中でどのくらいの段階か選択可能
     Dog1_2,

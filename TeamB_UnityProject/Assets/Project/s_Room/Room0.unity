@@ -591,7 +591,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-521114
+  m_Name: pb_Mesh-634598
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -924,7 +924,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-521106
+  m_Name: pb_Mesh-634590
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1296,7 +1296,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-521112
+  m_Name: pb_Mesh-634596
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1999,7 +1999,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-521108
+  m_Name: pb_Mesh-634592
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2275,7 +2275,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-521110
+  m_Name: pb_Mesh-634594
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2480,6 +2480,25 @@ MonoBehaviour:
   radio: {fileID: 1292799230}
   radioNoise: {fileID: 174359431}
   ambient: {fileID: 1917216483}
+  contents_ja:
+    timeCount:
+    - 2
+    - 0.6
+    - 0.6
+    - 0.6
+    dialogues:
+    - ...
+    - ......
+    - "......\u307E\u305F\u671D\u304C\u6765\u305F\u3002"
+  contents_en:
+    timeCount:
+    - 2
+    - 0.6
+    - 0.6
+    dialogues:
+    - ...
+    - ......Morning has come again...
+  typingDuration: 0.1
 --- !u!1 &1385202281
 GameObject:
   m_ObjectHideFlags: 0

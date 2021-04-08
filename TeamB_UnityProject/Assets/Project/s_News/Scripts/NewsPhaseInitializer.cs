@@ -17,53 +17,69 @@ public abstract class NewsPhaseInitializer : PhaseInitializer
     Animator newsAnim = default;
     CancellationTokenSource _cts;
 
-    public override void InitializePhase(GamePhase targetphase){
-        if(_cts == null){
+    public override void InitializePhase(GamePhase targetphase)
+    {
+        if (_cts == null)
+        {
             _cts = new CancellationTokenSource();
-        }else{
+        }
+        else
+        {
             _cts.Cancel();
             _cts = new CancellationTokenSource();
         }
         Debug.Log("InitializePhase");
-        if(targetphase == SetPhase()){
+        if (targetphase == SetCurrnetPhase())
+        {
             RoomNews(_cts.Token).Forget();
-        }else{
+        }
+        else
+        {
             Debug.LogError("phase移行がうまくできていません。Error");
         }
     }
-    protected abstract GamePhase SetPhase();
+    protected abstract GamePhase SetCurrnetPhase();
+    protected abstract GamePhase SetNextPhase();
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         _cts.Cancel();
     }
 
-    async UniTask RoomNews(CancellationToken token){
+    async UniTask RoomNews(CancellationToken token)
+    {
         // HandlePP(0.5f, 300f, 3f).Forget();
 
-        if(newsObj == default){
+        if (newsObj == default)
+        {
             Debug.LogAssertion("newsObjがnull");
-        }else{
+        }
+        else
+        {
             newsObj.SetActive(false);//animリセット処理。
             newsObj.SetActive(true);
         }
         PlaySound();
-        if(newsAnim == default){
+        if (newsAnim == default)
+        {
             Debug.LogAssertion("Animatorがnull");
-        }else{
+        }
+        else
+        {
             newsAnim.SetTrigger("PlayNews");
         }
         Debug.Log("RoomNewsやってる");
 
         await Anim(token);
 
-        //最後にMainに進む
-        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Room1);
+        FindObjectOfType<CommonManager>().LoadPhase(SetNextPhase());
         StopSound(token);
     }
     protected abstract void PlaySound();
     protected abstract UniTask Anim(CancellationToken token);
     protected abstract void StopSound(CancellationToken token);
-    protected async UniTask FadeOutSound(AudioSource audio, float duration, CancellationToken token){
+    protected async UniTask FadeOutSound(AudioSource audio, float duration, CancellationToken token)
+    {
         DOTween.To(() => audio.volume, (val) =>
         {
             audio.volume = val;
