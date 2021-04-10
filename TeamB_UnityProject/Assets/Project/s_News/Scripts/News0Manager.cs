@@ -56,7 +56,7 @@ public class News0Manager : NewsPhaseInitializer
         return GamePhase.Room0;
     }
 
-    override protected async UniTask Anim(CancellationToken token)
+    override protected async UniTask Anim()
     {
         //アニメーション制御の要素：newsのscale、bloom、AudioVolume、プチって切り替わって顔が映るトリガー
         var _nap = FindObjectOfType<NewsAnimParam>();
@@ -68,7 +68,7 @@ public class News0Manager : NewsPhaseInitializer
         _volume.profile.TryGet<Bloom>(out _bloom);
         var p = _bloom.intensity.value;
         float t = 0f;
-        SetDialogues(token).Forget();
+        SetDialogues().Forget();
         while (t < newsDuration)
         {
             //Set Animating Parameter
@@ -76,10 +76,10 @@ public class News0Manager : NewsPhaseInitializer
             _bloom.intensity.value = _nap.currentBloomIntensity;
             _nap.transform.localScale = new Vector3(_nap.currentScale, _nap.currentScale, 1f);
             t += Time.deltaTime;
-            await UniTask.Yield(PlayerLoopTiming.Update, token);
+            await UniTask.Yield(PlayerLoopTiming.Update, cts.Token);
         }
     }
-    async UniTask SetDialogues(CancellationToken token)
+    async UniTask SetDialogues()
     {
         var lang = FindObjectOfType<CommonManager>().PlayLang;
         if (lang == Lang.ja)
@@ -92,14 +92,14 @@ public class News0Manager : NewsPhaseInitializer
         }
         var canvas = FindObjectOfType<SubtitleCanvas>();
         if (TVvoice == default) Debug.LogError("AudioSource(TVvoice) is not assigned to this object.");
-        FadeInSound(TVvoice, dialogueSet.timeCount[0], dialogueSet.timeCount[1], token).Forget();
+        FadeInSound(TVvoice, dialogueSet.timeCount[0], dialogueSet.timeCount[1]).Forget();
         for (int i = 0; i < _dialogues.Length; i++)
         {
-            await UniTask.Delay((int)(dialogueSet.timeCount[i] * 1000));
+            await UniTask.Delay((int)(dialogueSet.timeCount[i] * 1000), cancellationToken: cts.Token);
             canvas.newsText.text = _dialogues[i];
             // audioSource.PlayOneShot(dialogueSet.audioClips[i]);
         }
-        await UniTask.Delay((int)(dialogueSet.timeCount[dialogueSet.timeCount.Length - 1] * 1000));
+        await UniTask.Delay((int)(dialogueSet.timeCount[dialogueSet.timeCount.Length - 1] * 1000), cancellationToken: cts.Token);
         if (newsDisplay == default || filter == default) Debug.LogError("newsAnim or Filter is not assigned");
         newsDisplay.SetActive(false);
         filter.SetActive(false);
@@ -112,24 +112,9 @@ public class News0Manager : NewsPhaseInitializer
         audioSource.PlayOneShot(quitSound);
         canvas.newsText.text = "";
     }
-    async UniTask FadeInSound(AudioSource audioSource, float delay, float duration, CancellationToken token)
-    {
-        await UniTask.Delay((int)(delay * 1000), cancellationToken: token);
-        var originalVolume = audioSource.volume;
-        audioSource.volume = 0f;
-        audioSource.Play();
-        var t = 0f;
-        while (t < duration)
-        {
-            await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: token);
-            t += Time.deltaTime;
-            var p = Easing.QuadInOut(t, duration, 0, 1);
-            audioSource.volume = p * originalVolume;
-        }
-    }
-    override protected void StopSound(CancellationToken token)
+    override protected void StopSound()
     {
         float duration = 1.5f;
-        FadeOutSound(newsBGM, duration, token).Forget();
+        FadeOutSound(newsBGM, duration).Forget();
     }
 }

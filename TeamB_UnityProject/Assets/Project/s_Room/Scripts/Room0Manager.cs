@@ -30,7 +30,7 @@ public class Room0Manager : RoomPhaseInitializer
     {
         return GamePhase.Room0;
     }
-    protected override async UniTask FirstEvent(CancellationToken token)
+    protected override async UniTask FirstEvent()
     {
         //上下黒クロップいれて映画っぽい演出から始めてもいいな。
         FindObjectOfType<RoomHandController>().SwitchClickable(false);
@@ -40,17 +40,17 @@ public class Room0Manager : RoomPhaseInitializer
         if (_contents.timeCount.Length != _contents.dialogues.Length + 1) Debug.LogWarning("コンテンツの情報が適切にセットされていません。");
         for (int i = 0; i < _contents.dialogues.Length; i++)
         {
-            await UniTask.Delay((int)(_contents.timeCount[0] * 1000), cancellationToken: token);
-            await TextAnim.TypeAnim(monologueText, _contents.dialogues[i], typingDuration, token);
+            await UniTask.Delay((int)(_contents.timeCount[0] * 1000), cancellationToken: cts.Token);
+            await TextAnim.TypeAnim(monologueText, _contents.dialogues[i], typingDuration, cts.Token);
             while (true)
             {
-                await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: token);
+                await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: cts.Token);
                 if (Input.GetMouseButtonDown(0)) break;
             }
             if (i != _contents.dialogues.Length - 1) monologueText.text = "";
         }
         var duration = 3f;
-        await TextAnim.FadeOutText(monologueText, duration, token);
+        await TextAnim.FadeOutText(monologueText, duration, cts.Token);
         FindObjectOfType<RoomHandController>().SwitchClickable(true);
     }
     protected override void PlaySound()

@@ -23,10 +23,6 @@ public enum GamePhase
     Room3,
     Dog3,
     Dog3_2,
-    Night3,
-    Room4,
-    Dog4,
-    Dog4_2,
     Ending
 }
 //これはパブリックじゃないよ。実際のシーンの名前と同じにする必要があるし、もし変更する場合は色々調整する必要があるよ。
@@ -44,9 +40,6 @@ enum GameScene
     Night2,
     Room3,
     Dog3,
-    Night3,
-    Room4,
-    Dog4,
     Ending
 }
 public enum Lang
@@ -116,7 +109,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager>
         GamePhase[] startPhaseList = {
             GamePhase.Opening, GamePhase.News0, GamePhase.Room0, GamePhase.Night0, GamePhase.Room1, GamePhase.Dog1,
             GamePhase.Night1, GamePhase.Room2, GamePhase.Dog2, GamePhase.Night2,GamePhase.Room3,
-            GamePhase.Dog3, GamePhase.Night3, GamePhase.Room3, GamePhase.Dog4, GamePhase.Ending
+            GamePhase.Dog3, GamePhase.Ending
         };
         GamePhase result = default;
         for (int i = 0; i < array.Length; i++)
@@ -158,7 +151,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager>
         Debug.Log("CurrentPhase is " + CurrentPhase);
 
         //シーン上のPhaseInitializerを検索し、phaseを初期化する。
-        FindObjectOfType<PhaseInitializer>().InitializePhase(CurrentPhase);
+        FindObjectOfType<PhaseInitializer>().InitPhase(CurrentPhase);
         //PhaseInitializerにはGamePhase型で分岐し、そのフェイズまで進める機能つける。
     }
     GameScene GetSceneFromPhase(GamePhase phase)
@@ -185,6 +178,27 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager>
             case GamePhase.Dog1_2:
                 value = 5;
                 break;
+            case GamePhase.Night1:
+                value = 6;
+                break;
+            case GamePhase.Room2:
+                value = 7;
+                break;
+            case GamePhase.Dog2:
+            case GamePhase.Dog2_2:
+                value = 8;
+                break;
+            case GamePhase.Night2:
+                value = 9;
+                break;
+            case GamePhase.Room3:
+                value = 10;
+                break;
+            case GamePhase.Dog3:
+            case GamePhase.Dog3_2:
+                value = 11;
+                break;
+
             default:
                 Debug.LogWarning("まだ適切な値が実装されてないよ");
                 break;

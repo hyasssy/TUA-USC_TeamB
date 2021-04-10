@@ -16,7 +16,7 @@ public class Room1Manager : RoomPhaseInitializer
     {
         return GamePhase.Room1;
     }
-    protected override async UniTask FirstEvent(CancellationToken token)
+    protected override async UniTask FirstEvent()
     {
         //今んとこ特に何もなし。
         return;

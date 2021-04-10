@@ -591,7 +591,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-634598
+  m_Name: pb_Mesh-711566
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -924,7 +924,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-634590
+  m_Name: pb_Mesh-711558
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1296,7 +1296,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-634596
+  m_Name: pb_Mesh-711564
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1766,6 +1766,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 99176191463334263, guid: c8315b86f430f4d809912e1aa4437445,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.33
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8315b86f430f4d809912e1aa4437445, type: 3}
 --- !u!4 &1147627368 stripped
@@ -1999,7 +2004,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-634592
+  m_Name: pb_Mesh-711560
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2275,7 +2280,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-634594
+  m_Name: pb_Mesh-711562
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2528,7 +2533,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1385202281}
   m_LocalRotation: {x: -0, y: 0.2800599, z: -0, w: 0.9599826}
-  m_LocalPosition: {x: 2.9477, y: 0.9269856, z: -0.7086}
+  m_LocalPosition: {x: 2.8784, y: 0.9269856, z: -0.8257}
   m_LocalScale: {x: 0.24051602, y: 0.24051602, z: 0.80172}
   m_Children:
   - {fileID: 1545843608}

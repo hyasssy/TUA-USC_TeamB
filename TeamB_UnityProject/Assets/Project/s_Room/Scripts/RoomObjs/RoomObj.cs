@@ -168,10 +168,10 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
             }
         }
         targetTextPanel.SetActive(false);
-        if (!isClicked)
+        if (!isClicked)//クリック判定は一度だけ。
         {
             isClicked = true;
-            FindObjectOfType<RoomPhaseInitializer>().CheckFlag();
+            if (IsImportant) FindObjectOfType<RoomPhaseInitializer>().CheckFlag();
         }
         _disposable.Dispose();
         await FindObjectOfType<PlayerCamController>().ChangeCamera();

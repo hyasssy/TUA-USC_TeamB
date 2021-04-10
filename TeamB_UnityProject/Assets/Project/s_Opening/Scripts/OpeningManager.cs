@@ -9,8 +9,10 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
 
-public abstract class NewsPhaseInitializer : PhaseInitializer
+
+public class OpeningManager : PhaseInitializer
 {
+    //言語選択
     [SerializeField]
     GameObject newsObj = default;
     [SerializeField]
@@ -18,7 +20,8 @@ public abstract class NewsPhaseInitializer : PhaseInitializer
 
     protected override void InitializePhase(GamePhase targetphase)
     {
-        if (targetphase == SetCurrnetPhase())
+        Debug.Log("InitializePhase");
+        if (targetphase == GamePhase.Opening)
         {
             RoomNews().Forget();
         }
@@ -27,8 +30,7 @@ public abstract class NewsPhaseInitializer : PhaseInitializer
             Debug.LogError("phase移行がうまくできていません。Error");
         }
     }
-    protected abstract GamePhase SetCurrnetPhase();
-    protected abstract GamePhase SetNextPhase();
+
 
     async UniTask RoomNews()
     {
@@ -56,12 +58,21 @@ public abstract class NewsPhaseInitializer : PhaseInitializer
 
         await Anim();
 
-        FindObjectOfType<CommonManager>().LoadPhase(SetNextPhase());
+        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.News0);
         StopSound();
     }
-    protected abstract void PlaySound();
-    protected abstract UniTask Anim();
-    protected abstract void StopSound();
+    void PlaySound()
+    {
+
+    }
+    async UniTask Anim()
+    {
+
+    }
+    void StopSound()
+    {
+
+    }
     protected async UniTask FadeOutSound(AudioSource audio, float duration, CancellationToken token)
     {
         DOTween.To(() => audio.volume, (val) =>
@@ -71,5 +82,4 @@ public abstract class NewsPhaseInitializer : PhaseInitializer
         await UniTask.Delay((int)(duration * 1000), cancellationToken: token);
         audio.enabled = false;
     }
-
 }

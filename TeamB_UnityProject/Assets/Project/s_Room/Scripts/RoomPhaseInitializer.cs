@@ -12,21 +12,9 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     [NonEditable]
     public int flag;
     int flagAmount;
-    CancellationTokenSource _cts;
 
-    public override void InitializePhase(GamePhase targetphase)
+    protected override void InitializePhase(GamePhase targetphase)
     {
-        if (_cts == null)
-        {
-            _cts = new CancellationTokenSource();
-        }
-        else
-        {
-            _cts.Cancel();
-            _cts = new CancellationTokenSource();
-        }
-
-        Debug.Log("InitializePhase");
         if (targetphase == SetPhase())
         {
             RoomMain();
@@ -56,16 +44,9 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
         //音鳴らす
         PlaySound();
         //テキスト出すなど、シーン最初のイベントを設定
-        FirstEvent(_cts.Token);
+        FirstEvent();
     }
-    abstract protected UniTask FirstEvent(CancellationToken token);
-    private void OnDisable()
-    {
-        if (_cts != null)
-        {
-            _cts.Cancel();
-        }
-    }
+    abstract protected UniTask FirstEvent();
     public void CheckFlag()
     {
         // flagみて、全部行ってたら、dogシーンに進む
@@ -79,16 +60,4 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     }
     abstract protected void PlaySound();
     abstract protected void LoadNextScene();
-    protected async UniTask FadeOutSound(AudioSource audio, float duration)
-    {
-        var t = 0f;
-        var primaryVolume = audio.volume;
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            audio.volume = primaryVolume * (1 - (t / duration));
-            await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: _cts.Token);
-        }
-        audio.enabled = false;
-    }
 }

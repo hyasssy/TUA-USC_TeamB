@@ -8,7 +8,6 @@ using System.Threading;
 
 public abstract class DogPhaseInitializer : PhaseInitializer
 {
-    protected CancellationTokenSource cts;
     protected float strokeSum = 0;
     protected HandController handController;
     //これはHandControllerのIsClickableとやや役割が被っている。
@@ -29,19 +28,8 @@ public abstract class DogPhaseInitializer : PhaseInitializer
     //撫でた時のリアクション
     protected abstract void ReactStroke();
 
-    public override void InitializePhase(GamePhase targetphase)
+    protected override void InitializePhase(GamePhase targetphase)
     {
-        if (cts == null)
-        {
-            cts = new CancellationTokenSource();
-        }
-        else
-        {
-            cts.Cancel();
-            cts = new CancellationTokenSource();
-        }
-
-        Debug.Log("InitializePhase");
         if (targetphase == GamePhase.Dog1)
         {
             DogMain();
@@ -61,24 +49,6 @@ public abstract class DogPhaseInitializer : PhaseInitializer
         //各シーンごとの初期化
         DogInit();
     }
-    private void OnDisable()
-    {
-        if (cts != null)
-        {
-            cts.Cancel();
-        }
-    }
     abstract protected void DogInit();
-    protected async UniTask FadeOutSound(AudioSource audio, float duration)
-    {
-        var t = 0f;
-        var primaryVolume = audio.volume;
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            audio.volume = primaryVolume * (1 - (t / duration));
-            await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: cts.Token);
-        }
-        audio.enabled = false;
-    }
+
 }
