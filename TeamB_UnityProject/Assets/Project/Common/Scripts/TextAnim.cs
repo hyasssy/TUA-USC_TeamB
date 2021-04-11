@@ -6,7 +6,6 @@ using System.Threading;
 using UnityEngine.UI;
 using System;
 using UniRx;
-using UniRx.Triggers;
 using Cinemachine;
 using System.Linq;
 

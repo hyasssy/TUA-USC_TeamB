@@ -33,8 +33,10 @@ public class Room0Manager : RoomPhaseInitializer
     protected override async UniTask FirstEvent()
     {
         //上下黒クロップいれて映画っぽい演出から始めてもいいな。
+        var subtitleCanvas = FindObjectOfType<SubtitleCanvas>();
+        subtitleCanvas.SetCropPanel();
         FindObjectOfType<RoomHandController>().SwitchClickable(false);
-        var monologueText = FindObjectOfType<SubtitleCanvas>().monologueText;
+        var monologueText = subtitleCanvas.monologueText;
         var lang = FindObjectOfType<CommonManager>().PlayLang;
         _contents = lang == Lang.ja ? contents_ja : contents_en;
         if (_contents.timeCount.Length != _contents.dialogues.Length + 1) Debug.LogWarning("コンテンツの情報が適切にセットされていません。");
@@ -50,6 +52,7 @@ public class Room0Manager : RoomPhaseInitializer
             if (i != _contents.dialogues.Length - 1) monologueText.text = "";
         }
         var duration = 3f;
+        subtitleCanvas.OpenCrop(duration);
         await TextAnim.FadeOutText(monologueText, duration, cts.Token);
         FindObjectOfType<RoomHandController>().SwitchClickable(true);
     }

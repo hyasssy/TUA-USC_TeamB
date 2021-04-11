@@ -6,6 +6,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class SubtitleCanvas : MonoBehaviour
 {
@@ -18,16 +19,22 @@ public class SubtitleCanvas : MonoBehaviour
     public Text dialogueText { get; private set; } = default;
     [field: SerializeField, RenameField(nameof(narrationText))]
     public Text narrationText { get; private set; } = default;
+    [SerializeField]
+    RectTransform cropPanelTop, cropPanelBottom;
+    Vector2 _startCropSize;
+    float _textTypingSpeed;
+    float _voiceTypingSpeed;
 
     private void Start()
     {
-        SetUpText(monologueText);
-        SetUpText(newsText);
-        SetUpText(dialogueText);
-        SetUpText(narrationText);
+        var param = Resources.Load<SetParam>("SetGameParam");
+        _textTypingSpeed = param.TextTypingSpeed;
+        _voiceTypingSpeed = param.VoiceTypingSpeed;
+        SetUpTexts();
         _cts = new CancellationTokenSource();
+        _startCropSize = cropPanelBottom.sizeDelta;
     }
-    void SetUpText(Text t)
+    void EraseText(Text t)
     {
         if (t == default)
         {
@@ -35,30 +42,54 @@ public class SubtitleCanvas : MonoBehaviour
         }
         t.text = "";
     }
-    public void ShowMonologue(string text, float showDuration)
+    public void SetUpTexts()
     {
-        DisplayText(monologueText, text, showDuration).Forget();
+        EraseText(monologueText);
+        EraseText(newsText);
+        EraseText(dialogueText);
+        EraseText(narrationText);
     }
-    public void ShowNews(string text, float showDuration)
-    {
-        DisplayText(newsText, text, showDuration).Forget();
-    }
-    public void ShowDialogue(string text, float showDuration)
-    {
-        DisplayText(dialogueText, text, showDuration).Forget();
-    }
-    public void ShowNarration(string text, float showDuration)
-    {
-        DisplayText(narrationText, text, showDuration).Forget();
-    }
-    async UniTask DisplayText(Text targetText, string text, float showDuration)
+    // public void ShowMono
+    async UniTask DisplayText(Text targetText, string text, float showDuration, bool isType, bool isVoiceSpeed = true)
     {
         //数秒待って消す。
         //必要があれば、引数からenumタイプ指定する形でアニメーション出してもいいか。
         _cts.Cancel();
         _cts = new CancellationTokenSource();
-        targetText.text = text;
+        if (isType)
+        {
+            var speed = isVoiceSpeed ? _voiceTypingSpeed : _textTypingSpeed;
+            await TextAnim.TypeAnim(targetText, text, speed, _cts.Token);
+        }
+        else
+        {
+            targetText.text = text;
+        }
         await UniTask.Delay((int)(showDuration * 1000), cancellationToken: _cts.Token);
         targetText.text = "";
+    }
+    public void SetCropPanel()
+    {
+        // cropPanelTop.sizeDelta = _startCropSize;
+        // cropPanelBottom.sizeDelta = _startCropSize;
+        cropPanelTop.gameObject.SetActive(true);
+        cropPanelBottom.gameObject.SetActive(true);
+    }
+    public void OpenCrop(float duration)
+    {
+        DOTween.To(() => _startCropSize.y, (val) =>
+        {
+            var value = _startCropSize;
+            value.y = val;
+            cropPanelTop.sizeDelta = value;
+            cropPanelBottom.sizeDelta = value;
+        }, 0, duration).SetEase(Ease.InOutQuad)
+        .OnComplete(() =>
+        {
+            cropPanelTop.gameObject.SetActive(false);
+            cropPanelBottom.gameObject.SetActive(false);
+            cropPanelTop.sizeDelta = _startCropSize;
+            cropPanelBottom.sizeDelta = _startCropSize;
+        });
     }
 }

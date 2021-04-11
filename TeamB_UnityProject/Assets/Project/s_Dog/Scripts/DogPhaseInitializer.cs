@@ -18,8 +18,9 @@ public abstract class DogPhaseInitializer : PhaseInitializer
         var value = Mathf.Abs(Input.GetAxis("Mouse X")) + Mathf.Abs(Input.GetAxis("Mouse Y"));
         if (value != 0)
         {
-            strokeSum += value;
-            Debug.Log("Stroke dog " + value + ", amount = " + strokeSum);
+            // strokeSum += value;
+            strokeSum += Time.deltaTime;
+            Debug.Log("Stroke dog " + value + ", strokeSum = " + strokeSum);
             StrokeEvent();
             ReactStroke();
         }

@@ -1455,12 +1455,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventFlags:
-  - 50
-  - 50
-  - 50
-  - 50
-  - 50
-  - 50
+  - 10
+  - 10
+  - 10
+  - 10
+  - 10
+  - 10
   dialogueSet_ja:
     dialogues:
     - "\u30C6\u30AD\u30B9\u30C8\u30C6\u30AD\u30B9\u30C8\u30C6\u30AD\u30B9\u30C8"

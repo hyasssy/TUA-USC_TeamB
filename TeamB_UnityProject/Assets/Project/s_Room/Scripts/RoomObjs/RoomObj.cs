@@ -10,31 +10,45 @@ using UniRx.Triggers;
 using Cinemachine;
 using System.Linq;
 
+public enum TextType
+{
+    Monologue,
+    Dialogue,
+    News,
+    Narration,
+    Special
+}
 public abstract class RoomObj : MonoBehaviour, ITouchable
 {
     [field: SerializeField, RenameField(nameof(IsImportant))]
     public bool IsImportant { get; private set; } = true;
-    [SerializeField, TextArea(1, 4)]
-    List<string> dialogues_ja = new List<string>();
-    [SerializeField, TextArea(1, 4)]
-    List<string> dialogues_en = new List<string>();
-    [SerializeField, TextArea(1, 4)]
-    List<string> dialogues_latter_ja = new List<string>();
-    [SerializeField, TextArea(1, 4)]
-    List<string> dialogues_latter_en = new List<string>();
-    protected int currentTextNum = 0;
-    protected List<string> dialogues;
+    [Serializable]
+    protected class EventParamSet
+    {
+
+        public TextType type;
+        [TextArea(1, 4)]
+        public string text_ja, text_en;
+        [HideInInspector]
+        public string text;
+        [HideInInspector]
+        public Text targetUI;
+        [HideInInspector]
+        public float speed;
+
+    }
+    [SerializeField]
+    protected List<EventParamSet> eventParams;
+    [SerializeField]
+    List<EventParamSet> eventParams_latter;
+    protected int currentEvent = 0;
 
     [SerializeField]
-    GameObject targetTextPanel = default;
-    Text _targetText = default;
+    GameObject targetTextPanelObj = default;
     protected bool isClicked = false;
     IDisposable _disposable;
-    //setup
     bool _onTask = false;
-    // [SerializeField]
-    float typingDuration = 0.05f;
-    CancellationTokenSource _cts;
+    protected CancellationTokenSource cts;
     AudioSource objSound;
 
     public void SetUpRoomItem()
@@ -42,32 +56,60 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
         isClicked = false;
         _onTask = false;
         //選択されるのに備えて初期化
-        currentTextNum = 0;
-        targetTextPanel.SetActive(false);
+        currentEvent = 0;
+        targetTextPanelObj.SetActive(false);
+        InitEventParams();
+
+        if (cts == null)
+        {
+            cts = new CancellationTokenSource();
+        }
+        else
+        {
+            cts.Cancel();
+            cts = new CancellationTokenSource();
+        }
+    }
+    void InitEventParams()
+    {
+        var param = Resources.Load<SetParam>("SetGameParam");
+        //子の一個めに目的のテキストオブジェがある想定
+        var targetTextPanel = targetTextPanelObj.transform.GetChild(0).GetComponent<Text>();
         var currentLang = FindObjectOfType<CommonManager>().PlayLang;
-        if (currentLang == Lang.ja)
+        var subtitleCanvas = FindObjectOfType<SubtitleCanvas>();
+        eventParams.ForEach(p =>
         {
-            dialogues = dialogues_ja;
-        }
-        else
-        {
-            dialogues = dialogues_en;
-        }
-        if (_cts == null)
-        {
-            _cts = new CancellationTokenSource();
-        }
-        else
-        {
-            _cts.Cancel();
-            _cts = new CancellationTokenSource();
-        }
+            p.text = currentLang == Lang.ja ? p.text_ja : p.text_en;
+            switch (eventParams[currentEvent].type)
+            {
+                case TextType.Dialogue:
+                    p.targetUI = subtitleCanvas.dialogueText;
+                    p.speed = param.VoiceTypingSpeed;
+                    break;
+                case TextType.Monologue:
+                    p.targetUI = subtitleCanvas.monologueText;
+                    p.speed = param.VoiceTypingSpeed;
+                    break;
+                case TextType.Narration:
+                    p.targetUI = subtitleCanvas.narrationText;
+                    p.speed = param.TextTypingSpeed;
+                    break;
+                case TextType.News:
+                    p.targetUI = subtitleCanvas.newsText;
+                    break;
+                case TextType.Special:
+                    p.targetUI = targetTextPanel;
+                    p.speed = param.TextTypingSpeed;
+                    break;
+                default: break;
+            }
+        });
     }
     private void OnDisable()
     {
-        if (_cts != null)
+        if (cts != null)
         {
-            _cts.Cancel();
+            cts.Cancel();
         }
     }
 
@@ -85,11 +127,8 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
         if (targetVirtualCamera == null) Debug.LogAssertion("VirtualCameraが見つかりません。");
         await FindObjectOfType<PlayerCamController>().ChangeCamera(targetVirtualCamera);
         // await UniTask.Delay((int)(camTransitionTime * 1000), cancellationToken:_cts.Token);
-        targetTextPanel.SetActive(true);
-        if (dialogues[0] == null) Debug.LogAssertion("There is no text set in the parameter");
-        //子の一個めに目的のテキストオブジェがある想定
-        _targetText = targetTextPanel.transform.GetChild(0).GetComponent<Text>();
-        _targetText.text = "";
+        // targetTextPanelObj.SetActive(true);
+        if (eventParams[0].text == null) Debug.LogError("There is no text set in the parameter");
         NextTask().Forget();//subscribeの問題があるため
         objSound = GetComponent<AudioSource>();
         if (objSound == null)
@@ -105,43 +144,28 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
         .Subscribe(_ =>
         {
             if (Input.GetMouseButtonDown(0)) NextTask().Forget();
-        }).AddTo(_targetText);
-
+        }).AddTo(gameObject);
     }
 
-    protected abstract UniTask Next(CancellationToken token);
     async UniTask NextTask()
     {
-        Debug.Log("NextTask");
-        if (_onTask)
-        {
-            return;
-        }
-        else
-        {
-            _onTask = true;
-        }
-        await Next(_cts.Token);
-        await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: _cts.Token);
+        // Debug.Log("NextTask");
+        if (_onTask) return;
+        _onTask = true;
+
+        await Next();
+        // await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: cts.Token);
         _onTask = false;
     }
+    protected abstract UniTask Next();
 
-    //NextTextを分解して、各種処理を挟めるようにする。
+    //text
     protected async UniTask NextText()
     {
         Debug.Log("NextText");
-        //テキストAnim入れるといい。
-        // var letterAmount = dialogues[currentTextNum].Length;
-        // var current = 1;
-        // while (current <= letterAmount)
-        // {
-        //     var s = dialogues[currentTextNum].Substring(0, current);
-        //     _targetText.text = s;
-        //     current++;
-        //     await UniTask.Delay((int)(typingDuration * 1000), cancellationToken: _cts.Token);
-        // }
-        await TextAnim.TypeAnim(_targetText, dialogues[currentTextNum], typingDuration, _cts.Token);
-        currentTextNum++;
+        if (eventParams[currentEvent].type == TextType.Special) targetTextPanelObj.SetActive(true);
+        await TextAnim.TypeAnim(eventParams[currentEvent].targetUI, eventParams[currentEvent].text, eventParams[currentEvent].speed, cts.Token);
+        currentEvent++;
     }
     protected async UniTask EndDialogue()
     {
@@ -149,31 +173,22 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
         //ダイアログ閉じて次いく。
         FindObjectOfType<RoomHandController>().SwitchClickable(true);
         //再び選択されるのに備えて初期化
-        currentTextNum = 0;
-        var currentLang = FindObjectOfType<CommonManager>().PlayLang;
-        if (currentLang == Lang.ja)
+        currentEvent = 0;
+        targetTextPanelObj.SetActive(false);
+        if (eventParams_latter.Count != 0)
         {
-            if (dialogues_latter_ja.Count != 0)
-            {
-                dialogues = dialogues_latter_ja;
-                Debug.Log("dialoguesを選択後の文章に変更しました。");
-            }
+            //上書きする。
+            eventParams = eventParams_latter;
+            InitEventParams();
+            Debug.Log("eventParamsを選択後のものに変更しました。");
         }
-        else
-        {
-            if (dialogues_latter_en.Count != 0)
-            {
-                dialogues = dialogues_latter_en;
-                Debug.Log("dialoguesを選択後の文章に変更しました。");
-            }
-        }
-        targetTextPanel.SetActive(false);
         if (!isClicked)//クリック判定は一度だけ。
         {
             isClicked = true;
             if (IsImportant) FindObjectOfType<RoomPhaseInitializer>().CheckFlag();
         }
         _disposable.Dispose();
-        await FindObjectOfType<PlayerCamController>().ChangeCamera();
+        FindObjectOfType<SubtitleCanvas>().SetUpTexts();
+        FindObjectOfType<PlayerCamController>().ChangeCamera().Forget();
     }
 }
