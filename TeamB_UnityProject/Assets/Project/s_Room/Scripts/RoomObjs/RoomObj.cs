@@ -25,7 +25,6 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
     [Serializable]
     protected class EventParamSet
     {
-
         public TextType type;
         [TextArea(1, 4)]
         public string text_ja, text_en;
@@ -80,22 +79,22 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
         eventParams.ForEach(p =>
         {
             p.text = currentLang == Lang.ja ? p.text_ja : p.text_en;
-            switch (eventParams[currentEvent].type)
+            switch (p.type)
             {
-                case TextType.Dialogue:
-                    p.targetUI = subtitleCanvas.dialogueText;
-                    p.speed = param.VoiceTypingSpeed;
-                    break;
                 case TextType.Monologue:
                     p.targetUI = subtitleCanvas.monologueText;
                     p.speed = param.VoiceTypingSpeed;
                     break;
-                case TextType.Narration:
-                    p.targetUI = subtitleCanvas.narrationText;
-                    p.speed = param.TextTypingSpeed;
+                case TextType.Dialogue:
+                    p.targetUI = subtitleCanvas.dialogueText;
+                    p.speed = param.VoiceTypingSpeed;
                     break;
                 case TextType.News:
                     p.targetUI = subtitleCanvas.newsText;
+                    break;
+                case TextType.Narration:
+                    p.targetUI = subtitleCanvas.narrationText;
+                    p.speed = param.TextTypingSpeed;
                     break;
                 case TextType.Special:
                     p.targetUI = targetTextPanel;
@@ -162,7 +161,7 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
     //text
     protected async UniTask NextText()
     {
-        Debug.Log("NextText");
+        Debug.Log("NextText" + eventParams[currentEvent].targetUI.gameObject);
         if (eventParams[currentEvent].type == TextType.Special) targetTextPanelObj.SetActive(true);
         await TextAnim.TypeAnim(eventParams[currentEvent].targetUI, eventParams[currentEvent].text, eventParams[currentEvent].speed, cts.Token);
         currentEvent++;
