@@ -10,20 +10,14 @@ using System;
 
 public class Dog1Manager : DogPhaseInitializer
 {
-    // [SerializeField]
-    // AudioSource audioSource = default, radio = default, radioNoise = default, ambient = default;
-    [SerializeField]
-    float[] eventFlags;
-    int _currentState = 0;
     [Serializable]
     class DialogueSet
     {
-        [TextArea(1, 4)]
-        public string[] dialogues;
-        public float[] dialoguesDuration;
+        public string[] dialogues = default;
+        public float[] dialoguesDuration = default;
     }
     [SerializeField]
-    DialogueSet dialogueSet_ja, dialogueSet_en;
+    DialogueSet dialogueSet_ja = default, dialogueSet_en = default;
     DialogueSet _dialogueSet;
     [SerializeField]
     float[] dialoguesDuration;
@@ -39,33 +33,7 @@ public class Dog1Manager : DogPhaseInitializer
         _subtitleCanvas = FindObjectOfType<SubtitleCanvas>();
         if (_subtitleCanvas == null) Debug.LogError("subtitleCanvas is not found");
     }
-    //UniTaskで反応検知して完結するイベントを作る。
-    protected override void StrokeEvent()
-    {
-        if (CheckState() > _currentState)
-        {
-            _currentState = CheckState();
-            EventFire(_currentState).Forget();
-        }
-    }
-    protected override void ReactStroke()
-    {
-        //撫でている間は犬の吐息のタイプを変更する。
-    }
-    int CheckState()
-    {
-        float s = strokeSum;
-        for (int i = 0; i < eventFlags.Length; i++)
-        {
-            s -= eventFlags[i];
-            if (s < 0)
-            {
-                return i;
-            }
-        }
-        return eventFlags.Length + 1;
-    }
-    async UniTask EventFire(int stateNum)
+    protected override async UniTask EventFire(int stateNum)
     {
         stopStroke = true;
         handController.SwitchClickable(false);
@@ -91,20 +59,12 @@ public class Dog1Manager : DogPhaseInitializer
                 await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
                 break;
             default:
-                Debug.LogWarning("Eventが設定されてないよ。");
+                LoadNextScene();
                 break;
         }
         stopStroke = false;
         handController.SwitchClickable(true);
     }
-    async UniTask ShowTextTask(Text textUI, float duration, string targetText)
-    {
-        textUI.text = targetText;
-        await UniTask.Delay((int)(duration * 1000), cancellationToken: cts.Token);
-        textUI.text = "";
-    }
-
-
     void LoadNextScene()
     {
         // FadeOutSound(radio, 1f).Forget();

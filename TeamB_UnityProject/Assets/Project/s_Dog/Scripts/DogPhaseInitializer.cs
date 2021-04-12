@@ -5,13 +5,24 @@ using UniRx;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using UnityEngine.UI;
 
 public abstract class DogPhaseInitializer : PhaseInitializer
 {
+    [SerializeField]
+    float[] eventFlags = default;
+    int _currentState = 0;
+    [SerializeField]
+    AudioSource strokingSoundSource = default;
+    [SerializeField]
+    AudioClip strokingSoundClip = default;
+
+
     protected float strokeSum = 0;
     protected HandController handController;
     //これはHandControllerのIsClickableとやや役割が被っている。
     protected bool stopStroke = false;
+
     public void StrokingDog()
     {
         if (stopStroke) return;
@@ -25,9 +36,50 @@ public abstract class DogPhaseInitializer : PhaseInitializer
             ReactStroke();
         }
     }
-    protected abstract void StrokeEvent();
+
+    void StrokeEvent()
+    {
+        if (CheckState() > _currentState)
+        {
+            _currentState = CheckState();
+            EventFire(_currentState).Forget();
+        }
+    }
+    int CheckState()
+    {
+        float s = strokeSum;
+        for (int i = 0; i < eventFlags.Length; i++)
+        {
+            s -= eventFlags[i];
+            if (s < 0)
+            {
+                return i;
+            }
+        }
+        return eventFlags.Length + 1;
+    }
+    protected abstract UniTask EventFire(int stateNum);
     //撫でた時のリアクション
-    protected abstract void ReactStroke();
+    protected void ReactStroke()
+    {
+        //撫でた音
+        LoopSoundOneShot(strokingSoundSource, strokingSoundClip);
+        //犬の声を変える
+    }
+    protected async UniTask ShowTextTask(Text textUI, float duration, string targetText)
+    {
+        textUI.text = targetText;
+        await UniTask.Delay((int)(duration * 1000), cancellationToken: cts.Token);
+        textUI.text = "";
+    }
+    void LoopSoundOneShot(AudioSource audioSource, AudioClip clip)
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(clip);
+            Debug.LogWarning("Play");
+        }
+    }
 
     protected override void InitializePhase(GamePhase targetphase)
     {
@@ -42,6 +94,8 @@ public abstract class DogPhaseInitializer : PhaseInitializer
     }
     void DogMain()
     {
+        if (strokingSoundSource == default) Debug.LogError("strokingSoundSource is not assigned");
+        if (strokingSoundClip == default) Debug.LogError("strokingSouncClip is not assigned");
         FadeManager.FadeIn();
         //クリックできるかを初期化する。
         handController = FindObjectOfType<HandController>();

@@ -14,15 +14,15 @@ public class News0Manager : NewsPhaseInitializer
     [Serializable]
     class DialogueSet
     {
-        public float[] timeCount;
+        public float[] timeCount = default;
         // public AudioClip[] audioClips;
         [TextArea(1, 4)]
-        public string[] dialogues_ja;
+        public string[] dialogues_ja = default;
         [TextArea(1, 4)]
-        public string[] dialogues_en;
+        public string[] dialogues_en = default;
     }
     [SerializeField]
-    DialogueSet dialogueSet;
+    DialogueSet dialogueSet = default;
     string[] _dialogues;
 
     [SerializeField]

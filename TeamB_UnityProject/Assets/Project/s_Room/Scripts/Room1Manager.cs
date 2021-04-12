@@ -19,19 +19,13 @@ public class Room1Manager : RoomPhaseInitializer
     protected override async UniTask FirstEvent()
     {
         //今んとこ特に何もなし。
+        await UniTask.Yield();
         return;
     }
-    protected override void PlaySound()
+    protected override async UniTask EndEvent()
     {
-        radio.Play();
-        radioNoise.Play();
-        ambient.Play();
-    }
-    protected override void LoadNextScene()
-    {
-        FadeOutSound(radio, 1f).Forget();
-        FadeOutSound(radioNoise, 1f).Forget();
-        FadeOutSound(ambient, 1f).Forget();
-        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Dog1);
+        //今んとこ特に何もなし。
+        await UniTask.Yield();
+        return;
     }
 }

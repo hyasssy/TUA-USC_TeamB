@@ -67,7 +67,7 @@ public class OpeningManager : PhaseInitializer
     }
     async UniTask Anim()
     {
-
+        await UniTask.Yield();
     }
     void StopSound()
     {

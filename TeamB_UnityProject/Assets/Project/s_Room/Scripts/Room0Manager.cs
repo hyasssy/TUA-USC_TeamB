@@ -15,17 +15,21 @@ public class Room0Manager : RoomPhaseInitializer
     // [SerializeField]
     // AudioClip mainSound = default;
     [Serializable]
-    class DialogueContents
+    class DialogueParams
     {
-        public float[] timeCount;
+        public float[] timeCount = default;
         [TextArea(1, 4)]
-        public string[] dialogues;
+        public string[] dialogues = default;
     }
     [SerializeField]
-    DialogueContents contents_ja, contents_en;
-    DialogueContents _contents;
+    DialogueParams firstTexts_ja = default, firstTexts_en = default;
+    DialogueParams _firstTexts;
+    [SerializeField]
+    DialogueParams endTexts_ja = default, endTexts_en = default;
+    DialogueParams _endTexts;
     [SerializeField]
     float typingDuration = 0.05f;
+    SubtitleCanvas _subtitleCanvas;
     protected override GamePhase SetPhase()
     {
         return GamePhase.Room0;
@@ -33,40 +37,49 @@ public class Room0Manager : RoomPhaseInitializer
     protected override async UniTask FirstEvent()
     {
         //上下黒クロップいれて映画っぽい演出から始めてもいいな。
-        var subtitleCanvas = FindObjectOfType<SubtitleCanvas>();
-        subtitleCanvas.SetCropPanel();
-        FindObjectOfType<RoomHandController>().SwitchClickable(false);
-        var monologueText = subtitleCanvas.monologueText;
+        _subtitleCanvas = FindObjectOfType<SubtitleCanvas>();
+        _subtitleCanvas.SetCropPanel();
+        var monologueText = _subtitleCanvas.monologueText;
         var lang = FindObjectOfType<CommonManager>().PlayLang;
-        _contents = lang == Lang.ja ? contents_ja : contents_en;
-        if (_contents.timeCount.Length != _contents.dialogues.Length + 1) Debug.LogWarning("コンテンツの情報が適切にセットされていません。");
-        for (int i = 0; i < _contents.dialogues.Length; i++)
+        _firstTexts = lang == Lang.ja ? firstTexts_ja : firstTexts_en;
+        _endTexts = lang == Lang.ja ? endTexts_ja : endTexts_en;
+
+        FindObjectOfType<RoomHandController>().SwitchClickable(false);
+        await ShowTextEvent(_firstTexts, monologueText);
+        var duration = 3f;
+        _subtitleCanvas.OpenCrop(duration);
+        await TextAnim.FadeOutText(monologueText, duration, cts.Token);
+        FindObjectOfType<RoomHandController>().SwitchClickable(true);
+    }
+    async UniTask ShowTextEvent(DialogueParams param, Text targetTextUI)
+    {
+        if (param.timeCount.Length != param.dialogues.Length + 1) Debug.LogWarning("コンテンツの情報が適切にセットされていません。");
+        for (int i = 0; i < param.dialogues.Length; i++)
         {
-            await UniTask.Delay((int)(_contents.timeCount[0] * 1000), cancellationToken: cts.Token);
-            await TextAnim.TypeAnim(monologueText, _contents.dialogues[i], typingDuration, cts.Token);
+            await UniTask.Delay((int)(param.timeCount[0] * 1000), cancellationToken: cts.Token);
+            await TextAnim.TypeAnim(targetTextUI, param.dialogues[i], typingDuration, cts.Token);
             while (true)
             {
                 await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: cts.Token);
                 if (Input.GetMouseButtonDown(0)) break;
             }
-            if (i != _contents.dialogues.Length - 1) monologueText.text = "";
+            //最後のセリフ以外はすぐ消す。
+            if (i != param.dialogues.Length - 1) targetTextUI.text = "";
         }
-        var duration = 3f;
-        subtitleCanvas.OpenCrop(duration);
-        await TextAnim.FadeOutText(monologueText, duration, cts.Token);
-        FindObjectOfType<RoomHandController>().SwitchClickable(true);
     }
-    protected override void PlaySound()
+    protected override async UniTask EndEvent()
     {
-        radio.Play();
-        radioNoise.Play();
-        ambient.Play();
-    }
-    protected override void LoadNextScene()
-    {
+        FindObjectOfType<RoomHandController>().SwitchClickable(false);
+        //何か台詞流したりするならここで。
+        // var monologueText = _subtitleCanvas.monologueText;
+        // await ShowTextEvent(_firstTexts, monologueText);
+        // var duration = 3f;
+        // await TextAnim.FadeOutText(monologueText, duration, cts.Token);
+
         FadeOutSound(radio, 1f).Forget();
         FadeOutSound(radioNoise, 1f).Forget();
         FadeOutSound(ambient, 1f).Forget();
         FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Night0);
+        await UniTask.Yield();
     }
 }

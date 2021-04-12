@@ -20,7 +20,7 @@ public class SubtitleCanvas : MonoBehaviour
     [field: SerializeField, RenameField(nameof(narrationText))]
     public Text narrationText { get; private set; } = default;
     [SerializeField]
-    RectTransform cropPanelTop, cropPanelBottom;
+    RectTransform cropPanelTop = default, cropPanelBottom = default;
     Vector2 _startCropSize;
     float _textTypingSpeed;
     float _voiceTypingSpeed;

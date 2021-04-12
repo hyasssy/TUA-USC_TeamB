@@ -39,7 +39,7 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
     [SerializeField]
     protected List<EventParamSet> eventParams;
     [SerializeField]
-    List<EventParamSet> eventParams_latter;
+    List<EventParamSet> eventParams_latter = default;
     protected int currentEvent = 0;
 
     [SerializeField]
@@ -189,5 +189,6 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
         _disposable.Dispose();
         FindObjectOfType<SubtitleCanvas>().SetUpTexts();
         FindObjectOfType<PlayerCamController>().ChangeCamera().Forget();
+        await UniTask.Yield();
     }
 }

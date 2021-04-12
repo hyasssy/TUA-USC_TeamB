@@ -29,6 +29,7 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     {
         FadeManager.FadeIn();
         FindObjectOfType<PlayerCamController>().SetDefaultCamera();
+        FindObjectOfType<SubtitleCanvas>().SetUpTexts();
         //選択可能をリセットする
         flag = 0;
         var roomObjs = FindObjectsOfType<RoomObj>();
@@ -42,7 +43,7 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
         //クリックできるかを初期化する。
         FindObjectOfType<RoomHandController>().SwitchClickable(true);
         //音鳴らす
-        PlaySound();
+        // PlaySound();
         //テキスト出すなど、シーン最初のイベントを設定
         FirstEvent();
     }
@@ -54,10 +55,8 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
         flag++;
         if (flag >= flagAmount)
         {
-            FindObjectOfType<RoomHandController>().SwitchClickable(false);
-            LoadNextScene();
+            EndEvent().Forget();
         }
     }
-    abstract protected void PlaySound();
-    abstract protected void LoadNextScene();
+    abstract protected UniTask EndEvent();
 }

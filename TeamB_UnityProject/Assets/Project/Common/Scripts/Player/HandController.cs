@@ -63,14 +63,14 @@ public abstract class HandController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 10.0f))
         {
             var coll = hit.collider;
-            if (_currentname != coll.gameObject.transform.name)
+            if (_currentname != coll.transform.name)
             {
-                Debug.Log(coll.gameObject.transform.name);
-                _currentname = coll.gameObject.transform.name;
-                var touchable = coll.gameObject.GetComponent<ITouchable>();
+                // Debug.Log(coll.gameObject.transform.name);
+                _currentname = coll.transform.name;
+                var touchable = coll.GetComponent<ITouchable>();
                 if (touchable != null)
                 {
-                    Debug.Log("クリックできるよ");
+                    Debug.Log("クリックできるよ：" + coll.transform.name);
                     HoverOn();
                 }
                 else

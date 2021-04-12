@@ -66,6 +66,9 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager>
     {
         Debug.Log("CommonManager起動");
         DontDestroyOnLoad(this.gameObject);
+        var param = Resources.Load<SetParam>("SetGameParam");
+        IsDebug = param.isDebug;
+        PlayLang = param.playLang;
         if (IsDebug)
         {
             //シーン上にマネジメントキャンバスなければ、生成する。一番手前
