@@ -123,7 +123,7 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
         // カメラを切り替える
         // 子オブジェクトの中にVirtualCameraをおく。
         var targetVirtualCamera = transform.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].transform;
-        if (targetVirtualCamera == null) Debug.LogAssertion("VirtualCameraが見つかりません。");
+        if (targetVirtualCamera == null) Debug.LogWarning("VirtualCameraが見つかりません。");
         await FindObjectOfType<PlayerCamController>().ChangeCamera(targetVirtualCamera);
         // await UniTask.Delay((int)(camTransitionTime * 1000), cancellationToken:_cts.Token);
         // targetTextPanelObj.SetActive(true);
@@ -189,6 +189,7 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
         _disposable.Dispose();
         FindObjectOfType<SubtitleCanvas>().SetUpTexts();
         FindObjectOfType<PlayerCamController>().ChangeCamera().Forget();
+        Debug.Log("ChangeCamera");
         await UniTask.Yield();
     }
 }

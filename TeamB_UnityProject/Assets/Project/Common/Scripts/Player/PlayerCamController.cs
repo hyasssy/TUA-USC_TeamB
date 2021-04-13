@@ -80,7 +80,7 @@ public class PlayerCamController : MonoBehaviour
             await UniTask.Yield(PlayerLoopTiming.Update, _cts.Token);
             if (brain.ActiveBlend == null) break;
         }
-        Debug.LogWarning("CameraBlend終了");
+        Debug.Log("CameraBlend終了");
     }
     private void OnDisable()
     {

@@ -20,6 +20,7 @@ public abstract class NightPhaseInitializer : PhaseInitializer
     protected override void InitializePhase(GamePhase targetphase)
     {
         Debug.Log("InitializePhase");
+        Debug.LogWarning("target"+ targetphase + "SetPhase" + SetPhase());
         if (targetphase == SetPhase())
         {
             Night().Forget();
@@ -58,7 +59,7 @@ public abstract class NightPhaseInitializer : PhaseInitializer
         await UniTask.Delay((int)(endDelay * 1000), cancellationToken: cts.Token);
         _targetText.text = "";
 
-        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Room1);
+        Debug.LogWarning("アルファ版のため、Room3に飛びます。");
+        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Room3);
     }
-
 }
