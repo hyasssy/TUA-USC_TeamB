@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UniRx;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using System;
 
 public abstract class RoomPhaseInitializer : PhaseInitializer
 {
@@ -12,6 +14,21 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     [NonEditable]
     public int flag;
     int flagAmount;
+    [Serializable]
+    protected class DialogueParams
+    {
+        public float[] timeCount = default;
+        [TextArea(1, 4)]
+        public string[] dialogues = default;
+    }
+    [SerializeField]
+    protected DialogueParams firstTexts_ja = default, firstTexts_en = default;
+    protected DialogueParams firstTexts;
+    [SerializeField]
+    protected DialogueParams endTexts_ja = default, endTexts_en = default;
+    protected DialogueParams endTexts;
+    [SerializeField]
+    float textAppearDuration = 0.1f;
 
     protected override void InitializePhase(GamePhase targetphase)
     {
@@ -27,6 +44,10 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     abstract protected GamePhase SetPhase();
     void RoomMain()
     {
+        var lang = FindObjectOfType<CommonManager>().PlayLang;
+        firstTexts = lang == Lang.ja ? firstTexts_ja : firstTexts_en;
+        endTexts = lang == Lang.ja ? endTexts_ja : endTexts_en;
+
         FadeManager.FadeIn();
         FindObjectOfType<PlayerCamController>().SetDefaultCamera();
         FindObjectOfType<SubtitleCanvas>().SetUpTexts();
@@ -59,4 +80,23 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
         }
     }
     abstract protected UniTask EndEvent();
+    protected async UniTask ShowTextEvent(DialogueParams param, Text targetTextUI)
+    {
+        if (param.timeCount.Length == 0){
+            Debug.Log("TextParameterがセットされていません。");
+            return;
+        }
+        for (int i = 0; i < param.dialogues.Length; i++)
+        {
+            await UniTask.Delay((int)(param.timeCount[0] * 1000), cancellationToken: cts.Token);
+            await TextAnim.TypeAnim(targetTextUI, param.dialogues[i], textAppearDuration, cts.Token);
+            while (true)
+            {
+                await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: cts.Token);
+                if (Input.GetMouseButtonDown(0)) break;
+            }
+            //最後のセリフ以外はすぐ消す。
+            if (i != param.dialogues.Length - 1) targetTextUI.text = "";
+        }
+    }
 }

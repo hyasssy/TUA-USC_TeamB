@@ -66,7 +66,7 @@ public class News0Manager : NewsPhaseInitializer
         }
         _volume = FindObjectOfType<Volume>();
         _volume.profile.TryGet<Bloom>(out _bloom);
-        var p = _bloom.intensity.value;
+        // var p = _bloom.intensity.value;
         float t = 0f;
         SetDialogues().Forget();
         while (t < newsDuration)
