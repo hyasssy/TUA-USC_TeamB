@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
+using DG.Tweening;
+using Cysharp.Threading.Tasks;
+using System.Threading;
+using UnityEngine.UI;
 
 public class DogHandController : HandController
 {
-    [SerializeField]
-    Sprite defaultHandSprite = default, hoverHandSprite = default, clickHandSprite = default;
     DogPhaseInitializer _dogPhaseInitializer;
 
     protected override void SetUpHand()
@@ -19,18 +23,6 @@ public class DogHandController : HandController
         _dogPhaseInitializer = FindObjectOfType<DogPhaseInitializer>();
         if (_dogPhaseInitializer == null) Debug.LogError("DogPhaseInitializer is not fount");
     }
-    protected override void HoverOnHandImage()
-    {
-        ChangeHandImage(hoverHandSprite);
-    }
-    protected override void HoverOffHandImage()
-    {
-        ChangeHandImage(defaultHandSprite);
-    }
-    protected override void ClickOnHandImage()
-    {
-        ChangeHandImage(clickHandSprite);
-    }
     protected override void Holding(string objName)
     {
         if (objName == "dog")
@@ -38,9 +30,5 @@ public class DogHandController : HandController
             // Debug.Log("Stroking");
             _dogPhaseInitializer.StrokingDog();
         }
-    }
-    protected override void ClickOffHandImage()
-    {
-        ChangeHandImage(defaultHandSprite);
     }
 }

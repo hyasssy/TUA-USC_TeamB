@@ -17,6 +17,8 @@ public abstract class HandController : MonoBehaviour
     [SerializeField]
     Transform hand = default;
     Image _handImage;
+    [SerializeField]
+    protected Sprite defaultHandSprite = default, hoverHandSprite = default, clickHandSprite = default;
     // RectTransform _canvasRect;
     // protected Vector2 targetCursorPos = new Vector2(30f, -80f);
     // Vector3 _mousePos;
@@ -92,8 +94,14 @@ public abstract class HandController : MonoBehaviour
         hand.DOScale(Vector3.one, 0.5f);//.OnComplete(() => _isDefaultSize = true);//簡易的に戻す
         HoverOffHandImage();
     }
-    protected abstract void HoverOnHandImage();
-    protected abstract void HoverOffHandImage();
+    void HoverOnHandImage()
+    {
+        ChangeHandImage(hoverHandSprite);
+    }
+    void HoverOffHandImage()
+    {
+        ChangeHandImage(defaultHandSprite);
+    }
 
     void CheckClick()
     {
@@ -152,8 +160,14 @@ public abstract class HandController : MonoBehaviour
         _isGrabbed = false;
         ClickOffHandImage();
     }
-    protected abstract void ClickOnHandImage();
-    protected abstract void ClickOffHandImage();
+    void ClickOnHandImage()
+    {
+        ChangeHandImage(clickHandSprite);
+    }
+    void ClickOffHandImage()
+    {
+        ChangeHandImage(defaultHandSprite);
+    }
     protected void ChangeHandImage(Sprite targetSprite)
     {
         _handImage.sprite = targetSprite;

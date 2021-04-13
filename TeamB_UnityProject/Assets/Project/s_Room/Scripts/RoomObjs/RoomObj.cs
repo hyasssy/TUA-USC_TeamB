@@ -148,7 +148,6 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
 
     async UniTask NextTask()
     {
-        // Debug.Log("NextTask");
         if (_onTask) return;
         _onTask = true;
 
@@ -165,6 +164,10 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
         if (eventParams[currentEvent].type == TextType.Special) targetTextPanelObj.SetActive(true);
         await TextAnim.TypeAnim(eventParams[currentEvent].targetUI, eventParams[currentEvent].text, eventParams[currentEvent].speed, cts.Token);
         currentEvent++;
+    }
+    async UniTask DeleteText()
+    {
+
     }
     protected async UniTask EndDialogue()
     {
