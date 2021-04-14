@@ -8,30 +8,45 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+
 public class Dog1Manager : DogPhaseInitializer
 {
-    [Serializable]
-    class DialogueSet
-    {
-        public string[] dialogues = default;
-        public float[] dialoguesDuration = default;
-    }
     [SerializeField]
-    DialogueSet dialogueSet_ja = default, dialogueSet_en = default;
-    DialogueSet _dialogueSet;
-    [SerializeField]
-    float[] dialoguesDuration;
+    List<DogDialogueSet> dialogueSets = default;
+
     SubtitleCanvas _subtitleCanvas;
 
 
     //初期化
     protected override void DogInit()
     {
-        var lang = FindObjectOfType<CommonManager>().PlayLang;
-        _dialogueSet = lang == Lang.ja ? dialogueSet_ja : dialogueSet_en;
         //BGM鳴らすなどをここで入れる。
         _subtitleCanvas = FindObjectOfType<SubtitleCanvas>();
         if (_subtitleCanvas == null) Debug.LogError("subtitleCanvas is not found");
+        var lang = FindObjectOfType<CommonManager>().PlayLang;
+        dialogueSets.ForEach(d =>
+        {
+            if (lang == Lang.ja)
+            {
+                d.text = d.text_ja;
+            }
+            else
+            {
+                d.text_ja = d.text_en;
+            }
+            switch (d.type)
+            {
+                case TextType.Monologue:
+                    d.targetUI = _subtitleCanvas.monologueText;
+                    break;
+                case TextType.Dialogue:
+                    d.targetUI = _subtitleCanvas.dialogueText;
+                    break;
+                default:
+                    Debug.LogError("まだ設定されていない項目です。");
+                    break;
+            }
+        });
     }
     protected override async UniTask EventFire(int stateNum)
     {
@@ -41,22 +56,22 @@ public class Dog1Manager : DogPhaseInitializer
         switch (stateNum)
         {
             case 1:
-                await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
+                await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
                 break;
             case 2:
-                await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
+                await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
                 break;
             case 3:
-                await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
+                await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
                 break;
             case 4:
-                await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
+                await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
                 break;
             case 5:
-                await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
+                await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
                 break;
             case 6:
-                await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
+                await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
                 break;
             default:
                 LoadNextScene();
@@ -65,6 +80,7 @@ public class Dog1Manager : DogPhaseInitializer
         stopStroke = false;
         handController.SwitchClickable(true);
     }
+
     void LoadNextScene()
     {
         // FadeOutSound(radio, 1f).Forget();

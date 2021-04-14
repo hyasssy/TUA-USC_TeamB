@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ca530d3d9ab946778d7a8d1a301364e, type: 3}
   m_Name: SetGameParam
   m_EditorClassIdentifier: 
-  <TextTypingSpeed>k__BackingField: 0.1
+  <isDebug>k__BackingField: 0
+  <playLang>k__BackingField: 0
+  <TextTypingSpeed>k__BackingField: 0.05
   <VoiceTypingSpeed>k__BackingField: 0.1

@@ -31,14 +31,14 @@ public class Room1Manager : RoomPhaseInitializer
     protected override async UniTask EndEvent()
     {
         //VirtualCameraBlendのため、1フレ待つ必要がある。
-        await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken:cts.Token);
+        await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: cts.Token);
         Debug.Log("end");
         FindObjectOfType<RoomHandController>().SwitchClickable(false);
         //犬が現れる、犬の声がする、ズームインする、クリックを待つ
-        if(dogSilhouette == default) Debug.LogWarning("dogSilhouette is not assigned");
+        if (dogSilhouette == default) Debug.LogWarning("dogSilhouette is not assigned");
         dogSilhouette.SetActive(true);
         var dogVoiceSource = dogSilhouette.GetComponent<AudioSource>();
-        if(dogVoiceSource == null) Debug.LogWarning("dogVoiceSource is not assigned");
+        if (dogVoiceSource == null) Debug.LogWarning("dogVoiceSource is not assigned");
         dogVoiceSource.Play();
         // 子オブジェクトの中にVirtualCameraをおく。
         var targetVirtualCamera = dogSilhouette.GetComponentsInChildren<CinemachineVirtualCamera>(true)[0].transform;
@@ -51,7 +51,7 @@ public class Room1Manager : RoomPhaseInitializer
         FadeOutSound(radio, 1f).Forget();
         FadeOutSound(radioNoise, 1f).Forget();
         FadeOutSound(ambient, 1f).Forget();
-        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Night0);
+        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Dog1);
         await UniTask.Yield();
     }
 }

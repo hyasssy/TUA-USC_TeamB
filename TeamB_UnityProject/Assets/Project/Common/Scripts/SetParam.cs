@@ -7,7 +7,7 @@ public class SetParam : ScriptableObject
 {
     [field: SerializeField, RenameField(nameof(isDebug))]
     public bool isDebug { get; private set; } = true;
-    [field: SerializeField, RenameField(nameof(isDebug))]
+    [field: SerializeField, RenameField(nameof(playLang))]
     public Lang playLang { get; private set; } = Lang.ja;
     [field: SerializeField, RenameField(nameof(TextTypingSpeed))]
     public float TextTypingSpeed { get; private set; } = 0.05f;

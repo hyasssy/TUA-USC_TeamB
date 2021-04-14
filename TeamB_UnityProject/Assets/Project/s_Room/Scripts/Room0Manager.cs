@@ -46,7 +46,7 @@ public class Room0Manager : RoomPhaseInitializer
         // await TextAnim.FadeOutText(monologueText, duration, cts.Token);
         var monologueText = FindObjectOfType<SubtitleCanvas>().monologueText;
         await ShowTextEvent(endTexts, monologueText);
-        await UniTask.Delay(1500, cancellationToken:cts.Token);
+        await UniTask.Delay(1500, cancellationToken: cts.Token);
         TextAnim.FadeOutText(monologueText, 1.4f, cts.Token).Forget();
         FadeOutSound(radio, 1f).Forget();
         FadeOutSound(radioNoise, 1f).Forget();

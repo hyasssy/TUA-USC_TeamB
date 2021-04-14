@@ -7,6 +7,19 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine.UI;
 
+
+public class DogDialogueSet
+{
+    public TextType type;
+    [TextArea(1, 4)]
+    public string text_ja, text_en;
+    public AudioClip clip;
+    public float duration = 2f;
+    [HideInInspector]
+    public string text;
+    [HideInInspector]
+    public Text targetUI;
+}
 public abstract class DogPhaseInitializer : PhaseInitializer
 {
     [SerializeField]
@@ -71,6 +84,10 @@ public abstract class DogPhaseInitializer : PhaseInitializer
         textUI.text = targetText;
         await UniTask.Delay((int)(duration * 1000), cancellationToken: cts.Token);
         textUI.text = "";
+    }
+    protected async UniTask EventTask(DogDialogueSet dialogueSet)
+    {
+        await ShowTextTask(dialogueSet.targetUI, dialogueSet.duration, dialogueSet.text);
     }
     void LoopSoundOneShot(AudioSource audioSource, AudioClip clip)
     {

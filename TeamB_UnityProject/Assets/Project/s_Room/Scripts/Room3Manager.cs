@@ -17,7 +17,7 @@ public class Room3Manager : RoomPhaseInitializer
     GameObject dogSilhouette = default;
     protected override GamePhase SetPhase()
     {
-        return GamePhase.Room1;
+        return GamePhase.Room3;
     }
     protected override async UniTask FirstEvent()
     {
@@ -51,7 +51,7 @@ public class Room3Manager : RoomPhaseInitializer
         FadeOutSound(radio, 1f).Forget();
         FadeOutSound(radioNoise, 1f).Forget();
         FadeOutSound(ambient, 1f).Forget();
-        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Night0);
+        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Dog3);
         await UniTask.Yield();
     }
 }

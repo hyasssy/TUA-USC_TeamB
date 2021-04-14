@@ -111,7 +111,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager>
         }
         GamePhase[] startPhaseList = {
             GamePhase.Opening, GamePhase.News0, GamePhase.Room0, GamePhase.Night0, GamePhase.Room1, GamePhase.Dog1,
-            GamePhase.Night1, GamePhase.Room2, GamePhase.Dog2, GamePhase.Night2,GamePhase.Room3,
+            GamePhase.Night1, GamePhase.Room2, GamePhase.Dog2, GamePhase.Night2, GamePhase.Room3,
             GamePhase.Dog3, GamePhase.Ending
         };
         GamePhase result = default;
@@ -200,6 +200,9 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager>
             case GamePhase.Dog3:
             case GamePhase.Dog3_2:
                 value = 11;
+                break;
+            case GamePhase.Ending:
+                value = 12;
                 break;
 
             default:

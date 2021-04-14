@@ -7,15 +7,11 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using DG.Tweening;
+using UnityEngine.UI;
 
-public class Night0Manager : NightPhaseInitializer
+public class CreditRoll : MonoBehaviour
 {
-    protected override GamePhase SetPhase()
-    {
-        return GamePhase.Night0;
-    }
-    protected override GamePhase SetNextPhase()
-    {
-        return GamePhase.Room1;
-    }
+    [Tooltip("Endの直前までのheight")]
+    public float length = 3000f;
 }

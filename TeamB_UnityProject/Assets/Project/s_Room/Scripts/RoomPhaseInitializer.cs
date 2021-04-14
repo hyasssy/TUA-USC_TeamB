@@ -10,6 +10,16 @@ using System;
 
 public abstract class RoomPhaseInitializer : PhaseInitializer
 {
+    [Serializable]
+    protected class EventParamSets
+    {
+        public string objName = default;
+        public List<EventParamSet> eventParams = default;
+        public List<EventParamSet> eventParams_latter = default;
+    }
+    [SerializeField]
+    protected List<EventParamSets> objParams = default;
+
     //flagを用意し、phase移行できるようにする。S1では、ニュース流れるのと、部屋のシーンのphaseがある。
     [NonEditable]
     public int flag;
@@ -30,6 +40,7 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     [SerializeField]
     float textAppearDuration = 0.1f;
 
+
     protected override void InitializePhase(GamePhase targetphase)
     {
         if (targetphase == SetPhase())
@@ -47,6 +58,7 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
         var lang = FindObjectOfType<CommonManager>().PlayLang;
         firstTexts = lang == Lang.ja ? firstTexts_ja : firstTexts_en;
         endTexts = lang == Lang.ja ? endTexts_ja : endTexts_en;
+        SetObjParams();
 
         FadeManager.FadeIn();
         FindObjectOfType<PlayerCamController>().SetDefaultCamera();
@@ -68,6 +80,20 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
         //テキスト出すなど、シーン最初のイベントを設定
         FirstEvent();
     }
+    void SetObjParams()
+    {
+        objParams.ForEach(eps =>
+        {
+            var obj = GameObject.Find(eps.objName);
+            if (obj == null)
+            {
+                Debug.LogError(eps.objName + " is not found");
+            }
+            var roomObj = obj.GetComponent<RoomObj>();
+            roomObj.eventParams = eps.eventParams;
+            roomObj.eventParams_latter = eps.eventParams_latter;
+        });
+    }
     abstract protected UniTask FirstEvent();
     public void CheckFlag()
     {
@@ -82,7 +108,8 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     abstract protected UniTask EndEvent();
     protected async UniTask ShowTextEvent(DialogueParams param, Text targetTextUI)
     {
-        if (param.timeCount.Length == 0){
+        if (param.timeCount.Length == 0)
+        {
             Debug.Log("TextParameterがセットされていません。");
             return;
         }

@@ -14,4 +14,9 @@ public class Night1Manager : NightPhaseInitializer
     {
         return GamePhase.Night1;
     }
+    protected override GamePhase SetNextPhase()
+    {
+        Debug.LogWarning("アルファ版のため、Room3に飛びます。");
+        return GamePhase.Room3;
+    }
 }

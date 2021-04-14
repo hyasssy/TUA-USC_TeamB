@@ -18,28 +18,30 @@ public enum TextType
     Narration,
     Special
 }
+[Serializable]
+public class EventParamSet
+{
+    public TextType type;
+    [TextArea(1, 4)]
+    public string text_ja, text_en;
+    public AudioClip clip;
+    [HideInInspector]
+    public string text;
+    [HideInInspector]
+    public Text targetUI;
+    [HideInInspector]
+    public float speed;
+
+}
 public abstract class RoomObj : MonoBehaviour, ITouchable
 {
     [field: SerializeField, RenameField(nameof(IsImportant))]
     public bool IsImportant { get; private set; } = true;
-    [Serializable]
-    protected class EventParamSet
-    {
-        public TextType type;
-        [TextArea(1, 4)]
-        public string text_ja, text_en;
-        [HideInInspector]
-        public string text;
-        [HideInInspector]
-        public Text targetUI;
-        [HideInInspector]
-        public float speed;
 
-    }
-    [SerializeField]
-    protected List<EventParamSet> eventParams;
-    [SerializeField]
-    List<EventParamSet> eventParams_latter = default;
+    [HideInInspector]
+    public List<EventParamSet> eventParams;
+    [HideInInspector]
+    public List<EventParamSet> eventParams_latter = default;
     protected int currentEvent = 0;
 
     [SerializeField]
@@ -157,17 +159,48 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
     }
     protected abstract UniTask Next();
 
-    //text
     protected async UniTask NextText()
     {
-        Debug.Log("NextText" + eventParams[currentEvent].targetUI.gameObject);
-        if (eventParams[currentEvent].type == TextType.Special) targetTextPanelObj.SetActive(true);
-        await TextAnim.TypeAnim(eventParams[currentEvent].targetUI, eventParams[currentEvent].text, eventParams[currentEvent].speed, cts.Token);
+        if (eventParams[currentEvent].clip != null)
+        {
+            var audioSource = GetComponent<AudioSource>();
+            audioSource.PlayOneShot(eventParams[currentEvent].clip);
+            while (audioSource.isPlaying)
+            {
+                await UniTask.Yield(PlayerLoopTiming.Update, cts.Token);
+            }
+        }
+        else
+        {
+            //前のテキストをクリック時に削除する処理を挟むため。
+            await UniTask.Yield(PlayerLoopTiming.Update, cts.Token);
+            Debug.Log("NextText" + eventParams[currentEvent].targetUI.gameObject);
+            if (eventParams[currentEvent].type == TextType.Special) targetTextPanelObj.SetActive(true);
+            var textCTS = new CancellationTokenSource();
+            await UniTask.WhenAny(
+                TextAnim.TypeAnim(eventParams[currentEvent].targetUI, eventParams[currentEvent].text, eventParams[currentEvent].speed, textCTS.Token),
+                UniTask.WaitUntil(() => Input.anyKeyDown, cancellationToken: textCTS.Token)
+            );
+            textCTS.Cancel();
+            await UniTask.Yield(PlayerLoopTiming.Update, cts.Token);
+            eventParams[currentEvent].targetUI.text = eventParams[currentEvent].text;
+            DeleteText(eventParams[currentEvent].targetUI).Forget();
+        }
         currentEvent++;
     }
-    async UniTask DeleteText()
+    CancellationTokenSource _textCTS;
+    async UniTask DeleteText(Text targetTextUI)
     {
-
+        //クリックしたら消すのを非同期で実装。
+        while (true)
+        {
+            await UniTask.Yield(PlayerLoopTiming.Update, cts.Token);
+            if (Input.GetMouseButtonDown(0))
+            {
+                break;
+            }
+        }
+        targetTextUI.text = "";
     }
     protected async UniTask EndDialogue()
     {

@@ -43,7 +43,6 @@ public class OpeningManager : PhaseInitializer
         if (startButton == default) Debug.LogWarning("startButton is not assigned.");
         if (toggle_ja == default || toggle_en == default) Debug.LogWarning("toggle_ja or toggle_en is not assigned.");
 
-        Debug.Log("InitializePhase");
         if (targetphase == GamePhase.Opening)
         {
             Opening().Forget();

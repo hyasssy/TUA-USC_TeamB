@@ -18,9 +18,18 @@ EditorBuildSettings:
     path: Assets/Project/s_Night/Night0.unity
     guid: afab051a0b9be45c38a8d0c2328a42c2
   - enabled: 1
+    path: Assets/Project/s_Room/Room1.unity
+    guid: f6dcbdd127b9c4228b7a16c790b609f4
+  - enabled: 1
     path: Assets/Project/s_Dog/Dog1.unity
     guid: a7201e579dc4f4ad98653af644be2732
   - enabled: 1
     path: Assets/Project/s_Night/Night1.unity
     guid: 798b103ae2cb74990b29fce89abd61ac
+  - enabled: 1
+    path: Assets/Project/s_Dog/Dog3.unity
+    guid: 1fe9a61ea30364e58b6e67fc4be746bc
+  - enabled: 1
+    path: Assets/Project/s_Ending/Ending.unity
+    guid: ec6a124eee55d47fc96b5e8b05449154
   m_configObjects: {}
