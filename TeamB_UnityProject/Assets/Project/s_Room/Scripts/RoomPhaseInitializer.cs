@@ -13,7 +13,8 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     [Serializable]
     protected class EventParamSets
     {
-        public string objName = default;
+        public RoomObj obj = default;
+        // public string objName = default;
         public List<EventParamSet> eventParams = default;
         public List<EventParamSet> eventParams_latter = default;
     }
@@ -39,7 +40,6 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     protected DialogueParams endTexts;
     [SerializeField]
     float textAppearDuration = 0.1f;
-
 
     protected override void InitializePhase(GamePhase targetphase)
     {
@@ -84,14 +84,15 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     {
         objParams.ForEach(eps =>
         {
-            var obj = GameObject.Find(eps.objName);
-            if (obj == null)
-            {
-                Debug.LogError(eps.objName + " is not found");
-            }
-            var roomObj = obj.GetComponent<RoomObj>();
-            roomObj.eventParams = eps.eventParams;
-            roomObj.eventParams_latter = eps.eventParams_latter;
+            // var obj = GameObject.Find(eps.objName);
+            // if (obj == null)
+            // {
+            //     Debug.LogError(eps.objName + " is not found");
+            // }
+            // var roomObj = obj.GetComponent<RoomObj>();
+            // Debug.Log(roomObj);
+            eps.obj.eventParams = eps.eventParams;
+            eps.obj.eventParams_latter = eps.eventParams_latter;
         });
     }
     abstract protected UniTask FirstEvent();

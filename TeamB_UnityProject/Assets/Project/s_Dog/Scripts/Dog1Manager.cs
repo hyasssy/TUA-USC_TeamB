@@ -61,18 +61,18 @@ public class Dog1Manager : DogPhaseInitializer
             case 2:
                 await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
                 break;
-            case 3:
-                await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
-                break;
-            case 4:
-                await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
-                break;
-            case 5:
-                await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
-                break;
-            case 6:
-                await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
-                break;
+            // case 3:
+            //     await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
+            //     break;
+            // case 4:
+            //     await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
+            //     break;
+            // case 5:
+            //     await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
+            //     break;
+            // case 6:
+            //     await ShowTextTask(dialogueSets[num].targetUI, dialogueSets[num].duration, dialogueSets[num].text);
+            //     break;
             default:
                 LoadNextScene();
                 break;

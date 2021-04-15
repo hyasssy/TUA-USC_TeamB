@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dc494c974b14211ab27f0b156ce913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <IsImportant>k__BackingField: 1
+  <IsImportant>k__BackingField: 0
   eventParams: []
   eventParams_latter: []
   targetTextPanelObj: {fileID: 1886575290}
@@ -1740,7 +1740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dc494c974b14211ab27f0b156ce913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <IsImportant>k__BackingField: 1
+  <IsImportant>k__BackingField: 0
   eventParams:
   - type: 0
     text_ja: "\u2026\u3044\u3044\u3002"
@@ -2174,7 +2174,7 @@ GameObject:
   - component: {fileID: 878299228}
   - component: {fileID: 878299227}
   m_Layer: 0
-  m_Name: monitor
+  m_Name: display
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2427,7 +2427,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh57168
+  m_Name: pb_Mesh92922
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3519,7 +3519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dc494c974b14211ab27f0b156ce913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <IsImportant>k__BackingField: 1
+  <IsImportant>k__BackingField: 0
   eventParams:
   - type: 0
     text_ja: "\u3082\u3063\u3068\u4E00\u7DD2\u306B\u3044\u305F\u304B\u3063\u305F..."
