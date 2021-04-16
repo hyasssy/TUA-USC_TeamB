@@ -23,7 +23,10 @@ public enum GamePhase
     Room3,
     Dog3,
     Dog3_2,
-    Ending
+    Ending,
+    Ending_1,
+    Ending_2,
+    Ending_3
 }
 //これはパブリックじゃないよ。実際のシーンの名前と同じにする必要があるし、もし変更する場合は色々調整する必要があるよ。
 enum GameScene
@@ -202,6 +205,9 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager>
                 value = 11;
                 break;
             case GamePhase.Ending:
+            case GamePhase.Ending_1:
+            case GamePhase.Ending_2:
+            case GamePhase.Ending_3:
                 value = 12;
                 break;
 

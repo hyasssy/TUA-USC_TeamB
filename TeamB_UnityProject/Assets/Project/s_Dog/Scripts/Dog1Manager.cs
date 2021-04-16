@@ -1,13 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UniRx;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using System.Threading;
+using Cysharp.Threading.Tasks;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
-
 
 public class Dog1Manager : DogPhaseInitializer
 {
@@ -15,7 +14,6 @@ public class Dog1Manager : DogPhaseInitializer
     List<DogDialogueSet> dialogueSets = default;
 
     SubtitleCanvas _subtitleCanvas;
-
 
     //初期化
     protected override void DogInit()
@@ -79,6 +77,10 @@ public class Dog1Manager : DogPhaseInitializer
         }
         stopStroke = false;
         handController.SwitchClickable(true);
+    }
+    protected override GamePhase SetPhase()
+    {
+        return GamePhase.Dog1;
     }
 
     void LoadNextScene()

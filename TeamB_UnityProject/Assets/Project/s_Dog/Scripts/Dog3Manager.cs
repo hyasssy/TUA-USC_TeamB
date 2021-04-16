@@ -1,12 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UniRx;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using System.Threading;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class Dog3Manager : DogPhaseInitializer
 {
@@ -16,13 +17,15 @@ public class Dog3Manager : DogPhaseInitializer
         public string[] dialogues = default;
         public float[] dialoguesDuration = default;
     }
+
     [SerializeField]
     DialogueSet dialogueSet_ja = default, dialogueSet_en = default;
     DialogueSet _dialogueSet;
     [SerializeField]
     float[] dialoguesDuration;
     SubtitleCanvas _subtitleCanvas;
-
+    [SerializeField]
+    Renderer sumireFaceImage = default;
 
     //初期化
     protected override void DogInit()
@@ -44,6 +47,7 @@ public class Dog3Manager : DogPhaseInitializer
                 await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
                 break;
             case 2:
+                ImageFadeIn(sumireFaceImage).Forget();
                 await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
                 break;
             case 3:
@@ -65,9 +69,24 @@ public class Dog3Manager : DogPhaseInitializer
         stopStroke = false;
         handController.SwitchClickable(true);
     }
+    protected override GamePhase SetPhase()
+    {
+        return GamePhase.Dog3;
+    }
     void LoadNextScene()
     {
         // FadeOutSound(radio, 1f).Forget();
-        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Ending);
+        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Ending_3);
+    }
+    async UniTask ImageFadeIn(Renderer renderer)
+    {
+        var duration = 2f;
+        var color = renderer.material.color;
+        DOTween.To(() => 0f, (val) =>
+        {
+            color.a = val;
+            renderer.material.SetColor("_BaseColor", color);
+        }, 0.95f, duration);
+        await UniTask.Delay((int)(duration * 1000), cancellationToken: cts.Token);
     }
 }

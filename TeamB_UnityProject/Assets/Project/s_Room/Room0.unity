@@ -4842,7 +4842,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 228d17561426d4da7ab168e0c1e7d50e, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -6387,6 +6387,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player_Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310569774665216745, guid: 4f48ed141abe24195858a3accdcb8bb6,
+        type: 3}
+      propertyPath: rotateSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310569774665216745, guid: 4f48ed141abe24195858a3accdcb8bb6,
+        type: 3}
+      propertyPath: staggerIntensity
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 1310569774665216746, guid: 4f48ed141abe24195858a3accdcb8bb6,
         type: 3}

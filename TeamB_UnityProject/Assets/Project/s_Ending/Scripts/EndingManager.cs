@@ -20,15 +20,28 @@ public class EndingManager : PhaseInitializer
     [SerializeField]
     RectTransform credit_ja = default, credit_en = default;
     RectTransform _credit;
+    [SerializeField]
+    GameObject credit1, credit2, credit3;
     protected override void InitializePhase(GamePhase targetphase)
     {
-        if (targetphase == GamePhase.Ending)
+        switch (targetphase)
         {
-            Ending().Forget();
-        }
-        else
-        {
-            Debug.LogError("phase移行がうまくできていません。Error");
+            case GamePhase.Ending:
+                Ending().Forget();
+                break;
+            case GamePhase.Ending_1:
+                credit1.SetActive(true);
+                break;
+            case GamePhase.Ending_2:
+                credit2.SetActive(true);
+                break;
+            case GamePhase.Ending_3:
+                credit3.SetActive(true);
+                break;
+            default:
+                Debug.LogError("phase移行がうまくできていません。Error");
+                break;
+
         }
     }
     async UniTask Ending()
