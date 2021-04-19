@@ -19,6 +19,9 @@ public class SubtitleCanvas : MonoBehaviour
     public Text dialogueText { get; private set; } = default;
     [field: SerializeField, RenameField(nameof(narrationText))]
     public Text narrationText { get; private set; } = default;
+    [field: SerializeField, RenameField(nameof(roomObjText))]
+    public Text roomObjText { get; private set; } = default;
+
     [SerializeField]
     RectTransform cropPanelTop = default, cropPanelBottom = default;
     Vector2 _startCropSize;
@@ -48,6 +51,7 @@ public class SubtitleCanvas : MonoBehaviour
         EraseText(newsText);
         EraseText(dialogueText);
         EraseText(narrationText);
+        EraseText(roomObjText);
     }
     // public void ShowMono
     async UniTask DisplayText(Text targetText, string text, float showDuration, bool isType, bool isVoiceSpeed = true)

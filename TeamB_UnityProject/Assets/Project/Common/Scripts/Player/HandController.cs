@@ -81,6 +81,11 @@ public abstract class HandController : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            HoverOff();
+            _currentname = null;
+        }
     }
 
     void HoverOn()

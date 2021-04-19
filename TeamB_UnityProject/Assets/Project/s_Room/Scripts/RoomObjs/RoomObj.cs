@@ -44,8 +44,7 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
     public List<EventParamSet> eventParams_latter = default;
     protected int currentEvent = 0;
 
-    [SerializeField]
-    GameObject targetTextPanelObj = default;
+    GameObject _roomObjTextPanel;
     protected bool isClicked = false;
     IDisposable _disposable;
     bool _onTask = false;
@@ -58,7 +57,7 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
         _onTask = false;
         //選択されるのに備えて初期化
         currentEvent = 0;
-        targetTextPanelObj.SetActive(false);
+
         InitEventParams();
 
         if (cts == null)
@@ -75,9 +74,11 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
     {
         var param = Resources.Load<SetParam>("SetGameParam");
         //子の一個めに目的のテキストオブジェがある想定
-        var targetTextPanel = targetTextPanelObj.transform.GetChild(0).GetComponent<Text>();
         var currentLang = FindObjectOfType<CommonManager>().PlayLang;
         var subtitleCanvas = FindObjectOfType<SubtitleCanvas>();
+        _roomObjTextPanel = subtitleCanvas.roomObjText.transform.parent.gameObject;
+        _roomObjTextPanel.SetActive(false);
+        var targetText = subtitleCanvas.roomObjText;
         eventParams.ForEach(p =>
         {
             p.text = currentLang == Lang.ja ? p.text_ja : p.text_en;
@@ -99,7 +100,7 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
                     p.speed = param.TextTypingSpeed;
                     break;
                 case TextType.Special:
-                    p.targetUI = targetTextPanel;
+                    p.targetUI = targetText;
                     p.speed = param.TextTypingSpeed;
                     break;
                 default: break;
@@ -175,7 +176,7 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
             //前のテキストをクリック時に削除する処理を挟むため。
             await UniTask.Yield(PlayerLoopTiming.Update, cts.Token);
             Debug.Log("NextText" + eventParams[currentEvent].targetUI.gameObject);
-            if (eventParams[currentEvent].type == TextType.Special) targetTextPanelObj.SetActive(true);
+            if (eventParams[currentEvent].type == TextType.Special) _roomObjTextPanel.SetActive(true);
             var textCTS = new CancellationTokenSource();
             await UniTask.WhenAny(
                 TextAnim.TypeAnim(eventParams[currentEvent].targetUI, eventParams[currentEvent].text, eventParams[currentEvent].speed, textCTS.Token),
@@ -209,7 +210,7 @@ public abstract class RoomObj : MonoBehaviour, ITouchable
         FindObjectOfType<RoomHandController>().SwitchClickable(true);
         //再び選択されるのに備えて初期化
         currentEvent = 0;
-        targetTextPanelObj.SetActive(false);
+        _roomObjTextPanel.SetActive(false);
         if (eventParams_latter.Count != 0)
         {
             //上書きする。
