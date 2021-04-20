@@ -76,7 +76,7 @@ public class Dog3Manager : DogPhaseInitializer
     void LoadNextScene()
     {
         // FadeOutSound(radio, 1f).Forget();
-        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Ending_3);
+        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Ending_1);
     }
     async UniTask ImageFadeIn(Renderer renderer)
     {

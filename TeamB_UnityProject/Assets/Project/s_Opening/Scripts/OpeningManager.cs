@@ -14,6 +14,8 @@ using UnityEngine.UI;
 
 public class OpeningManager : PhaseInitializer
 {
+    [SerializeField]
+    GameObject settingGroup = default;
     //言語選択
     public bool IsJapanese { get; private set; } = true;
     [SerializeField]
@@ -35,17 +37,20 @@ public class OpeningManager : PhaseInitializer
         {
             commonManager.ChangeLang(Lang.en);
         }
-        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.News0);
+        //テキストをフェードアウトさせ、タイトル出すアニメ。
+        settingGroup.SetActive(false);
+        Opening().Forget();
     }
 
     protected override void InitializePhase(GamePhase targetphase)
     {
+        if(settingGroup == default) Debug.LogWarning("settingGroup is not assigned.");
         if (startButton == default) Debug.LogWarning("startButton is not assigned.");
         if (toggle_ja == default || toggle_en == default) Debug.LogWarning("toggle_ja or toggle_en is not assigned.");
 
         if (targetphase == GamePhase.Opening)
         {
-            Opening().Forget();
+            // Opening().Forget();
         }
         else
         {
@@ -54,8 +59,13 @@ public class OpeningManager : PhaseInitializer
     }
     async UniTask Opening()
     {
-        // なんか絵をだしたりアニメーションしたりするならここで制御。
-        await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: cts.Token);
-        return;
+        await UniTask.Delay(2000);
+        var sc = FindObjectOfType<SubtitleCanvas>();
+        var narration = sc.narrationText;
+        narration.text = "Fragile";
+        await UniTask.Delay(3500);
+        narration.text = "";
+        await UniTask.Delay(1500);
+        FindObjectOfType<CommonManager>().LoadPhase(GamePhase.News0);
     }
 }

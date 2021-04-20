@@ -26,7 +26,8 @@ public enum GamePhase
     Ending,
     Ending_1,
     Ending_2,
-    Ending_3
+    Ending_3,
+    Void
 }
 //これはパブリックじゃないよ。実際のシーンの名前と同じにする必要があるし、もし変更する場合は色々調整する必要があるよ。
 enum GameScene
@@ -43,7 +44,8 @@ enum GameScene
     Night2,
     Room3,
     Dog3,
-    Ending
+    Ending,
+    VoidScene
 }
 public enum Lang
 {
@@ -115,8 +117,8 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager>
         GamePhase[] startPhaseList = {
             GamePhase.Opening, GamePhase.News0, GamePhase.Room0, GamePhase.Night0, GamePhase.Room1, GamePhase.Dog1,
             GamePhase.Night1, GamePhase.Room2, GamePhase.Dog2, GamePhase.Night2, GamePhase.Room3,
-            GamePhase.Dog3, GamePhase.Ending
-        };
+            GamePhase.Dog3, GamePhase.Ending, GamePhase.Void
+    };
         GamePhase result = default;
         for (int i = 0; i < array.Length; i++)
         {
@@ -209,6 +211,9 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager>
             case GamePhase.Ending_2:
             case GamePhase.Ending_3:
                 value = 12;
+                break;
+            case GamePhase.Void:
+                value = 13;
                 break;
 
             default:

@@ -53,7 +53,8 @@ public class News0Manager : NewsPhaseInitializer
     }
     protected override GamePhase SetNextPhase()
     {
-        return GamePhase.Room0;
+        // return GamePhase.Room0;
+        return GamePhase.Void;
     }
 
     override protected async UniTask Anim()

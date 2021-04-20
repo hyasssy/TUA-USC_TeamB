@@ -16,6 +16,7 @@ public class Night0Manager : NightPhaseInitializer
     }
     protected override GamePhase SetNextPhase()
     {
-        return GamePhase.Room1;
+        // return GamePhase.Room1;
+        return GamePhase.Dog3;
     }
 }
