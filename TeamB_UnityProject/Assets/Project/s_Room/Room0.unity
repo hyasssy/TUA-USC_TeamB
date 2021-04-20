@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 25059779813bf441db95c4e2a3dea1e4,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -128,7 +128,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23608
+  m_Name: pb_Mesh28110
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -592,14 +592,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121709308}
-  m_LocalRotation: {x: -0.0069663683, y: -0.06540147, z: -0.0004565994, w: 0.9978347}
-  m_LocalPosition: {x: 0.99, y: -0.1, z: -1.2}
+  m_LocalRotation: {x: 0.29654616, y: -0.0066481223, z: 0.016072357, w: 0.95486015}
+  m_LocalPosition: {x: 0.99, y: 2.692, z: -1.2}
   m_LocalScale: {x: 1.1840976, y: 1.1783583, z: 0.5173028}
   m_Children:
   - {fileID: 48365909}
   m_Father: {fileID: 2135002048}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.8, y: -7.5, z: 0}
+  m_LocalEulerAnglesHint: {x: 34.509003, y: -0.22000001, z: 1.8600001}
 --- !u!114 &121709310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1188,14 +1188,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426732383}
-  m_LocalRotation: {x: 0.08060906, y: -0.17879997, z: 0.014700024, w: 0.9804676}
-  m_LocalPosition: {x: 1, y: 0.51, z: -1.44}
+  m_LocalRotation: {x: 0.063512966, y: 0.4919494, z: -0.081882715, w: 0.8644346}
+  m_LocalPosition: {x: -0.415, y: 0.267, z: -0.556}
   m_LocalScale: {x: 1.6948828, y: 1.6948828, z: 1.6948828}
   m_Children:
   - {fileID: 1305541160}
   m_Father: {fileID: 785560332}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 9.4, y: -20.67, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.974001, y: 58.844, z: -4.6200004}
 --- !u!114 &426732385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1430,7 +1430,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-6182
+  m_Name: pb_Mesh-33228
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1611,14 +1611,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575521629}
-  m_LocalRotation: {x: 0.0024248979, y: 0.029596345, z: -0.00007179978, w: 0.999559}
-  m_LocalPosition: {x: 0.018263226, y: 0.29680428, z: -4.79}
+  m_LocalRotation: {x: 0.22408481, y: 0.028874999, z: 0.0064949854, w: 0.97412014}
+  m_LocalPosition: {x: 0.104, y: 0.899, z: -2.081}
   m_LocalScale: {x: 1.6947984, y: 1.6950697, z: 1.6947793}
   m_Children:
   - {fileID: 701399057}
   m_Father: {fileID: 1610002104}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.27800003, y: 3.3920002, z: 0}
+  m_LocalEulerAnglesHint: {x: 25.861002, y: 3.7700002, z: 1.6300001}
 --- !u!114 &575521631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1841,7 +1841,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-6174
+  m_Name: pb_Mesh-33220
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2459,7 +2459,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-6180
+  m_Name: pb_Mesh-33226
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2888,14 +2888,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1215187585}
-  m_LocalRotation: {x: -0.0069663683, y: -0.06540147, z: -0.0004565994, w: 0.9978347}
-  m_LocalPosition: {x: 0.99, y: -0.1, z: -1.2}
+  m_LocalRotation: {x: 0.18180385, y: -0.06413583, z: -0.012812779, w: 0.9811574}
+  m_LocalPosition: {x: 0.57, y: 2.64, z: -3.28}
   m_LocalScale: {x: 1.1840976, y: 1.1783583, z: 0.5173028}
   m_Children:
   - {fileID: 142004474}
   m_Father: {fileID: 47937322}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.8, y: -7.5, z: 0}
+  m_LocalEulerAnglesHint: {x: 20.800001, y: -8.025001, z: -2.9720001}
 --- !u!114 &1215187587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3155,7 +3155,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-6176
+  m_Name: pb_Mesh-33222
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3361,7 +3361,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-6178
+  m_Name: pb_Mesh-33224
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3578,6 +3578,24 @@ MonoBehaviour:
       text: 
       targetUI: {fileID: 0}
       speed: 0
+    - type: 0
+      text_ja: ...
+      text_en: ...
+      clip: {fileID: 0}
+      text: 
+      targetUI: {fileID: 0}
+      speed: 0
+    - type: 0
+      text_ja: "\u30B9\u30DF\u30EC\u304C\u65E5\u8A18\u3092\u66F8\u304F\u306A\u3093\u3066\u306A...\n\n\u79C1\u306E\u77E5\u3089\u306A\u3044\u30B9\u30DF\u30EC\u304C\u3044\u308B..."
+      text_en: 'I never thought Sumire would write a diary...
+
+
+        There''s
+        the Sumire I never knew...'
+      clip: {fileID: 0}
+      text: 
+      targetUI: {fileID: 0}
+      speed: 0
     eventParams_latter:
     - type: 0
       text_ja: "\u308F\u305F\u3057\u306F\u3069\u3046\u751F\u304D\u305F\u3089\u3044\u3044\u3093\u3060\u3002"
@@ -3684,7 +3702,41 @@ MonoBehaviour:
       text: 
       targetUI: {fileID: 0}
       speed: 0
-    eventParams_latter: []
+    - type: 4
+      text_ja: "\u9811\u5F35\u3063\u3066\u98DF\u3079\u307E\u3057\u305F\u3051\u3069\n\u305A\u3063\u3068\u7D9A\u304F\u3068\u30A4\u30E4\u306B\u306A\u308B\u308F\u306D\u2026\n\n\u30E9\u30E0\u30CD\u304C\u98F2\u307F\u305F\u3044\u3002"
+      text_en: 'I did my best to eat, but...
+
+        I hate it when it goes on forever...
+
+
+        I
+        want to drink some ramune.'
+      clip: {fileID: 0}
+      text: 
+      targetUI: {fileID: 0}
+      speed: 0
+    - type: 4
+      text_ja: ...
+      text_en: ...
+      clip: {fileID: 0}
+      text: 
+      targetUI: {fileID: 0}
+      speed: 0
+    - type: 0
+      text_ja: "\u30E9\u30E0\u30CD\u304B..."
+      text_en: Ramune...
+      clip: {fileID: 0}
+      text: 
+      targetUI: {fileID: 0}
+      speed: 0
+    eventParams_latter:
+    - type: 0
+      text_ja: ...
+      text_en: ...
+      clip: {fileID: 0}
+      text: 
+      targetUI: {fileID: 0}
+      speed: 0
   - obj: {fileID: 1610002109}
     eventParams:
     - type: 4
@@ -3729,7 +3781,7 @@ MonoBehaviour:
       speed: 0
     - type: 0
       text_ja: "\u672C\u5F53\u306B\u3001\u5E78\u305B\u305D\u3046\u306B\u98F2\u3080\u3093\u3060\u3088\u306A\u3041..."
-      text_en: Really, you drink like a happy man...
+      text_en: Really, they drink happily...
       clip: {fileID: 0}
       text: 
       targetUI: {fileID: 0}
@@ -3895,6 +3947,20 @@ MonoBehaviour:
       text: 
       targetUI: {fileID: 0}
       speed: 0
+    - type: 0
+      text_ja: ...
+      text_en: ...
+      clip: {fileID: 0}
+      text: 
+      targetUI: {fileID: 0}
+      speed: 0
+    - type: 0
+      text_ja: "\u3069\u3046\u3057\u3066\u3082\u3001\u30B9\u30DF\u30EC\u306E\u907A\u5F71\u304C\u6C17\u306B\u306A\u3063\u3066\u3057\u307E\u3046...\n\n\u4F1A\u3044\u305F\u3044..."
+      text_en: Enough...
+      clip: {fileID: 0}
+      text: 
+      targetUI: {fileID: 0}
+      speed: 0
     eventParams_latter:
     - type: 0
       text_ja: "\u3082\u3046\u3044\u3044..."
@@ -3956,7 +4022,7 @@ MonoBehaviour:
   - obj: {fileID: 467559083}
     eventParams:
     - type: 0
-      text_ja: "\u30B9\u30DF\u30EC\u306E\u670D\u3060"
+      text_ja: "\u30B9\u30DF\u30EC\u306E\u670D\u3060\u3002"
       text_en: This is Sumire's clothes
       clip: {fileID: 0}
       text: 
@@ -3969,13 +4035,21 @@ MonoBehaviour:
     - 3
     - 2
     dialogues:
-    - "\u30C6\u30B9\u30C8\u30C6\u30B9\u30C8\u30C6\u30B9\u30C8\u30C6\u30B9\u30C8"
+    - "\u5168\u304F\u3001\u3064\u307E\u3089\u3093\u30C6\u30EC\u30D3\u3060\u3002"
+    - "Fragile\u306E\u5831\u9053\u306F\u3082\u3046\u3088\u3057\u3066\u304F\u308C\u3002"
+    - ...
+    - "\u307E\u3041\u3044\u3044...\n\u305D\u308C\u3088\u308A\u3001\u4F55\u304B\u98DF\u3079\u306A\u304F\u3066\u306F..."
   firstTexts_en:
     timeCount:
     - 1
     - 1
     dialogues:
-    - testtesttest
+    - Totally boring TV.
+    - No more reports on Fragile, please.
+    - ...
+    - 'Oh, well...
+
+      I need to eat something.'
   endTexts_ja:
     timeCount:
     - 2
@@ -4582,14 +4656,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477162117}
-  m_LocalRotation: {x: -0.17911799, y: -0.34604168, z: -0.067483045, w: 0.91848683}
-  m_LocalPosition: {x: 1.91, y: -1.07, z: -1.96}
+  m_LocalRotation: {x: 0.0030687775, y: -0.32803413, z: 0.014206053, w: 0.94455415}
+  m_LocalPosition: {x: 1.81, y: 0.22, z: -1.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 79084671}
   m_Father: {fileID: 1429674025}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -22.07, y: -41.288002, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.86600006, y: -38.292004, z: 1.4230001}
 --- !u!114 &1477162119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5352,7 +5426,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917549867}
   m_LocalRotation: {x: -0, y: 0.2800599, z: -0, w: 0.9599826}
-  m_LocalPosition: {x: 2.551, y: 0.238, z: -2.378}
+  m_LocalPosition: {x: 2.551, y: 0.2, z: -2.378}
   m_LocalScale: {x: 0.24051602, y: 0.24051602, z: 0.80172}
   m_Children:
   - {fileID: 1266977477}
@@ -5794,7 +5868,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2011538218}
   m_LocalRotation: {x: -0.05327162, y: 0.060941353, z: 0.24626906, w: 0.9658157}
-  m_LocalPosition: {x: 0.018263342, y: 0.29680425, z: -1.1097472}
+  m_LocalPosition: {x: 0.181, y: 0.125, z: -0.681}
   m_LocalScale: {x: 1.6948826, y: 1.6948829, z: 1.6948826}
   m_Children:
   - {fileID: 739270518}
