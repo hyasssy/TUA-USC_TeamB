@@ -522,7 +522,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 5d975cd4d374b4f4d8bd2089ccc0a2e1, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1887,6 +1887,8 @@ MonoBehaviour:
   dialoguesDuration:
   - 3
   sumireFaceImage: {fileID: 1244180499}
+  bgm: {fileID: 1904580528}
+  bgm_withDrum: {fileID: 840348180}
 --- !u!1 &1472355723
 GameObject:
   m_ObjectHideFlags: 0
@@ -3627,6 +3629,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae,
         type: 3}
+    - target: {fileID: 3063063390161676844, guid: f36645386ef244ae189d3b47ef6ac9b1,
+        type: 3}
+      propertyPath: handMoveSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5180116880849087666, guid: f36645386ef244ae189d3b47ef6ac9b1,
         type: 3}
       propertyPath: rotateRangeX.x

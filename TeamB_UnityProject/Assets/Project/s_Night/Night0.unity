@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -261,11 +261,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogues_ja:
-  - "\u591C"
-  - "\u6B21\u306E\u65E5..."
+  - "\u4ECA\u5F8C\u306E\u3042\u3089\u3059\u3058"
+  - "\u7FCC\u65E5\u30AB\u30CB\u30A8\u306E\u5143\u306B1\u5339\u306E\u5B50\u72AC\u304C\u3084\u3063\u3066\u304F\u308B\u3002"
+  - "\u7121\u90AA\u6C17\u306A\u65B0\u3057\u3044\u547D\u3068\u306E\u89E6\u308C\u5408\u3044\u306B\u3001\n\u5F7C\u306F\u4E45\u3057\u3076\u308A\u306E\u7A4F\u3084\u304B\u306A\u6642\u9593\u3092\u904E\u3054\u3059\u3002"
+  - "\u3057\u304B\u3057\u540C\u6642\u306B\u305D\u308C\u306F\u4E16\u754C\u3092\u8986\u3044\u5C3D\u304F\u3057\u3066\u3044\u305F\nFragile\u30A6\u30A3\u30EB\u30B9\u3068\u306E\u9082\u9005\u3067\u3082\u3042\u3063\u305F\u3002"
+  - "\u65E5\u306B\u65E5\u306B\u611F\u67D3\u304C\u9032\u307F\u8EAB\u4F53\u304C\u5F31\u3063\u3066\u3044\u304F\u4E2D\u3001\n\u30AB\u30CB\u30A8\u306F\u30B9\u30DF\u30EC\u306E\u5E7B\u899A\u3092\u898B\u308B\u3002"
+  - ...
+  - "3\u65E5\u5F8C\u306E\u72AC\u3068\u306E\u89E6\u308C\u5408\u3044\u306B\u9032\u3080\u3002"
   dialogues_en:
-  - Night
-  - Next day...
+  - Future plot
+  - The next day, a puppy arrives at Kanie's door.
+  - 'He spends the first peaceful time in a long time
+
+    interacting with the innocent
+    new life.'
+  - 'But at the same time, it was also a chance encounter
+
+    with the Fragile virus
+    that had covered the world.'
+  - 'As the infection progresses day by day and his body becomes weaker,
+
+    Kanie
+    has a hallucination of Sumire.'
+  - ...
+  - Proceed to the dog interaction in three days.
   initialDelay: 2.5
   endDelay: 0.5
   typingDuration: 0.04

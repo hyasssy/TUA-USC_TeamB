@@ -21,7 +21,7 @@ public class EndingManager : PhaseInitializer
     RectTransform credit_ja = default, credit_en = default;
     RectTransform _credit;
     [SerializeField]
-    GameObject credit1, credit2, credit3;
+    GameObject credit1_ja, credit1_en;
     protected override void InitializePhase(GamePhase targetphase)
     {
         switch (targetphase)
@@ -30,13 +30,9 @@ public class EndingManager : PhaseInitializer
                 Ending().Forget();
                 break;
             case GamePhase.Ending_1:
-                credit1.SetActive(true);
-                break;
-            case GamePhase.Ending_2:
-                credit2.SetActive(true);
-                break;
-            case GamePhase.Ending_3:
-                credit3.SetActive(true);
+                var lang = FindObjectOfType<CommonManager>().PlayLang;
+                credit1_ja.gameObject.SetActive(lang == Lang.ja);
+                credit1_en.gameObject.SetActive(lang != Lang.ja);
                 break;
             default:
                 Debug.LogError("phase移行がうまくできていません。Error");

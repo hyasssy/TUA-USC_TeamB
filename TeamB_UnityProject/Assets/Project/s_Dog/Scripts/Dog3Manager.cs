@@ -26,6 +26,8 @@ public class Dog3Manager : DogPhaseInitializer
     SubtitleCanvas _subtitleCanvas;
     [SerializeField]
     Renderer sumireFaceImage = default;
+    [SerializeField]
+    AudioSource bgm, bgm_withDrum;
 
     //初期化
     protected override void DogInit()
@@ -48,6 +50,7 @@ public class Dog3Manager : DogPhaseInitializer
                 break;
             case 2:
                 ImageFadeIn(sumireFaceImage).Forget();
+                Switchsound().Forget();
                 await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
                 break;
             case 3:
@@ -88,5 +91,19 @@ public class Dog3Manager : DogPhaseInitializer
             renderer.material.SetColor("_BaseColor", color);
         }, 0.95f, duration);
         await UniTask.Delay((int)(duration * 1000), cancellationToken: cts.Token);
+    }
+    async UniTask Switchsound()
+    {
+        var t = 0f;
+        var duration = 2f;
+        var bgm_originalVolume = bgm.volume;
+        while (t < duration)
+        {
+            await UniTask.Yield();
+            t += Time.deltaTime;
+            bgm.volume = 1 - (bgm_originalVolume * t / duration);
+            bgm_withDrum.volume = t / duration;
+        }
+        bgm.gameObject.SetActive(false);
     }
 }
