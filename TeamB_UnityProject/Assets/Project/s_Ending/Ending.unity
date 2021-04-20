@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 632, y: -325}
+  m_AnchoredPosition: {x: 632, y: -358}
   m_SizeDelta: {x: 1098, y: 1062.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &36508064
@@ -233,7 +233,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 834.8, y: -435.5}
+  m_AnchoredPosition: {x: 834.8, y: -468.5}
   m_SizeDelta: {x: 1098, y: 1062.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &353002034
@@ -301,19 +301,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510131047}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1111112, y: 1, z: 1}
   m_Children:
   - {fileID: 1997827822}
   - {fileID: 1070558822}
-  m_Father: {fileID: 1982952412}
-  m_RootOrder: 2
+  m_Father: {fileID: 759266575}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 622.5999}
+  m_SizeDelta: {x: 763.6001, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &510131049
 CanvasRenderer:
@@ -523,7 +523,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 510131048}
   m_Father: {fileID: 1982952412}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1139,7 +1140,6 @@ RectTransform:
   m_Children:
   - {fileID: 759266575}
   - {fileID: 1809872315}
-  - {fileID: 510131048}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1160,7 +1160,7 @@ GameObject:
   - component: {fileID: 1997827824}
   - component: {fileID: 1997827823}
   m_Layer: 5
-  m_Name: Text (4)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1217,7 +1217,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: "\u30C7\u30A3\u30EC\u30AF\u30BF\u30FC\n\u6797\u88D5\u4EBA\n\n\u30A2\u30FC\u30C8\u30EF\u30FC\u30AF\n\u8A31\u7152\n\n\u811A\u672C\n\u677E\u6C38\u6D77"
+  m_Text: "\u8AAC\u660E\u30FB\u30D7\u30EC\u30BC\u30F3\u306E\u30C6\u30AD\u30B9\u30C8"
 --- !u!222 &1997827824
 CanvasRenderer:
   m_ObjectHideFlags: 0
