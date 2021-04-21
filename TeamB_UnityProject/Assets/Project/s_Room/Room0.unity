@@ -128,7 +128,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28110
+  m_Name: pb_Mesh23620
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1430,7 +1430,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-33228
+  m_Name: pb_Mesh-6114
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1841,7 +1841,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-33220
+  m_Name: pb_Mesh-6106
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2459,7 +2459,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-33226
+  m_Name: pb_Mesh-6112
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2631,6 +2631,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 859775485, guid: c8315b86f430f4d809912e1aa4437445, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 1320327775, guid: c8315b86f430f4d809912e1aa4437445, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -2642,6 +2646,10 @@ PrefabInstance:
     - target: {fileID: 1664328726, guid: c8315b86f430f4d809912e1aa4437445, type: 3}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664328726, guid: c8315b86f430f4d809912e1aa4437445, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.069
       objectReference: {fileID: 0}
     - target: {fileID: 1998899232, guid: c8315b86f430f4d809912e1aa4437445, type: 3}
       propertyPath: m_LocalScale.x
@@ -3155,7 +3163,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-33222
+  m_Name: pb_Mesh-6108
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3361,7 +3369,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-33224
+  m_Name: pb_Mesh-6110
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3608,9 +3616,7 @@ MonoBehaviour:
     eventParams:
     - type: 0
       text_ja: "\u4EE5\u524D\u79C1\u304C\u5076\u7136\u898B\u3064\u3051\u305F\u3001\n\u30B9\u30DF\u30EC\u306E\u66F8\u3044\u305F\u65E5\u8A18\u3060\u3002"
-      text_en: 'I stumbled across it once.
-
-        It was a diary written by Sumire.'
+      text_en: "It's a diary I stumbled upon earlier, \nwritten by Sumire."
       clip: {fileID: 0}
       text: 
       targetUI: {fileID: 0}
@@ -3674,30 +3680,25 @@ MonoBehaviour:
       speed: 0
     - type: 4
       text_ja: "\u5165\u9662\u3057\u3066\u4E00\u9031\u9593\u304C\u7D4C\u3064\u3051\u3069\u3001\n\u75C5\u9662\u98DF\u3063\u3066\u3069\u3046\u3057\u3066\u3053\u3046\u3001\u7F8E\u5473\u3057\u304F\u306A\u3044\u306E\u304B\u306D\u3047...\n\u3053\u306E\u6B73\u307E\u3067\u5165\u9662\u3057\u305F\u3053\u3068\u304C\u7121\u304B\u3063\u305F\u304B\u3089\n\u5642\u3067\u3057\u304B\u304D\u3044\u3066\u3044\u306A\u304B\u3063\u305F\u3051\u308C\u3069\u3001\u60F3\u50CF\u4EE5\u4E0A\u306D..."
-      text_en: 'I''ve been in the hospital for a week now.
-
-        I don''t know
-        why hospital food doesn''t taste as good as it used to...
+      text_en: 'It''s been a week since I''ve been in the hospital, and I don''t
+        know why hospital food doesn''t taste as good as it used to...
 
         I''ve
-        never been hospitalized until I was this age.
-
-        I''ve only heard rumors
-        about it, but it''s more than I expected...'
+        never been hospitalized until I was this age, so I''ve only heard rumors,
+        but it''s more than I expected...'
       clip: {fileID: 0}
       text: 
       targetUI: {fileID: 0}
       speed: 0
     - type: 4
       text_ja: "\u304A\u304B\u3086\u3068\u3001\u716E\u72692\u3064\u3068\u3001\u307B\u3046\u308C\u3093\u8349\u306E\u304A\u3072\u305F\u3057\u3068\u3001\u30DE\u30F3\u30B4\u30FC\u3001\u304A\u8336\n\n\u3053\u3046\u3084\u3063\u3066\u66F8\u304F\u3068\u7F8E\u5473\u3057\u305D\u3046\u304B\u3082\u3057\u308C\u306A\u3044\u3051\u308C\u3069\u3001\n\u5168\u7136\u5473\u304C\u3057\u306A\u3044\u306E\u3088\u3002"
-      text_en: 'Porridge, two simmered dishes, boiled spinach, mango and tea.
+      text_en: 'Porridge, two simmered dishes, boiled spinach, mango, and tea.
 
+        
 
-        I''ve
-        been in the hospital for a week now.
-
-        I don''t know why hospital
-        food doesn''t taste as good as it used to...'
+        It
+        may sound delicious when I write it like this, but it doesn''t taste good
+        at all.'
       clip: {fileID: 0}
       text: 
       targetUI: {fileID: 0}
@@ -3858,11 +3859,7 @@ MonoBehaviour:
         meat), minced pork, shrimp, scrambled eggs, and green onions.
 
         Approximate
-        amount of hot water required 300ml
-
-
-        Translated with www.DeepL.com/Translator
-        (free version)'
+        amount of hot water required 300ml'
       clip: {fileID: 0}
       text: 
       targetUI: {fileID: 0}
@@ -3907,21 +3904,21 @@ MonoBehaviour:
       speed: 0
     - type: 0
       text_ja: "\u6E6F\u3092\u6CB8\u304B\u3059"
-      text_en: 
+      text_en: Boil water
       clip: {fileID: 8300000, guid: ed1db86a62a3342a5ba488f84d35c37c, type: 3}
       text: 
       targetUI: {fileID: 0}
       speed: 0
     - type: 0
       text_ja: "\u98DF\u3079\u308B"
-      text_en: 
+      text_en: Eat
       clip: {fileID: 8300000, guid: 47238f7b5ba224963b54c7af5cd2ba2d, type: 3}
       text: 
       targetUI: {fileID: 0}
       speed: 0
     - type: 0
       text_ja: "\u98DF\u3079\u308B"
-      text_en: 
+      text_en: Eat
       clip: {fileID: 8300000, guid: 1b2387297df3344d8a89ffcc2b21341a, type: 3}
       text: 
       targetUI: {fileID: 0}
@@ -3956,7 +3953,11 @@ MonoBehaviour:
       speed: 0
     - type: 0
       text_ja: "\u3069\u3046\u3057\u3066\u3082\u3001\u30B9\u30DF\u30EC\u306E\u907A\u5F71\u304C\u6C17\u306B\u306A\u3063\u3066\u3057\u307E\u3046...\n\n\u4F1A\u3044\u305F\u3044..."
-      text_en: Enough...
+      text_en: 'I just can''t stop thinking about Sumire''s remains...
+
+
+        I
+        want to see her...'
       clip: {fileID: 0}
       text: 
       targetUI: {fileID: 0}
@@ -3990,7 +3991,7 @@ MonoBehaviour:
     eventParams:
     - type: 4
       text_ja: "\u300CN\u30D1\u30F3\r\n\u30CB\u30E5\u30FC\u30D0\u30BF\u30FC\u30ED\u30FC\u30EB\r\n\u7C21\u5358\u30FB\u4FBF\u5229\u30FB\u304A\u3044\u3057\u3044\r\n\u305D\u306E\u307E\u307E\u3067\u304A\u3044\u3057\u3044\n\u30DE\u30FC\u30AC\u30EA\u30F3\u5165\u308A\u300D\r\n"
-      text_en: 'N Bread
+      text_en: '"N Bread
 
         New Butter Roll
 
@@ -3999,7 +4000,7 @@ MonoBehaviour:
         Delicious
         as is
 
-        With margarine'
+        With margarine"'
       clip: {fileID: 0}
       text: 
       targetUI: {fileID: 0}
@@ -4023,7 +4024,7 @@ MonoBehaviour:
     eventParams:
     - type: 0
       text_ja: "\u30B9\u30DF\u30EC\u306E\u670D\u3060\u3002"
-      text_en: This is Sumire's clothes
+      text_en: This is Sumire's clothes.
       clip: {fileID: 0}
       text: 
       targetUI: {fileID: 0}
@@ -4047,7 +4048,7 @@ MonoBehaviour:
     - Totally boring TV.
     - No more reports on Fragile, please.
     - ...
-    - 'Oh, well...
+    - 'Well, okay...
 
       I need to eat something.'
   endTexts_ja:
@@ -4055,13 +4056,13 @@ MonoBehaviour:
     - 2
     - 1
     dialogues:
-    - "\u30C6\u30B9\u30C8"
+    - "\u305D\u308D\u305D\u308D\u5BDD\u308B\u304B..."
   endTexts_en:
     timeCount:
     - 2
     - 1
     dialogues:
-    - testtesttest
+    - I should probably go to bed...
   textAppearDuration: 0.1
   audioSource: {fileID: 0}
   radio: {fileID: 1292799230}
@@ -4656,14 +4657,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477162117}
-  m_LocalRotation: {x: 0.0030687775, y: -0.32803413, z: 0.014206053, w: 0.94455415}
-  m_LocalPosition: {x: 1.81, y: 0.22, z: -1.96}
+  m_LocalRotation: {x: 0.055961635, y: -0.067859866, z: -0.011800214, w: 0.9960543}
+  m_LocalPosition: {x: 0.458, y: 0.5, z: -1.813}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 79084671}
   m_Father: {fileID: 1429674025}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.86600006, y: -38.292004, z: 1.4230001}
+  m_LocalEulerAnglesHint: {x: 6.308, y: -7.8940005, z: -1.7930001}
 --- !u!114 &1477162119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5291,8 +5292,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1808663980}
-  m_LocalRotation: {x: 0.12582682, y: 0.26817933, z: -0.035354108, w: 0.95446193}
-  m_LocalPosition: {x: 3.162, y: 0.34, z: -1.895}
+  m_LocalRotation: {x: 0.3706408, y: 0.36302122, z: -0.05910735, w: 0.8528466}
+  m_LocalPosition: {x: 3.227, y: 0.213, z: -1.669}
   m_LocalScale: {x: 0.8524075, y: 0.8524075, z: 0.8524075}
   m_Children:
   - {fileID: 403750222}
@@ -5300,7 +5301,7 @@ Transform:
   - {fileID: 748442039}
   m_Father: {fileID: 1929111469}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 15.02, y: 31.388002, z: 0}
+  m_LocalEulerAnglesHint: {x: 42.463, y: 51.257, z: 13.186}
 --- !u!114 &1808663982
 MonoBehaviour:
   m_ObjectHideFlags: 0
