@@ -9,66 +9,99 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Dog3Manager : DogPhaseInitializer
 {
+    enum TargetTextPanelType
+    {
+        Kanie,
+        Sumire
+    }
     [Serializable]
     class DialogueSet
     {
-        public string[] dialogues = default;
-        public float[] dialoguesDuration = default;
+        public TargetTextPanelType targetTextPanelType;
+        public bool isSound = true;
+        [HideInInspector]
+        public Text targetTextPanel;
+        public string[] dialogue_ja = default;
+        public string[] dialogues_en = default;
+        [HideInInspector]
+        public string[] dialogue = default;
+        public float dialoguesDuration = default;
     }
 
     [SerializeField]
-    DialogueSet dialogueSet_ja = default, dialogueSet_en = default;
-    DialogueSet _dialogueSet;
-    [SerializeField]
-    float[] dialoguesDuration;
+    List<DialogueSet> dialogueSets = default;
     SubtitleCanvas _subtitleCanvas;
     [SerializeField]
     Renderer sumireFaceImage = default;
     [SerializeField]
-    AudioSource bgm, bgm_withDrum;
+    AudioSource bgm, bgm_withDrum, voice;
+    [SerializeField]
+    int switchTiming = 3;
+    [SerializeField]
+    AudioClip[] kanieVoices, sumireVoices;
 
     //初期化
     protected override void DogInit()
     {
-        var lang = FindObjectOfType<CommonManager>().PlayLang;
-        _dialogueSet = lang == Lang.ja ? dialogueSet_ja : dialogueSet_en;
-        //BGM鳴らすなどをここで入れる。
         _subtitleCanvas = FindObjectOfType<SubtitleCanvas>();
         if (_subtitleCanvas == null) Debug.LogError("subtitleCanvas is not found");
+        if (dialogueSets == default) Debug.LogWarning("dialogueSets is not assigned");
+        var lang = FindObjectOfType<CommonManager>().PlayLang;
+        dialogueSets.ForEach(d =>
+        {
+            switch (d.targetTextPanelType)
+            {
+                case TargetTextPanelType.Kanie:
+                    d.targetTextPanel = _subtitleCanvas.monologueText;
+                    break;
+                case TargetTextPanelType.Sumire:
+                    d.targetTextPanel = _subtitleCanvas.dialogueText;
+                    break;
+                default:
+                    Debug.LogWarning("Something wrong has occurred");
+                    break;
+            }
+            d.dialogue = lang == Lang.ja ? d.dialogue_ja : d.dialogues_en;
+        });
+        //BGM鳴らすなどをここで入れる。
     }
     protected override async UniTask EventFire(int stateNum)
     {
         stopStroke = true;
         handController.SwitchClickable(false);
         var num = stateNum - 1;
-        switch (stateNum)
+        if (num == switchTiming)
         {
-            case 1:
-                await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
-                break;
-            case 2:
-                ImageFadeIn(sumireFaceImage).Forget();
-                Switchsound().Forget();
-                await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
-                break;
-            case 3:
-                await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
-                break;
-            case 4:
-                await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
-                break;
-            case 5:
-                await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
-                break;
-            case 6:
-                await ShowTextTask(_subtitleCanvas.monologueText, _dialogueSet.dialoguesDuration[num], _dialogueSet.dialogues[num]);
-                break;
-            default:
-                LoadNextScene();
-                break;
+            ImageFadeIn(sumireFaceImage).Forget();
+            Switchsound().Forget();
         }
+        if (num > dialogueSets.Count)
+        {
+            LoadNextScene();
+        }
+        else
+        {
+            if (dialogueSets[num].isSound)
+            {
+                //声流す
+                if (dialogueSets[num].targetTextPanelType == TargetTextPanelType.Kanie)
+                {
+                    voice.PlayOneShot(kanieVoices[UnityEngine.Random.Range(0, kanieVoices.Length)]);
+                }
+                else
+                {
+                    voice.PlayOneShot(sumireVoices[UnityEngine.Random.Range(0, sumireVoices.Length)]);
+                }
+            }
+            foreach (string d in dialogueSets[num].dialogue)
+            {
+                await ShowTextTask(dialogueSets[num].targetTextPanel, dialogueSets[num].dialoguesDuration, d);
+            }
+        }
+
         stopStroke = false;
         handController.SwitchClickable(true);
     }

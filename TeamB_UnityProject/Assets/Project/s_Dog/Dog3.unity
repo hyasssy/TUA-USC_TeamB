@@ -1862,33 +1862,51 @@ MonoBehaviour:
   - 4
   strokingSoundSource: {fileID: 567385091}
   strokingSoundClip: {fileID: 8300000, guid: 27a7272874bf141259cb66ab21aa64fe, type: 3}
-  dialogueSet_ja:
-    dialogues:
-    - "\u30C6\u30B9\u30C8"
-    - "\u30C6\u30B9\u30C8"
-    - "\u30C6\u30B9\u30C8"
-    - "\u30C6\u30B9\u30C8"
-    - "\u30C6\u30B9\u30C8"
-    dialoguesDuration:
-    - 3
-    - 3
-    - 3
-    - 3
-    - 3
-  dialogueSet_en:
-    dialogues:
-    - test
-    - test
-    - test
-    dialoguesDuration:
-    - 2
-    - 2
-    - 2
-  dialoguesDuration:
-  - 3
+  dialogueSets:
+  - targetTextPanelType: 0
+    isSound: 1
+    targetTextPanel: {fileID: 0}
+    dialogue_ja: []
+    dialogues_en: []
+    dialogue: []
+    dialoguesDuration: 0
+  - targetTextPanelType: 0
+    isSound: 1
+    targetTextPanel: {fileID: 0}
+    dialogue_ja: []
+    dialogues_en: []
+    dialogue: []
+    dialoguesDuration: 0
+  - targetTextPanelType: 0
+    isSound: 1
+    targetTextPanel: {fileID: 0}
+    dialogue_ja: []
+    dialogues_en: []
+    dialogue: []
+    dialoguesDuration: 0
+  - targetTextPanelType: 0
+    isSound: 1
+    targetTextPanel: {fileID: 0}
+    dialogue_ja: []
+    dialogues_en: []
+    dialogue: []
+    dialoguesDuration: 0
+  - targetTextPanelType: 0
+    isSound: 1
+    targetTextPanel: {fileID: 0}
+    dialogue_ja: []
+    dialogues_en: []
+    dialogue: []
+    dialoguesDuration: 0
   sumireFaceImage: {fileID: 1244180499}
   bgm: {fileID: 1904580528}
   bgm_withDrum: {fileID: 840348180}
+  voice: {fileID: 606031645}
+  switchTiming: 3
+  kanieVoices:
+  - {fileID: 8300000, guid: 664caf838e9604e0997748402ea60840, type: 3}
+  sumireVoices:
+  - {fileID: 8300000, guid: d05db887f629c415da14aa2e48a0d156, type: 3}
 --- !u!1 &1472355723
 GameObject:
   m_ObjectHideFlags: 0

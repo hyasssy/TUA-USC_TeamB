@@ -21,7 +21,7 @@ public class DogDialogueSet
 }
 public abstract class DogPhaseInitializer : PhaseInitializer
 {
-    [SerializeField]
+    [SerializeField, Tooltip("次のイベントに進むまでの撫でる秒数を指定。")]
     float[] eventFlags = default;
     int _currentState = 0;
     [SerializeField]
