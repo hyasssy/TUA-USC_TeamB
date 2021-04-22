@@ -30,9 +30,7 @@ public class EndingManager : PhaseInitializer
                 Ending().Forget();
                 break;
             case GamePhase.Ending_1:
-                var lang = FindObjectOfType<CommonManager>().PlayLang;
-                credit1_ja.gameObject.SetActive(lang == Lang.ja);
-                credit1_en.gameObject.SetActive(lang != Lang.ja);
+                Ending_1().Forget();
                 break;
             default:
                 Debug.LogError("phase移行がうまくできていません。Error");
@@ -40,8 +38,16 @@ public class EndingManager : PhaseInitializer
 
         }
     }
+    async UniTask Ending_1()
+    {
+        await UniTask.Yield();
+        var lang = FindObjectOfType<CommonManager>().PlayLang;
+        credit1_ja.gameObject.SetActive(lang == Lang.ja);
+        credit1_en.gameObject.SetActive(lang != Lang.ja);
+    }
     async UniTask Ending()
     {
+        await UniTask.Yield();
         var lang = FindObjectOfType<CommonManager>().PlayLang;
         credit_ja.gameObject.SetActive(lang == Lang.ja);
         credit_en.gameObject.SetActive(lang != Lang.ja);

@@ -29,7 +29,7 @@ public class OpeningManager : PhaseInitializer
         toggle_ja.interactable = false;
         toggle_en.interactable = false;
         var commonManager = FindObjectOfType<CommonManager>();
-        if (toggle_ja)
+        if (toggle_ja.isOn)
         {
             commonManager.ChangeLang(Lang.ja);
         }
@@ -44,7 +44,7 @@ public class OpeningManager : PhaseInitializer
 
     protected override void InitializePhase(GamePhase targetphase)
     {
-        if(settingGroup == default) Debug.LogWarning("settingGroup is not assigned.");
+        if (settingGroup == default) Debug.LogWarning("settingGroup is not assigned.");
         if (startButton == default) Debug.LogWarning("startButton is not assigned.");
         if (toggle_ja == default || toggle_en == default) Debug.LogWarning("toggle_ja or toggle_en is not assigned.");
 

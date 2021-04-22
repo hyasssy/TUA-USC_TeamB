@@ -49,6 +49,11 @@ public class Dog3Manager : DogPhaseInitializer
         _subtitleCanvas = FindObjectOfType<SubtitleCanvas>();
         if (_subtitleCanvas == null) Debug.LogError("subtitleCanvas is not found");
         if (dialogueSets == default) Debug.LogWarning("dialogueSets is not assigned");
+        Init().Forget();
+    }
+    async UniTask Init()
+    {
+        await UniTask.Yield();
         var lang = FindObjectOfType<CommonManager>().PlayLang;
         dialogueSets.ForEach(d =>
         {
@@ -66,7 +71,6 @@ public class Dog3Manager : DogPhaseInitializer
             }
             d.dialogue = lang == Lang.ja ? d.dialogue_ja : d.dialogues_en;
         });
-        //BGM鳴らすなどをここで入れる。
     }
     protected override async UniTask EventFire(int stateNum)
     {

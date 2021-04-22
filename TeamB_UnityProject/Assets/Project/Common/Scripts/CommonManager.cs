@@ -61,6 +61,7 @@ public class CommonManager : SingletonMonoBehaviour<CommonManager>
     [SerializeField]
     GamePhase initialPhase = default;
     //初期パラメーター
+    [field: SerializeField, NonEditable]
     public Lang PlayLang { get; private set; } = Lang.ja;
     public void ChangeLang(Lang lang) { PlayLang = lang; }
     public bool IsDebug { get; private set; } = true;

@@ -82,7 +82,9 @@ public class News0Manager : NewsPhaseInitializer
     }
     async UniTask SetDialogues()
     {
+        await UniTask.Yield();
         var lang = FindObjectOfType<CommonManager>().PlayLang;
+        Debug.LogWarning(lang);
         if (lang == Lang.ja)
         {
             _dialogues = dialogueSet.dialogues_ja;

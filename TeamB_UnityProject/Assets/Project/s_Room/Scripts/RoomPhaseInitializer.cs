@@ -55,16 +55,24 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
     abstract protected GamePhase SetPhase();
     void RoomMain()
     {
-        var lang = FindObjectOfType<CommonManager>().PlayLang;
-        firstTexts = lang == Lang.ja ? firstTexts_ja : firstTexts_en;
-        endTexts = lang == Lang.ja ? endTexts_ja : endTexts_en;
-        SetObjParams();
 
         FadeManager.FadeIn();
         FindObjectOfType<PlayerCamController>().SetDefaultCamera();
         FindObjectOfType<SubtitleCanvas>().SetUpTexts();
         //選択可能をリセットする
         flag = 0;
+
+        //クリックできるかを初期化する。
+        FindObjectOfType<RoomHandController>().SwitchClickable(true);
+        FirstTask().Forget();
+    }
+    async UniTask FirstTask()
+    {
+        await UniTask.Yield();
+        var lang = FindObjectOfType<CommonManager>().PlayLang;
+        firstTexts = lang == Lang.ja ? firstTexts_ja : firstTexts_en;
+        endTexts = lang == Lang.ja ? endTexts_ja : endTexts_en;
+        SetObjParams();
         var roomObjs = FindObjectsOfType<RoomObj>();
 
         roomObjs.ToList().ForEach(r =>
@@ -73,12 +81,8 @@ public abstract class RoomPhaseInitializer : PhaseInitializer
             if (r.IsImportant) flagAmount++;
             r.SetUpRoomItem();
         });
-        //クリックできるかを初期化する。
-        FindObjectOfType<RoomHandController>().SwitchClickable(true);
-        //音鳴らす
-        // PlaySound();
         //テキスト出すなど、シーン最初のイベントを設定
-        FirstEvent();
+        FirstEvent().Forget();
     }
     void SetObjParams()
     {
