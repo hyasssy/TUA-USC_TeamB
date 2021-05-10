@@ -288,7 +288,7 @@ MonoBehaviour:
     Kanie
     has a hallucination of Sumire.'
   - ...
-  - Proceed to the dog interaction in three days.
+  - Proceed to the dog interaction in third day.
   initialDelay: 2.5
   endDelay: 0.5
   typingDuration: 0.04

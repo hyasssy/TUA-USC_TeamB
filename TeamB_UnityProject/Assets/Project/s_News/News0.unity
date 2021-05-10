@@ -410,7 +410,7 @@ MonoBehaviour:
     - Today we learned that 15911 people have been newly infected.
     - According to those involved, the number of asymptomatic people has risen to
       about 2,000---
-  newsDuration: 25
+  newsDuration: 22.5
   newsBGM: {fileID: 569757650}
   ambient: {fileID: 0}
   TVNoise: {fileID: 314328046}
@@ -975,6 +975,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CommonManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6994946319262610511, guid: 79ca8e52eda2d449f9b3de6f3e1037ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79ca8e52eda2d449f9b3de6f3e1037ae, type: 3}
 --- !u!1 &907385185
@@ -1125,7 +1130,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dc0d023245d0148c384d553356481ae1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a33a00193da67402a8ac5d1eda7ed2d2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
