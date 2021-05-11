@@ -2924,7 +2924,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5dba367ef7e794d2f9ce1d11d39c6fe1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4168,7 +4168,7 @@ Transform:
   m_GameObject: {fileID: 1385202281}
   m_LocalRotation: {x: -0, y: 0.2800599, z: -0, w: 0.9599826}
   m_LocalPosition: {x: 2.8784, y: 0.9269856, z: -0.8257}
-  m_LocalScale: {x: 0.24051602, y: 0.24051602, z: 0.80172}
+  m_LocalScale: {x: 0.3386706, y: 0.2025094, z: 0.80172}
   m_Children:
   - {fileID: 1545843608}
   m_Father: {fileID: 1929111469}
@@ -6316,7 +6316,7 @@ PrefabInstance:
         type: 3}
       propertyPath: defaultHandSprite
       value: 
-      objectReference: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae,
+      objectReference: {fileID: 21300000, guid: 5dba367ef7e794d2f9ce1d11d39c6fe1,
         type: 3}
     - target: {fileID: 1310569774665216747, guid: 4f48ed141abe24195858a3accdcb8bb6,
         type: 3}
@@ -6328,7 +6328,7 @@ PrefabInstance:
         type: 3}
       propertyPath: clickHandSprite
       value: 
-      objectReference: {fileID: 21300000, guid: d733b2655cc43491aa4c473bbf45d7ae,
+      objectReference: {fileID: 21300000, guid: fa39c6247bac14ce7b1e7e55ac641b09,
         type: 3}
     - target: {fileID: 1310569775320343088, guid: 4f48ed141abe24195858a3accdcb8bb6,
         type: 3}
