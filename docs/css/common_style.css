@@ -1,4 +1,4 @@
-/*共通CSS*/
+/*共通CSS PC first design*/
 @import url("https://fonts.googleapis.com/css?family=Quicksand");
 @font-face {
   font-family: "Osaka";
@@ -14,9 +14,52 @@
 }
 
 html {
-  visibility: hidden;/*FOUTを防ぐ*/
+  visibility: hidden; /*FOUTを防ぐ*/
 }
-html.wf-active, html.loading-delay {
-  visibility: visible;/*FOUTを防ぐ*/
+html.wf-active,
+html.loading-delay {
+  visibility: visible; /*FOUTを防ぐ*/
+}
+:root {
+  --backgroundnavy: #08151f;
+  --textwhite: #fff;
+  --textgray: rgb(84, 89, 90); /*707070*/
+  --redbutton: #ea4848; /*透明度濃いかも。*/
+  --bluebutton: #1264b7; /*透明度濃いかも。*/
+  --backgroundwhite: rgb(235, 241, 249);
+  --textblack: #1c1919;
+  --linkblue: rgb(66, 115, 223);
+  --hoverblue: rgb(143, 183, 193);
+  --linkred: #a83232;
 }
 
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--nightnavy2);
+  border-radius: 1rem;
+}
+
+a {
+  text-decoration: none;
+  transition: 0.3s;
+  color: var(--baselink);
+}
+a:link {
+  color: var(--linkblue);
+}
+a:visited {
+  color: var(--linkred);
+}
+a:hover,
+a:active {
+  color: var(--hoverblue);
+}
+
+@media screen and (max-width: 896px) {
+  /*タブレット*/
+}
+@media screen and (max-width: 480px) {
+  /*スマホ*/
+}

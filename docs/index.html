@@ -3,11 +3,21 @@
 
 <head>
     <title>Fragile | game project</title>
+    <link rel="icon" type="image/x-icon" href="./imgs/test.ico">
+    <meta name="author" author="Yuto Hayashi">
+    <meta name="description" content="Fragile | game progect web site. 東京藝術大学大学院ゲームコース-南カリフォルニア大学ゲーム学科コラボレーション">
+    <meta name="keywords" content="東京藝大, 南カリフォルニア大学, ゲームコース">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta property="og:title" content="Fragile | game project">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Fragile | game progect web site. 東京藝術大学大学院ゲームコース-南カリフォルニア大学ゲーム学科コラボレーション">
+    <meta property="og:url" content="https://hyasssy.tokyo/fragile">
+    <meta property="og:image" content="https://hyasssy.tokyo/fragile/imgs/bg.jpg">
+
     <link rel="stylesheet" href="css/plugin/normalize.css">
-    <link rel="stylesheet" href="css/common_style.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/common_style.css?date=210523">
+    <link rel="stylesheet" href="css/style.css?date=210523">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
     <script>//Adobe フォント読み込み
         (function (d) {
@@ -20,9 +30,22 @@
         })(document);
     </script>
     <script type="text/javascript">//FOUTを防ぐため
-        setTimeout(function () {
-            document.getElementsByTagName("html")[0].classList.add("loading-delay");
-        }, 3000);
+        // 50msごとにクラスを取得したかチェックして処理
+        var element = $("html").get(0);
+        var func;
+        var count = 0;
+        func = setInterval(function () {
+            if (element.classList.contains("wf-active") || count > 50) {
+                stop();
+            }
+            count++;
+        }, 50);
+        //1800ms以上いったら強制フェードイン
+        function stop() {
+            clearInterval(func);
+            count = 10;
+            $("body").hide().css({ visibility: "visible" }).fadeIn(1800);
+        }
     </script>
 </head>
 
