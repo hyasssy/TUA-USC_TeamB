@@ -35,7 +35,7 @@ public class Dog3Manager : DogPhaseInitializer
     List<DialogueSet> dialogueSets = default;
     SubtitleCanvas _subtitleCanvas;
     [SerializeField]
-    Renderer sumireFaceImage = default;
+    SpriteRenderer sumireFaceImage = default;
     [SerializeField]
     AudioSource bgm, bgm_withDrum, voice;
     [SerializeField]
@@ -118,14 +118,14 @@ public class Dog3Manager : DogPhaseInitializer
         // FadeOutSound(radio, 1f).Forget();
         FindObjectOfType<CommonManager>().LoadPhase(GamePhase.Ending_1);
     }
-    async UniTask ImageFadeIn(Renderer renderer)
+    async UniTask ImageFadeIn(SpriteRenderer spriteRenderer)
     {
         var duration = 2f;
-        var color = renderer.material.color;
+        var color = spriteRenderer.color;
         DOTween.To(() => 0f, (val) =>
         {
             color.a = val;
-            renderer.material.SetColor("_BaseColor", color);
+            spriteRenderer.color = color;
         }, 0.95f, duration);
         await UniTask.Delay((int)(duration * 1000), cancellationToken: cts.Token);
     }
