@@ -1,57 +1,98 @@
 /*共通CSS PC first design*/
 @import url("https://fonts.googleapis.com/css?family=Quicksand");
+
 @font-face {
   font-family: "Osaka";
-  src: url(../fonts/Osaka.ttf);
+  src        : url(../fonts/Osaka.ttf);
 }
+
 @font-face {
   font-family: "Moon";
-  src: url(../fonts/MoonLight.otf);
+  src        : url(../fonts/MoonLight.otf);
 }
+
 @font-face {
   font-family: "AppliMoncho";
-  src: url(../fonts/AppliMincho.otf);
+  src        : url(../fonts/AppliMincho.otf);
+}
+
+@font-face {
+  font-family: "FutoGo";
+  src        : url(../fonts/FutoGo_subset.woff);
+}
+
+.test {
+  font-family: "FutoGo";
+  font-size  : large;
 }
 
 html {
-  visibility: hidden; /*FOUTを防ぐ*/
+  visibility: hidden;
+  /*FOUTを防ぐ*/
 }
-html.wf-active,
-html.loading-delay {
-  visibility: visible; /*FOUTを防ぐ*/
+
+body,
+html {
+  margin          : 0;
+  padding         : 0;
+  height          : 100%;
+  width           : 100%;
+  font-size       : 10px;
+  color           : var(--textwhite);
+  background-color: var(--backgroundnavy);
+  font-family     : "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    "Yu Gothic",
+    "游ゴシック",
+    sans-serif;
+  /*ニュートラル*/
+  font-weight    : 400;
+  letter-spacing : 1px;
+  scroll-behavior: smooth;
 }
+
+
 :root {
-  --backgroundnavy: #08151f;
-  --textwhite: #fff;
-  --textgray: rgb(84, 89, 90); /*707070*/
-  --redbutton: #ea4848; /*透明度濃いかも。*/
-  --bluebutton: #1264b7; /*透明度濃いかも。*/
+  --backgroundnavy : #08151f;
+  --textwhite      : #fff;
+  --textgray       : rgb(84, 89, 90);
+  /*707070*/
+  --redbutton      : #ea4848;
+  /*透明度濃いかも。*/
+  --bluebutton     : #1264b7;
+  /*透明度濃いかも。*/
   --backgroundwhite: rgb(235, 241, 249);
-  --textblack: #1c1919;
-  --linkblue: rgb(66, 115, 223);
-  --hoverblue: rgb(143, 183, 193);
-  --linkred: #a83232;
+  --textblack      : #1c1919;
+  --linkblue       : rgb(66, 115, 223);
+  --hoverblue      : rgb(143, 183, 193);
+  --linkred        : #a83232;
 }
 
 ::-webkit-scrollbar {
   width: 0.5rem;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--nightnavy2);
+  background   : var(--nightnavy2);
   border-radius: 1rem;
 }
 
 a {
   text-decoration: none;
-  transition: 0.3s;
-  color: var(--baselink);
+  transition     : 0.3s;
+  color          : var(--baselink);
 }
+
 a:link {
   color: var(--linkblue);
 }
+
 a:visited {
   color: var(--linkred);
 }
+
 a:hover,
 a:active {
   color: var(--hoverblue);
@@ -60,6 +101,7 @@ a:active {
 @media screen and (max-width: 896px) {
   /*タブレット*/
 }
+
 @media screen and (max-width: 480px) {
   /*スマホ*/
 }

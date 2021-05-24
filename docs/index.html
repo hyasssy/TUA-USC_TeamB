@@ -19,38 +19,25 @@
     <link rel="stylesheet" href="css/common_style.css?date=210523">
     <link rel="stylesheet" href="css/style.css?date=210523">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-    <script>//Adobe フォント読み込み
-        (function (d) {
-            var config = {
-                kitId: 'cpe5khq',
-                scriptTimeout: 3000,
-                async: true
-            },
-                h = d.documentElement, t = setTimeout(function () { h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive"; }, config.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a; h.className += " wf-loading"; tk.src = 'https://use.typekit.net/' + config.kitId + '.js'; tk.async = true; tk.onload = tk.onreadystatechange = function () { a = this.readyState; if (f || a && a != "complete" && a != "loaded") return; f = true; clearTimeout(t); try { Typekit.load(config) } catch (e) { } }; s.parentNode.insertBefore(tk, s)
-        })(document);
-    </script>
+    <!-- Adobe フォント読み込み -->
+    <link rel="stylesheet" href="https://use.typekit.net/yoo5bpr.css">
     <script type="text/javascript">//FOUTを防ぐため
-        // 50msごとにクラスを取得したかチェックして処理
-        var element = $("html").get(0);
-        var func;
-        var count = 0;
-        func = setInterval(function () {
-            if (element.classList.contains("wf-active") || count > 50) {
-                stop();
-            }
-            count++;
-        }, 50);
-        //1800ms以上いったら強制フェードイン
-        function stop() {
-            clearInterval(func);
-            count = 10;
+        setTimeout(() => {
+            $("html").css({ visibility: "visible" });
             $("body").hide().css({ visibility: "visible" }).fadeIn(1800);
-        }
+        }, 500)
     </script>
 </head>
 
 <body>
-    Hello World!
+    <div class="test">あいうえお藝大林UJEGasdfasdf</div>
+    <!-- トップ画像 -->
+    <div><img src="imgs/bg.jpg" alt="Fragileメインビジュアル"></div>
+    <!-- 言語アイコン -->
+    <div class="contents-wrapper">
+
+    </div>
+
 </body>
 
 </html>

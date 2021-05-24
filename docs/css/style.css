@@ -1,20 +1,13 @@
-body,
-html {
-  height: 100%;
-  font-size: 10px;
-  margin: 0 auto;
-  font-family: Quicksand;
-  letter-spacing: 2px;
-  color: rgb(84, 89, 90);
-  font-family: "a-otf-futo-go-b101-pr6n";
+body {
+  font-family: acumin-pro;
+  font-weight: 700;
+
 }
 
-body {
-  background: rgb(252, 253, 252);
-}
 @media screen and (max-width: 896px) {
   /*タブレット*/
 }
+
 @media screen and (max-width: 480px) {
   /*スマホ*/
 }
