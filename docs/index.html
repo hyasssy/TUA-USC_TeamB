@@ -27,15 +27,43 @@
             $("body").hide().css({ visibility: "visible" }).fadeIn(1800);
         }, 500)
     </script>
+    <script type="text/javascript" src="js/set-lang.js?date=0524" defer></script>
 </head>
 
 <body>
-    <div class="test">あいうえお藝大林UJEGasdfasdf</div>
-    <!-- トップ画像 -->
-    <div><img src="imgs/bg.jpg" alt="Fragileメインビジュアル"></div>
+    <div id="top-box">
+        <img src="imgs/bg.jpg" alt="Fragileメインビジュアル">
+        <div id="lang-button-wrapper">
+            <a id="ja-button">日本語</a>
+            <a id="en-button">EN</a>
+        </div>
+        <div id="toptitle">Fragile</div>
+        <div id="down-arrow">
+            <img src="imgs/downArrow_white.svg" alt="down arrow image">
+        </div>
+    </div>
     <!-- 言語アイコン -->
     <div class="contents-wrapper">
+        <div id="top-space"></div>
+        <div class="title1">Fragile</div>
+        <div class="subtitle1"> Game-Prototype</div>
+        <div class="nullspace"></div>
+        <div id="text1" class="honbun1">
+            ここには本文が入ります。ここには本文が入ります。ここには本文が入ります。ここには本文が入ります。ここには本文が入ります。ここには本文が入ります。ここには本文が入ります。ここには本文が入ります。</div>
+        <div class="nullspace"></div>
 
+        <div class="info-box">
+            <div class="info-border"></div>
+            <div class="info-left" id="info-left1">ジャンル</div>
+            <div class="info-right" id="info-right1">アドベンチャー</div>
+            <div class="info-border"></div>
+            <div class="info-left" id="info-left1">ジャンル</div>
+            <div class="info-right" id="info-right1">アドベンチャー</div>
+            <div class="info-border"></div>
+            <div class="info-left" id="info-left1"></div>
+            <div class="info-right" id="info-right1"></div>
+            <div class="info-border"></div>
+        </div>
     </div>
 
 </body>

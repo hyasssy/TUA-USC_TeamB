@@ -1,7 +1,118 @@
-body {
-  font-family: acumin-pro;
-  font-weight: 700;
+#top-box {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+#top-box img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  text-align: center;
+}
+#lang-button-wrapper {
+  position: fixed;
+  display: block;
+  right: 1vw;
+  top: 1vw;
+  height: auto;
+  width: auto;
+  /* background-color: red; */
+}
+#ja-button,
+#en-button {
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: din-2014, "YuGo";
+  font-weight: 500;
+  font-size: 2.4rem;
+  display: none;
+}
+#toptitle {
+  position: absolute;
+  bottom: 17vh;
+  text-align: center;
+  width: 100%;
+  font-size: 9.6vw;
+  letter-spacing: 4vw;
+  font-family: "Geneva";
+  font-weight: 400;
+}
+#down-arrow {
+  width: 100%;
+  height: 3vh;
+  position: absolute;
+  bottom: 3vh;
+  text-align: center;
+  display: block;
+}
+#down-arrow img {
+  display: block;
+  height: 100%;
+  width: 3vh;
+  margin-left: calc(50% - 2.5vh);
 
+  /*上下アニメーション*/
+  animation-name: float-arrow;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: 0.75s;
+}
+
+@keyframes float-arrow {
+  /*矢印アニメーション*/
+  0% {
+    transform: translate(0, 0px);
+  }
+  100% {
+    transform: translate(0, 15px);
+  }
+}
+
+.contents-wrapper {
+  background-color: brown;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 70rem;
+}
+#top-space {
+  height: 10vh;
+}
+.title1 {
+  font-family: "Geneva";
+  font-weight: 400;
+  font-size: 4rem;
+  letter-spacing: 1.6rem;
+  margin-bottom: 1rem;
+}
+.subtitle1 {
+  font-family: din-2014;
+  font-weight: 300;
+  font-size: 3rem;
+  letter-spacing: 0.1rem;
+  color: var(--textgray);
+}
+.nullspace {
+  height: 7vh;
+}
+.honbun1 {
+  font-family: "Yumin", serif;
+  font-size: 600;
+  font-size: 1.7rem;
+  line-height: 2.4rem;
+  letter-spacing: 0.5px;
+  transform: scale(0.95, 1);
+  width: 105%;
+  margin-left: -2.5%;
+  text-align: justify;
+}
+.info-box {
+  background-color: red;
+  width: 80%;
+  max-width: 50rem;
 }
 
 @media screen and (max-width: 896px) {

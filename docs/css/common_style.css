@@ -2,28 +2,29 @@
 @import url("https://fonts.googleapis.com/css?family=Quicksand");
 
 @font-face {
-  font-family: "Osaka";
-  src        : url(../fonts/Osaka.ttf);
+  font-family: "Geneva";
+  src: url(../fonts/geneva.ttf);
+  font-weight: 400;
 }
-
 @font-face {
-  font-family: "Moon";
-  src        : url(../fonts/MoonLight.otf);
+  font-family: "YuGo";
+  src: url(../fonts/YuGo_M_subset.woff);
+  font-weight: 500;
 }
-
 @font-face {
-  font-family: "AppliMoncho";
-  src        : url(../fonts/AppliMincho.otf);
+  font-family: "YuMin";
+  src: url(../fonts/Yumin_DB_subset.woff);
+  font-weight: 600;
 }
-
 @font-face {
-  font-family: "FutoGo";
-  src        : url(../fonts/FutoGo_subset.woff);
+  font-family: "YuMin";
+  src: url(../fonts/Yumin_L_subset.woff);
+  font-weight: 300;
 }
-
-.test {
-  font-family: "FutoGo";
-  font-size  : large;
+@font-face {
+  font-family: "YuMin";
+  src: url(../fonts/Yumin_subset.woff);
+  font-weight: 400;
 }
 
 html {
@@ -33,41 +34,35 @@ html {
 
 body,
 html {
-  margin          : 0;
-  padding         : 0;
-  height          : 100%;
-  width           : 100%;
-  font-size       : 10px;
-  color           : var(--textwhite);
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-size: 10px;
+  color: var(--textwhite);
   background-color: var(--backgroundnavy);
-  font-family     : "Helvetica Neue",
-    Arial,
-    "Hiragino Kaku Gothic ProN",
-    "Hiragino Sans",
-    "Yu Gothic",
-    "游ゴシック",
+  font-family: "Helvetica Neue", Arial, "YuGo", "Yu Gothic", "游ゴシック",
     sans-serif;
   /*ニュートラル*/
-  font-weight    : 400;
-  letter-spacing : 1px;
+  font-weight: 400;
+  letter-spacing: 1px;
   scroll-behavior: smooth;
 }
 
-
 :root {
-  --backgroundnavy : #08151f;
-  --textwhite      : #fff;
-  --textgray       : rgb(84, 89, 90);
+  --backgroundnavy: #08151f;
+  --textwhite: #fff;
+  --textgray: rgb(84, 89, 90);
   /*707070*/
-  --redbutton      : #ea4848;
+  --redbutton: #ea4848;
   /*透明度濃いかも。*/
-  --bluebutton     : #1264b7;
+  --bluebutton: #1264b7;
   /*透明度濃いかも。*/
   --backgroundwhite: rgb(235, 241, 249);
-  --textblack      : #1c1919;
-  --linkblue       : rgb(66, 115, 223);
-  --hoverblue      : rgb(143, 183, 193);
-  --linkred        : #a83232;
+  --textblack: #1c1919;
+  --linkblue: rgb(66, 115, 223);
+  --hoverblue: rgb(143, 183, 193);
+  --linkred: #a83232;
 }
 
 ::-webkit-scrollbar {
@@ -75,14 +70,14 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background   : var(--nightnavy2);
+  background: var(--nightnavy2);
   border-radius: 1rem;
 }
 
 a {
   text-decoration: none;
-  transition     : 0.3s;
-  color          : var(--baselink);
+  transition: 0.3s;
+  color: var(--baselink);
 }
 
 a:link {
