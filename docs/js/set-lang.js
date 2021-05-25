@@ -157,7 +157,19 @@ What is the answer to the loneliness of an 80 year old man?`
         アカデミックアドバイザー（南カリフォルニア大学ゲーム学科教員）：Andreas Klazly、Peter Brinson
         `,
         en: ``
-    }
+    },
+    text16: {
+        ja: `2021/1/20 プロジェクトキックオフ、チームビルディング(3人)、ブレスト`,
+        en: ``
+    },
+    text17: {
+        ja: `2/19 新チーム発足 チームメンバーが現行の5人へ`,
+        en: ``
+    },
+    text18: {
+        ja: `4月末 プロトタイプビルド`,
+        en: ``
+    },
 }
 function button_en() {
     currentLang = "en";

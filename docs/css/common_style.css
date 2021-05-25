@@ -19,11 +19,11 @@
   font-weight: 300;
 }
 
-@font-face {
+/* @font-face {
   font-family: "RyuMin";
   src        : url(../fonts/Ryumin_L_subset.woff);
   font-weight: 300;
-}
+} */
 
 @font-face {
   font-family: "ReiMin";
