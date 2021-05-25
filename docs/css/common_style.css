@@ -9,13 +9,13 @@
 
 @font-face {
   font-family: "YuGo";
-  src        : url(../fonts/YuGo_M_subset.woff);
-  font-weight: 500;
+  src        : url(../fonts/YuGo_R_subset.tff);
+  font-weight: 400;
 }
 
 @font-face {
   font-family: "YuGo";
-  src        : url(../fonts/YuGo_L_subset.woff);
+  src        : url(../fonts/YuGo_L_subset.ttf);
   font-weight: 300;
 }
 
